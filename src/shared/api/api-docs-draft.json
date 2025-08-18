@@ -1,0 +1,1089 @@
+{
+	"info": {
+		"_postman_id": "752b35ca-99a7-415f-a3f9-334037d1cece",
+		"name": "Gateway.Api | v1",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "37722206"
+	},
+	"item": [
+		{
+			"name": "Activities",
+			"item": [
+				{
+					"name": "Create",
+					"item": [
+						{
+							"name": "/Activities/Create",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "text/plain"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"description\": \"mollit labore\",\n  \"organizerId\": \"urn:uuid:afb4192d-05f3-8fb2-e512-af04790de2e6\",\n  \"title\": \"pariatur sint\",\n  \"address\": \"ipsum dolor aliquip incididunt\",\n  \"maxParticipants\": 2134955,\n  \"startDate\": \"1969-08-06T05:07:59.174Z\",\n  \"endDate\": \"1990-03-07T04:05:00.462Z\",\n  \"minAge\": -748942,\n  \"maxAge\": -93640024,\n  \"price\": 49908948.041193604\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/Activities/Create",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"Activities",
+										"Create"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "OK",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Accept",
+												"value": "text/plain"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"description\": \"mollit labore\",\n  \"organizerId\": \"urn:uuid:afb4192d-05f3-8fb2-e512-af04790de2e6\",\n  \"title\": \"pariatur sint\",\n  \"address\": \"ipsum dolor aliquip incididunt\",\n  \"maxParticipants\": 2134955,\n  \"startDate\": \"1969-08-06T05:07:59.174Z\",\n  \"endDate\": \"1990-03-07T04:05:00.462Z\",\n  \"minAge\": -748942,\n  \"maxAge\": -93640024,\n  \"price\": 49908948.041193604\n}",
+											"options": {
+												"raw": {
+													"headerFamily": "json",
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/Activities/Create",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"Activities",
+												"Create"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"items\": [\n    {\n      \"description\": \"Lorem laborum laboris proident\",\n      \"organizerId\": \"urn:uuid:30bda113-d2bf-c002-ccf5-be589e864358\",\n      \"title\": \"et\",\n      \"id\": \"456f88bf-ae2a-7a9d-f30c-82b1dc4cc432\",\n      \"address\": \"irure cillum\",\n      \"maxParticipants\": 56941742,\n      \"startDate\": \"1987-09-07T11:06:52.643Z\",\n      \"endDate\": \"1991-09-08T18:28:54.370Z\",\n      \"minAge\": 85227587,\n      \"maxAge\": -30299783,\n      \"price\": -68323207.53740108\n    },\n    {\n      \"description\": \"id eu cupidatat ut\",\n      \"organizerId\": \"8e58fc27-7e9e-3285-e08e-2d5d2b156837\",\n      \"title\": \"laboris esse aute tempor\",\n      \"id\": \"82cdfe4a-b2c1-0eee-37f3-a66973ee948a\",\n      \"address\": \"el\",\n      \"maxParticipants\": 20781201,\n      \"startDate\": \"1972-02-11T02:51:24.531Z\",\n      \"endDate\": \"2007-11-24T15:39:48.312Z\",\n      \"minAge\": 54159365,\n      \"maxAge\": 49893680,\n      \"price\": 49020504.89294717\n    }\n  ]\n}"
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Update",
+					"item": [
+						{
+							"name": "/Activities/Update",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "text/plain"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"description\": \"deserunt ad\",\n  \"organizerId\": \"ecaa2595-43f7-0501-ab5c-354a29cc3805\",\n  \"title\": \"veniam laboris \",\n  \"address\": \"qui est\",\n  \"maxParticipants\": -19047644,\n  \"startDate\": \"1985-12-04T14:15:20.717Z\",\n  \"endDate\": \"1962-09-10T04:18:36.998Z\",\n  \"minAge\": -1082159,\n  \"maxAge\": 7560087,\n  \"price\": 59170091.27900204,\n  \"id\": \"0e2ba019-8243-b673-71ae-8193a129d801\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/Activities/Update",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"Activities",
+										"Update"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "OK",
+									"originalRequest": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Accept",
+												"value": "text/plain"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"description\": \"deserunt ad\",\n  \"organizerId\": \"ecaa2595-43f7-0501-ab5c-354a29cc3805\",\n  \"title\": \"veniam laboris \",\n  \"address\": \"qui est\",\n  \"maxParticipants\": -19047644,\n  \"startDate\": \"1985-12-04T14:15:20.717Z\",\n  \"endDate\": \"1962-09-10T04:18:36.998Z\",\n  \"minAge\": -1082159,\n  \"maxAge\": 7560087,\n  \"price\": 59170091.27900204,\n  \"id\": \"0e2ba019-8243-b673-71ae-8193a129d801\"\n}",
+											"options": {
+												"raw": {
+													"headerFamily": "json",
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/Activities/Update",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"Activities",
+												"Update"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"items\": [\n    {\n      \"description\": \"Lorem laborum laboris proident\",\n      \"organizerId\": \"urn:uuid:30bda113-d2bf-c002-ccf5-be589e864358\",\n      \"title\": \"et\",\n      \"id\": \"456f88bf-ae2a-7a9d-f30c-82b1dc4cc432\",\n      \"address\": \"irure cillum\",\n      \"maxParticipants\": 56941742,\n      \"startDate\": \"1987-09-07T11:06:52.643Z\",\n      \"endDate\": \"1991-09-08T18:28:54.370Z\",\n      \"minAge\": 85227587,\n      \"maxAge\": -30299783,\n      \"price\": -68323207.53740108\n    },\n    {\n      \"description\": \"id eu cupidatat ut\",\n      \"organizerId\": \"8e58fc27-7e9e-3285-e08e-2d5d2b156837\",\n      \"title\": \"laboris esse aute tempor\",\n      \"id\": \"82cdfe4a-b2c1-0eee-37f3-a66973ee948a\",\n      \"address\": \"el\",\n      \"maxParticipants\": 20781201,\n      \"startDate\": \"1972-02-11T02:51:24.531Z\",\n      \"endDate\": \"2007-11-24T15:39:48.312Z\",\n      \"minAge\": 54159365,\n      \"maxAge\": 49893680,\n      \"price\": 49020504.89294717\n    }\n  ]\n}"
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Delete",
+					"item": [
+						{
+							"name": "/Activities/Delete",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "text/plain"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"id\": \"930c57c3-34ff-d3dd-2ca3-f7939feeb774\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/Activities/Delete",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"Activities",
+										"Delete"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "OK",
+									"originalRequest": {
+										"method": "DELETE",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Accept",
+												"value": "text/plain"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"id\": \"930c57c3-34ff-d3dd-2ca3-f7939feeb774\"\n}",
+											"options": {
+												"raw": {
+													"headerFamily": "json",
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/Activities/Delete",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"Activities",
+												"Delete"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"items\": [\n    {\n      \"description\": \"Lorem laborum laboris proident\",\n      \"organizerId\": \"urn:uuid:30bda113-d2bf-c002-ccf5-be589e864358\",\n      \"title\": \"et\",\n      \"id\": \"456f88bf-ae2a-7a9d-f30c-82b1dc4cc432\",\n      \"address\": \"irure cillum\",\n      \"maxParticipants\": 56941742,\n      \"startDate\": \"1987-09-07T11:06:52.643Z\",\n      \"endDate\": \"1991-09-08T18:28:54.370Z\",\n      \"minAge\": 85227587,\n      \"maxAge\": -30299783,\n      \"price\": -68323207.53740108\n    },\n    {\n      \"description\": \"id eu cupidatat ut\",\n      \"organizerId\": \"8e58fc27-7e9e-3285-e08e-2d5d2b156837\",\n      \"title\": \"laboris esse aute tempor\",\n      \"id\": \"82cdfe4a-b2c1-0eee-37f3-a66973ee948a\",\n      \"address\": \"el\",\n      \"maxParticipants\": 20781201,\n      \"startDate\": \"1972-02-11T02:51:24.531Z\",\n      \"endDate\": \"2007-11-24T15:39:48.312Z\",\n      \"minAge\": 54159365,\n      \"maxAge\": 49893680,\n      \"price\": 49020504.89294717\n    }\n  ]\n}"
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Get",
+					"item": [
+						{
+							"name": "/Activities/Get",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "text/plain"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/Activities/Get?Ids=53872b89-da7c-034e-c5fb-4381b38e9747&Ids=154708e5-2333-9ed8-5e1c-abcce53ec70f",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"Activities",
+										"Get"
+									],
+									"query": [
+										{
+											"key": "Ids",
+											"value": "53872b89-da7c-034e-c5fb-4381b38e9747"
+										},
+										{
+											"key": "Ids",
+											"value": "154708e5-2333-9ed8-5e1c-abcce53ec70f"
+										}
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "OK",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "text/plain"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/Activities/Get?Ids=154708e5-2333-9ed8-5e1c-abcce53ec70f",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"Activities",
+												"Get"
+											],
+											"query": [
+												{
+													"key": "Ids",
+													"value": "154708e5-2333-9ed8-5e1c-abcce53ec70f"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"items\": [\n    {\n      \"description\": \"Lorem laborum laboris proident\",\n      \"organizerId\": \"urn:uuid:30bda113-d2bf-c002-ccf5-be589e864358\",\n      \"title\": \"et\",\n      \"id\": \"456f88bf-ae2a-7a9d-f30c-82b1dc4cc432\",\n      \"address\": \"irure cillum\",\n      \"maxParticipants\": 56941742,\n      \"startDate\": \"1987-09-07T11:06:52.643Z\",\n      \"endDate\": \"1991-09-08T18:28:54.370Z\",\n      \"minAge\": 85227587,\n      \"maxAge\": -30299783,\n      \"price\": -68323207.53740108\n    },\n    {\n      \"description\": \"id eu cupidatat ut\",\n      \"organizerId\": \"8e58fc27-7e9e-3285-e08e-2d5d2b156837\",\n      \"title\": \"laboris esse aute tempor\",\n      \"id\": \"82cdfe4a-b2c1-0eee-37f3-a66973ee948a\",\n      \"address\": \"el\",\n      \"maxParticipants\": 20781201,\n      \"startDate\": \"1972-02-11T02:51:24.531Z\",\n      \"endDate\": \"2007-11-24T15:39:48.312Z\",\n      \"minAge\": 54159365,\n      \"maxAge\": 49893680,\n      \"price\": 49020504.89294717\n    }\n  ]\n}"
+								}
+							]
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Participants",
+			"item": [
+				{
+					"name": "Create",
+					"item": [
+						{
+							"name": "/Participants/Create",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "text/plain"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"activityId\": \"urn:uuid:fad78bf7-7ce6-360e-4efa-04bd28d8d722\",\n  \"userId\": \"urn:uuid:8e4527a7-09fe-8a3d-fd5e-cd05eea879a7\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/Participants/Create",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"Participants",
+										"Create"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "OK",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Accept",
+												"value": "text/plain"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"activityId\": \"urn:uuid:fad78bf7-7ce6-360e-4efa-04bd28d8d722\",\n  \"userId\": \"urn:uuid:8e4527a7-09fe-8a3d-fd5e-cd05eea879a7\"\n}",
+											"options": {
+												"raw": {
+													"headerFamily": "json",
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/Participants/Create",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"Participants",
+												"Create"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"items\": [\n    {\n      \"activityId\": \"urn:uuid:ef1b37c9-5103-b845-d059-d8321122df03\",\n      \"userId\": \"0fcfee57-7c5a-1110-8af2-522dba7821ed\"\n    },\n    {\n      \"activityId\": \"urn:uuid:1e6df63a-6d47-c347-fafe-f594b74812b7\",\n      \"userId\": \"urn:uuid:e28b36a4-ee35-a64d-82e4-8f439edc560e\"\n    }\n  ]\n}"
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Update",
+					"item": [
+						{
+							"name": "/Participants/Update",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "text/plain"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"id\": \"930c57c3-34ff-d3dd-2ca3-f7939feeb774\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/Participants/Update",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"Participants",
+										"Update"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "OK",
+									"originalRequest": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Accept",
+												"value": "text/plain"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"id\": \"930c57c3-34ff-d3dd-2ca3-f7939feeb774\"\n}",
+											"options": {
+												"raw": {
+													"headerFamily": "json",
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/Participants/Update",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"Participants",
+												"Update"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"items\": [\n    {\n      \"activityId\": \"urn:uuid:ef1b37c9-5103-b845-d059-d8321122df03\",\n      \"userId\": \"0fcfee57-7c5a-1110-8af2-522dba7821ed\"\n    },\n    {\n      \"activityId\": \"urn:uuid:1e6df63a-6d47-c347-fafe-f594b74812b7\",\n      \"userId\": \"urn:uuid:e28b36a4-ee35-a64d-82e4-8f439edc560e\"\n    }\n  ]\n}"
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Delete",
+					"item": [
+						{
+							"name": "/Participants/Delete",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "text/plain"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"id\": \"930c57c3-34ff-d3dd-2ca3-f7939feeb774\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/Participants/Delete",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"Participants",
+										"Delete"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "OK",
+									"originalRequest": {
+										"method": "DELETE",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Accept",
+												"value": "text/plain"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"id\": \"930c57c3-34ff-d3dd-2ca3-f7939feeb774\"\n}",
+											"options": {
+												"raw": {
+													"headerFamily": "json",
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/Participants/Delete",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"Participants",
+												"Delete"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"items\": [\n    {\n      \"activityId\": \"urn:uuid:ef1b37c9-5103-b845-d059-d8321122df03\",\n      \"userId\": \"0fcfee57-7c5a-1110-8af2-522dba7821ed\"\n    },\n    {\n      \"activityId\": \"urn:uuid:1e6df63a-6d47-c347-fafe-f594b74812b7\",\n      \"userId\": \"urn:uuid:e28b36a4-ee35-a64d-82e4-8f439edc560e\"\n    }\n  ]\n}"
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Get",
+					"item": [
+						{
+							"name": "/Participants/Get",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "text/plain"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/Participants/Get",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"Participants",
+										"Get"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "OK",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "text/plain"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/Participants/Get",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"Participants",
+												"Get"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"items\": [\n    {\n      \"activityId\": \"urn:uuid:ef1b37c9-5103-b845-d059-d8321122df03\",\n      \"userId\": \"0fcfee57-7c5a-1110-8af2-522dba7821ed\"\n    },\n    {\n      \"activityId\": \"urn:uuid:1e6df63a-6d47-c347-fafe-f594b74812b7\",\n      \"userId\": \"urn:uuid:e28b36a4-ee35-a64d-82e4-8f439edc560e\"\n    }\n  ]\n}"
+								}
+							]
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "Create",
+					"item": [
+						{
+							"name": "/Users/Create",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "text/plain"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"name\": \"elit culpa\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/Users/Create",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"Users",
+										"Create"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "OK",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Accept",
+												"value": "text/plain"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"name\": \"elit culpa\"\n}",
+											"options": {
+												"raw": {
+													"headerFamily": "json",
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/Users/Create",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"Users",
+												"Create"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"items\": [\n    {\n      \"email\": \"Lorem culpa ex nulla\",\n      \"password\": \"amet irure ipsum mollit\",\n      \"firstName\": \"dolor proident eiusmod\",\n      \"lastName\": \"est labore consequat Duis ut\",\n      \"id\": \"urn:uuid:86bbbab3-18ce-9df5-6676-90e91d5268f5\",\n      \"about\": \"magna aliqua\"\n    },\n    {\n      \"email\": \"ad nisi et\",\n      \"password\": \"labore amet\",\n      \"firstName\": \"do eu Lorem\",\n      \"lastName\": \"voluptate pariatur Duis\",\n      \"id\": \"urn:uuid:6a2293f5-a105-26b4-e044-cc443adb83db\",\n      \"about\": \"est magna minim\"\n    }\n  ]\n}"
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Update",
+					"item": [
+						{
+							"name": "/Users/Update",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "text/plain"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"name\": \"velit exercita\",\n  \"id\": \"c0cc6630-841b-997e-d321-a5e7ed8d96f6\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/Users/Update",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"Users",
+										"Update"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "OK",
+									"originalRequest": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Accept",
+												"value": "text/plain"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"name\": \"velit exercita\",\n  \"id\": \"c0cc6630-841b-997e-d321-a5e7ed8d96f6\"\n}",
+											"options": {
+												"raw": {
+													"headerFamily": "json",
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/Users/Update",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"Users",
+												"Update"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"items\": [\n    {\n      \"email\": \"Lorem culpa ex nulla\",\n      \"password\": \"amet irure ipsum mollit\",\n      \"firstName\": \"dolor proident eiusmod\",\n      \"lastName\": \"est labore consequat Duis ut\",\n      \"id\": \"urn:uuid:86bbbab3-18ce-9df5-6676-90e91d5268f5\",\n      \"about\": \"magna aliqua\"\n    },\n    {\n      \"email\": \"ad nisi et\",\n      \"password\": \"labore amet\",\n      \"firstName\": \"do eu Lorem\",\n      \"lastName\": \"voluptate pariatur Duis\",\n      \"id\": \"urn:uuid:6a2293f5-a105-26b4-e044-cc443adb83db\",\n      \"about\": \"est magna minim\"\n    }\n  ]\n}"
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Delete",
+					"item": [
+						{
+							"name": "/Users/Delete",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "text/plain"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"id\": \"930c57c3-34ff-d3dd-2ca3-f7939feeb774\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/Users/Delete",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"Users",
+										"Delete"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "OK",
+									"originalRequest": {
+										"method": "DELETE",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Accept",
+												"value": "text/plain"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"id\": \"930c57c3-34ff-d3dd-2ca3-f7939feeb774\"\n}",
+											"options": {
+												"raw": {
+													"headerFamily": "json",
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/Users/Delete",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"Users",
+												"Delete"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"items\": [\n    {\n      \"email\": \"Lorem culpa ex nulla\",\n      \"password\": \"amet irure ipsum mollit\",\n      \"firstName\": \"dolor proident eiusmod\",\n      \"lastName\": \"est labore consequat Duis ut\",\n      \"id\": \"urn:uuid:86bbbab3-18ce-9df5-6676-90e91d5268f5\",\n      \"about\": \"magna aliqua\"\n    },\n    {\n      \"email\": \"ad nisi et\",\n      \"password\": \"labore amet\",\n      \"firstName\": \"do eu Lorem\",\n      \"lastName\": \"voluptate pariatur Duis\",\n      \"id\": \"urn:uuid:6a2293f5-a105-26b4-e044-cc443adb83db\",\n      \"about\": \"est magna minim\"\n    }\n  ]\n}"
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Get",
+					"item": [
+						{
+							"name": "/Users/Get",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "text/plain"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/Users/Get?Ids=53872b89-da7c-034e-c5fb-4381b38e9747&Ids=154708e5-2333-9ed8-5e1c-abcce53ec70f&Name=nulla",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"Users",
+										"Get"
+									],
+									"query": [
+										{
+											"key": "Ids",
+											"value": "53872b89-da7c-034e-c5fb-4381b38e9747"
+										},
+										{
+											"key": "Ids",
+											"value": "154708e5-2333-9ed8-5e1c-abcce53ec70f"
+										},
+										{
+											"key": "Name",
+											"value": "nulla"
+										}
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "OK",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "text/plain"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/Users/Get?Ids=154708e5-2333-9ed8-5e1c-abcce53ec70f&Name=nulla",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"Users",
+												"Get"
+											],
+											"query": [
+												{
+													"key": "Ids",
+													"value": "154708e5-2333-9ed8-5e1c-abcce53ec70f"
+												},
+												{
+													"key": "Name",
+													"value": "nulla"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"items\": [\n    {\n      \"email\": \"Lorem culpa ex nulla\",\n      \"password\": \"amet irure ipsum mollit\",\n      \"firstName\": \"dolor proident eiusmod\",\n      \"lastName\": \"est labore consequat Duis ut\",\n      \"id\": \"urn:uuid:86bbbab3-18ce-9df5-6676-90e91d5268f5\",\n      \"about\": \"magna aliqua\"\n    },\n    {\n      \"email\": \"ad nisi et\",\n      \"password\": \"labore amet\",\n      \"firstName\": \"do eu Lorem\",\n      \"lastName\": \"voluptate pariatur Duis\",\n      \"id\": \"urn:uuid:6a2293f5-a105-26b4-e044-cc443adb83db\",\n      \"about\": \"est magna minim\"\n    }\n  ]\n}"
+								}
+							]
+						}
+					]
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost/api"
+		}
+	]
+}

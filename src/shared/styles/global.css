@@ -1,0 +1,265 @@
+/* src/global.css */
+
+/* 1. СНАЧАЛА импорт Tailwind */
+@layer theme, base, components, utilities;
+@import "tailwindcss/theme.css" layer(theme);
+@import "tailwindcss/preflight.css" layer(base);
+@import "tailwindcss/utilities.css";
+/* 2. ПОТОМ конфигурация Tailwind */
+@theme {
+  --color-primary: #5c6bc0;
+  --color-primary-light: #7986cb;
+  --color-primary-dark: #5161a9;
+
+  --color-accent: #ffca28;
+  --color-accent-light: #ffcf3e;
+  --color-accent-dark: #e0b223;
+
+  --font-family-sans: Inter, system-ui, -apple-system, sans-serif;
+
+  --animate-pulse-slow: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@layer base {
+  * {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  body {
+    @apply antialiased;
+  }
+
+  /* Обнуление margin для заголовков */
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    margin: 0;
+  }
+}
+
+@layer components {
+  .glass {
+    @apply backdrop-blur-md bg-white/80;
+  }
+
+  .shadow-neumorphic {
+    box-shadow: 6px 6px 12px rgba(0, 0, 0, 0.1),
+      -6px -6px 12px rgba(255, 255, 255, 0.9);
+  }
+
+  .shadow-neumorphic-inset {
+    box-shadow: inset 4px 4px 8px rgba(0, 0, 0, 0.1),
+      inset -4px -4px 8px rgba(255, 255, 255, 0.9);
+  }
+
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .skeleton {
+    @apply animate-pulse bg-gray-200 rounded;
+  }
+}
+
+/* 3. ПОТОМ все остальные кастомные стили */
+
+/* Ionic overrides for better integration with Tailwind */
+ion-content {
+  --background: #f9fafb; /* Tailwind gray-50 */
+}
+
+ion-toolbar {
+  --min-height: 56px;
+}
+
+ion-button {
+  --border-radius: 12px;
+  font-weight: 500;
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+ion-chip {
+  --border-radius: 9999px;
+  font-weight: 500;
+}
+
+ion-card {
+  margin: 0;
+  box-shadow: none;
+}
+
+/* Remove Ionic's default button ripple for custom implementation */
+ion-button.custom-ripple {
+  --ripple-color: transparent;
+}
+
+/* Smooth transitions */
+ion-page {
+  transition: opacity 0.3s ease-in-out;
+}
+
+/* Safe area handling */
+.safe-area-top {
+  padding-top: env(safe-area-inset-top);
+}
+
+.safe-area-bottom {
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+/* Skeleton loading animation */
+@keyframes skeleton-loading {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.skeleton-loading {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: skeleton-loading 1.5s infinite;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+}
+
+/* Скрытие скроллбара для горизонтального скролла */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* Улучшенные neumorphic тени */
+.shadow-neumorphic {
+  box-shadow: 8px 8px 16px rgba(0, 0, 0, 0.08),
+    -8px -8px 16px rgba(255, 255, 255, 0.95);
+}
+
+.shadow-neumorphic:hover {
+  box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.1),
+    -10px -10px 20px rgba(255, 255, 255, 0.95);
+}
+
+.shadow-neumorphic-inset {
+  box-shadow: inset 4px 4px 8px rgba(0, 0, 0, 0.08),
+    inset -4px -4px 8px rgba(255, 255, 255, 0.95);
+}
+
+/* Glassmorphism эффект */
+.glass {
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  background-color: rgba(255, 255, 255, 0.8);
+}
+
+/* Анимации для кнопок */
+ion-button {
+  transition: all 0.2s ease-in-out;
+}
+
+ion-button:active {
+  transform: scale(0.98);
+}
+
+/* Улучшенные IonChip стили */
+ion-chip {
+  transition: all 0.2s ease-in-out;
+  border: none;
+}
+
+ion-chip:hover {
+  transform: translateY(-2px);
+}
+
+/* Анимация для избранного */
+.text-red-500 {
+  animation: heartBeat 0.3s ease-in-out;
+}
+
+@keyframes heartBeat {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Более плавные переходы для карточек */
+.active\:scale-\[0\.98\] {
+  transition: transform 0.15s ease-in-out;
+}
+
+/* Улучшенные тени для карточек активностей */
+.shadow-xl {
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1), 0 10px 20px rgba(0, 0, 0, 0.08);
+}
+
+/* Минимальная высота для кликабельных элементов */
+ion-button,
+ion-chip {
+  min-height: 44px;
+  min-width: 44px;
+}
+
+/* Правильные отступы для safe area */
+ion-content {
+  --padding-bottom: env(safe-area-inset-bottom);
+}
+
+/* Улучшенная типографика */
+h1,
+h2,
+h3 {
+  letter-spacing: -0.02em;
+}
+
+/* Более мягкие закругления */
+.rounded-2xl {
+  border-radius: 20px;
+}
+
+.rounded-\[32px\] {
+  border-radius: 32px;
+}
+
+/* Оптимизация производительности для теней */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms;
+    animation-iteration-count: 1;
+    transition-duration: 0.01ms;
+  }
+}
