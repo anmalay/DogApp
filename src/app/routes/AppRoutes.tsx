@@ -3,17 +3,18 @@ import { IonRouterOutlet, IonTabs } from "@ionic/react";
 import { IonReactRouter } from "@ionic/react-router";
 import { Route, Redirect, Switch } from "react-router-dom";
 
-import { AppFooter, AppHeader } from "@widgets/layout";
+import { WelcomePage } from "@pages/welcome";
 
 export const AppRoutes: FC = () => {
   return (
     <IonReactRouter>
       <IonTabs>
-        <AppHeader />
+        {/* <AppHeader /> */}
         <IonRouterOutlet>
           <Switch>
+            <Route exact path="/welcome" component={WelcomePage} />
             <Route exact path="/">
-              <Redirect to="/walks" />
+              <Redirect to="/welcome" />
             </Route>
           </Switch>
         </IonRouterOutlet>

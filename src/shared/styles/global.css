@@ -7,6 +7,7 @@
 @import "tailwindcss/utilities.css";
 /* 2. ПОТОМ конфигурация Tailwind */
 @theme {
+  /* Legacy colors (keeping for backward compatibility) */
   --color-primary: #5c6bc0;
   --color-primary-light: #7986cb;
   --color-primary-dark: #5161a9;
@@ -15,7 +16,37 @@
   --color-accent-light: #ffcf3e;
   --color-accent-dark: #e0b223;
 
-  --font-family-sans: Inter, system-ui, -apple-system, sans-serif;
+  /* New Cool color palette */
+  --color-cool-gray: #F3F3F3;
+  --color-cool-dark: #3F335A;
+  --color-cool-white: #FFFFFF;
+  --color-cool-transparent: #FFFFFF;
+  --color-cool-green: #23BA6E;
+  --color-cool-pink: #FE9CC5;
+  --color-cool-medium-violet: #645A7A;
+  --color-cool-light-viola: #E4DFF0;
+  --color-cool-dark-gray: #808794;
+  --color-cool-red: #F43F5E;
+  --color-cool-violet: #F3EEFF;
+  --color-cool-red-light: #FCE5EA;
+  --color-cool-viola: #8552FF;
+
+  /* Font family */
+  --font-family-sans: "Golos Text", system-ui, -apple-system, sans-serif;
+
+  /* Input specific */
+  --font-size-input: 16px;
+  --line-height-input: 21px;
+  --font-size-error-text: 14px;
+  --line-height-error-text: 18px;
+  
+  --spacing-5: 20px;
+  --spacing-1-5: 6px;
+  
+  --height-input: 64px;
+  --height-textarea: 124px;
+  
+  --border-radius-input: 16px;
 
   --animate-pulse-slow: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
@@ -26,7 +57,7 @@
   }
 
   body {
-    @apply antialiased;
+    @apply antialiased font-sans;
   }
 
   /* Обнуление margin для заголовков */
