@@ -71,16 +71,24 @@ export const Button: React.FC<ButtonProps> = ({
 
     // Variant-specific styles using Tailwind theme classes
     if (disabled || variant === "disabled") {
-      baseClasses.push("bg-background-secondary", "text-text-muted", "cursor-not-allowed");
+      baseClasses.push(
+        "bg-background-secondary",
+        "text-text-muted",
+        "cursor-not-allowed"
+      );
     } else {
       switch (variant) {
         case "primary":
-          baseClasses.push("bg-primary", "text-text-on-primary", "hover:bg-primary-light");
+          baseClasses.push(
+            "bg-primary",
+            "text-text-on-primary",
+            "hover:bg-primary-light"
+          );
           break;
         case "secondary":
           baseClasses.push(
             "bg-surface",
-            "text-text-primary", 
+            "text-text-primary",
             "shadow-[0px_5px_9px_0px_var(--color-border)]",
             "hover:shadow-[0px_7px_12px_0px_var(--color-border)]"
           );
@@ -89,13 +97,15 @@ export const Button: React.FC<ButtonProps> = ({
           baseClasses.push(
             "bg-surface",
             "text-text-primary",
-            "border",
-            "border-border",
-            "hover:border-border-dark"
+            "hover:shadow-[0px_7px_12px_0px_var(--color-border)]"
           );
           break;
         default:
-          baseClasses.push("bg-primary", "text-text-on-primary", "hover:bg-primary-light");
+          baseClasses.push(
+            "bg-primary",
+            "text-text-on-primary",
+            "hover:bg-primary-light"
+          );
       }
     }
 

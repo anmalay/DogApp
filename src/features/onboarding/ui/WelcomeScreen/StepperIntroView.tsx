@@ -1,4 +1,5 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { Button } from "@shared/ui";
 
 interface StepperIntroViewProps {
@@ -10,6 +11,7 @@ export const StepperIntroView: React.FC<StepperIntroViewProps> = ({
   onNext,
   onSkip,
 }) => {
+  const { t } = useTranslation();
   return (
     <div className="flex flex-col h-full">
       <div className="p-6 text-center flex-1 flex flex-col justify-center">
@@ -20,10 +22,10 @@ export const StepperIntroView: React.FC<StepperIntroViewProps> = ({
 
           <div className="space-y-4">
             <h1 className="text-2xl font-bold text-text-primary">
-              Расскажите о своей собаке
+              {t("Tell us about your dog")}
             </h1>
             <p className="text-text-secondary">
-              Это поможет найти подходящих друзей для прогулок
+              {t("This will help find suitable friends for walks")}
             </p>
           </div>
         </div>
@@ -36,7 +38,7 @@ export const StepperIntroView: React.FC<StepperIntroViewProps> = ({
           fullWidth
           onClick={onNext}
         >
-          Создать профиль
+{t("Create Profile")}
         </Button>
 
         <Button
@@ -45,7 +47,7 @@ export const StepperIntroView: React.FC<StepperIntroViewProps> = ({
           fullWidth
           onClick={onSkip}
         >
-          Заполнить позже
+{t("Fill Later")}
         </Button>
       </div>
     </div>

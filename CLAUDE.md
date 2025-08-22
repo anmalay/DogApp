@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-This is an Ionic React dog walking app built with Vite, TypeScript, and Tailwind CSS. The app targets mobile platforms through Capacitor and uses Feature-Sliced Design (FSD) architecture.
+This is an Ionic React dog walking app built with Vite, TypeScript, and Tailwind CSS. The app targets mobile platforms through Capacitor and uses Feature-Sliced Design (FSD) architecture. The app includes a multi-step dog profile onboarding flow, user authentication, and internationalization support.
 
 ## Development Commands
 
@@ -71,3 +71,71 @@ Global app state managed by Zustand includes user authentication, app preference
 
 **Mobile Development:**
 Capacitor configuration uses `dist/` as web directory. The app is configured as a generic Ionic starter but should be updated with proper app ID and name for production.
+
+## Key Architecture Details
+
+**Onboarding Flow:**
+The app features a comprehensive dog profile creation process managed by `useDogProfileStepper.ts` hook:
+- 10-step onboarding: Welcome → Dog Name → Gender → Weight → Breed → Birth Date → Health → Character → Comment → Photos → Owner Info
+- Each step has validation and error handling
+- Progress tracking with visual stepper header
+- Data structure defined in `src/features/onboarding/model/types.ts`
+- Complex multi-step state management with Zustand integration
+
+**Internationalization System:**
+- Uses i18next with English keys and Russian translations
+- Configuration in `src/i18n/config.ts` with `changeLanguage()` helper
+- All user-facing text wrapped in `t()` calls with English keys
+- Complex interpolated text uses `Trans` component
+- Translation files: `translation.en.json` and `translation.ru.json`
+- Switch languages via `changeLanguage('en')` or `changeLanguage('ru')`
+
+**State Management Architecture:**
+- Zustand store (`app.store.ts`) handles global state including:
+  - User authentication and profile data
+  - App preferences (language, theme)
+  - Onboarding status and loading states
+- State persisted to localStorage with selective persistence
+- DevTools integration enabled for debugging
+
+**Routing Structure:**
+- Currently minimal: single `/welcome` route redirecting from root
+- Uses Ionic React Router with React Router v5
+- Tab-based navigation structure prepared but not fully implemented
+- Route definitions in `src/app/routes/AppRoutes.tsx`
+
+**Component Generation System:**
+Plop.js templates support FSD architecture:
+- Page generation: Creates complete page structure with lazy loading
+- UI component generation: Supports all FSD layers (shared, features, widgets, etc.)
+- Automatic index.ts file management and exports
+
+## Development Guidelines
+
+**Working with Translations:**
+- Always use English keys in `t()` calls: `t("Create Account")` not `t("Создать аккаунт")`
+- Add new keys to both `translation.en.json` and `translation.ru.json`
+- Use `Trans` component for complex text with interpolation: `<Trans i18nKey="Profile is {{percentage}}% complete" values={{percentage: 85}} />`
+
+**Onboarding Flow Modifications:**
+- Step modifications require updates to `useDogProfileStepper.ts` validation logic
+- New steps need corresponding UI components in `src/features/onboarding/ui/steps/`
+- Update total step count in `DogProfileStepper.tsx` and progress calculation
+- Data structure changes require updates to `DogProfileData` interface in `types.ts`
+
+**State Management Patterns:**
+- Use `useAppStore()` for global app state (auth, preferences)
+- Feature-specific state should use local hooks (like `useDogProfileStepper`)
+- Persistent data goes through Zustand's `partialize` function in store config
+
+**API Integration Notes:**
+- API client auto-generated from OpenAPI spec via Orval
+- Development uses MSW mocking (configured in `orval.config.ts`)
+- Generated files in `src/shared/api/generated/` should not be edited manually
+- Custom API instance with auth handling in `src/shared/api/client.ts`
+
+**Ionic React Considerations:**
+- App uses iOS mode for consistent design across platforms
+- Ionic components preferred over basic HTML elements for mobile optimization
+- Navigation uses Ionic Router with React Router v5 (not v6)
+- Capacitor plugins available for native functionality (camera, geolocation, etc.)

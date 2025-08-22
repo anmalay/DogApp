@@ -20,12 +20,12 @@ export const DogNameStep: React.FC<DogNameStepProps> = ({
     <div className="space-y-6">
       <div className="text-center">
         <Text variant="bold-24" tag="h1" className="mb-2 text-center">
-          {t("Как зовут вашего питомца?")}
+          {t("What is your pet's name?")}
         </Text>
       </div>
 
       <Input
-        placeholder={t("Имя питомца")}
+        placeholder={t("Pet name")}
         value={data.name}
         maxLength={30}
         error={errors.name}

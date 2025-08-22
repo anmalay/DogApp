@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { DogProfileData, StepErrors } from "./types";
 
 const initialData: DogProfileData = {
@@ -35,6 +36,7 @@ export const useDogProfileStepper = (
   onComplete: () => void,
   onExit: () => void
 ) => {
+  const { t } = useTranslation();
   const [currentStep, setCurrentStep] = useState(1);
   const [stepperData, setStepperData] = useState<DogProfileData>(initialData);
   const [errors, setErrors] = useState<StepErrors>({});
@@ -94,7 +96,7 @@ export const useDogProfileStepper = (
         break;
       case 4:
         if (!stepperData.breed) {
-          showToastMessage("Выберите породу, чтобы продолжить");
+          showToastMessage(t("Please select a breed to continue"));
           return false;
         }
         break;
@@ -127,7 +129,7 @@ export const useDogProfileStepper = (
         if (currentStep < 10) {
           setCurrentStep(currentStep + 1);
         } else {
-          showToastMessage("Отлично! Остался один шаг");
+          showToastMessage(t("Excellent! One step left"));
           setTimeout(() => {
             onComplete();
           }, 2000);

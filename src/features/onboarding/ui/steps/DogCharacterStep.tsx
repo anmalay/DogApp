@@ -16,20 +16,20 @@ export const DogCharacterStep: React.FC<DogCharacterStepProps> = ({
   const { t } = useTranslation();
   
   const activityOptions: TagRadioOption[] = [
-    { value: "low", label: t("Низкая") },
-    { value: "medium", label: t("Средняя") },
-    { value: "high", label: t("Высокая") },
+    { value: "low", label: t("Low") },
+    { value: "medium", label: t("Medium") },
+    { value: "high", label: t("High") },
   ];
 
   const genderComfortOptions: TagCheckboxOption[] = [
-    { value: "females", label: t("С девочками") },
-    { value: "males", label: t("С мальчиками") },
+    { value: "females", label: t("With girls") },
+    { value: "males", label: t("With boys") },
   ];
 
   const sizeComfortOptions: TagCheckboxOption[] = [
-    { value: "same_size", label: t("С собаками своего размера") },
-    { value: "small", label: t("С маленькими собаками") },
-    { value: "large", label: t("С большими собаками") },
+    { value: "same_size", label: t("With same size dogs") },
+    { value: "small", label: t("With small dogs") },
+    { value: "large", label: t("With large dogs") },
   ];
 
   const handleActivityChange = (value: string) => {
@@ -64,7 +64,7 @@ export const DogCharacterStep: React.FC<DogCharacterStepProps> = ({
       <div className="self-stretch flex flex-col justify-start items-start gap-10">
         <div className="self-stretch relative flex flex-col justify-start items-center gap-9">
           <Text variant="bold-24" tag="h2" className="self-stretch justify-start">
-            {t("Активность")}
+            {t("Activity")}
           </Text>
           <div className="self-stretch inline-flex justify-start items-start gap-1 flex-wrap content-start">
             <TagRadioGroup
@@ -79,12 +79,12 @@ export const DogCharacterStep: React.FC<DogCharacterStepProps> = ({
         
         <div className="self-stretch flex flex-col justify-start items-center gap-9">
           <Text variant="bold-24" tag="h2" className="self-stretch justify-start">
-            {t("С кем комфортно")}
+            {t("Comfortable with")}
           </Text>
           
           <div className="self-stretch flex flex-col justify-start items-start gap-3.5">
             <Text variant="medium-16" className="self-stretch justify-start">
-              {t("Пол")}
+              {t("Gender")}
             </Text>
             <div className="self-stretch inline-flex justify-start items-start gap-1 flex-wrap content-start">
               <TagCheckboxGroup
@@ -99,7 +99,7 @@ export const DogCharacterStep: React.FC<DogCharacterStepProps> = ({
           
           <div className="self-stretch flex flex-col justify-start items-start gap-3.5">
             <Text variant="medium-16" className="self-stretch justify-start">
-              {t("Размер")}
+              {t("Size")}
             </Text>
             <div className="self-stretch inline-flex justify-start items-start gap-1 flex-wrap content-start">
               <TagCheckboxGroup

@@ -19,7 +19,7 @@ export const DogWeightStep: React.FC<DogWeightStepProps> = ({
     <div className="space-y-6">
       <div className="text-center">
         <Text variant="bold-24" tag="h1" className="mb-2 text-center">
-          {t("Вес питомца")}
+          {t("Pet Weight")}
         </Text>
       </div>
 
@@ -35,7 +35,7 @@ export const DogWeightStep: React.FC<DogWeightStepProps> = ({
         </div>
         <div className="flex justify-end items-start gap-5">
           <Text variant="medium-16">
-            {data.weight || 1} {t("кг")}
+            {data.weight || 1} {t("kg")}
           </Text>
         </div>
       </div>

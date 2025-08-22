@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useTranslation, Trans } from "react-i18next";
 import {
   Button,
   Input,
@@ -32,6 +33,7 @@ export const ProfileEditForm: React.FC<ProfileEditFormProps> = ({
   onCancel,
   isLoading = false,
 }) => {
+  const { t } = useTranslation();
   const [formData, setFormData] = useState<ProfileFormData>({
     name: "",
     email: "",
@@ -45,9 +47,9 @@ export const ProfileEditForm: React.FC<ProfileEditFormProps> = ({
   const [errors, setErrors] = useState<Record<string, boolean>>({});
 
   const genderOptions: RadioOption[] = [
-    { value: "male", label: "Мужской" },
-    { value: "female", label: "Женский" },
-    { value: "other", label: "Другой" },
+    { value: "male", label: t("Male") },
+    { value: "female", label: t("Female") },
+    { value: "other", label: t("Other") },
   ];
 
   const updateField = (field: keyof ProfileFormData, value: string) => {
@@ -75,7 +77,7 @@ export const ProfileEditForm: React.FC<ProfileEditFormProps> = ({
 
   return (
     <Card
-      title="Редактировать профиль"
+      title={t("Edit Profile")}
       variant="elevated"
       className="max-w-md mx-auto"
     >
@@ -90,45 +92,45 @@ export const ProfileEditForm: React.FC<ProfileEditFormProps> = ({
             className="cursor-pointer hover:opacity-80 transition-opacity"
           />
           <p className="text-[14px] text-text-muted mt-2">
-            Нажмите, чтобы изменить аватар
+            {t("Click to change avatar")}
           </p>
         </div>
 
         {/* Form Fields */}
         <div className="space-y-4">
           <Input
-            label="Имя"
-            placeholder="Введите ваше имя"
+            label={t("Name")}
+            placeholder={t("Enter your name")}
             value={formData.name}
             required
             error={errors.name}
-            errorMessage="Имя обязательно для заполнения"
+            errorMessage={t("Name is required")}
             onInput={(value) => updateField("name", value)}
           />
 
           <Input
-            label="Email"
+            label={t("Email")}
             type="email"
             placeholder="your@email.com"
             value={formData.email}
             required
             error={errors.email}
-            errorMessage="Email обязателен для заполнения"
+            errorMessage={t("Email is required")}
             onInput={(value) => updateField("email", value)}
           />
 
           <Input
-            label="Возраст"
+            label={t("Age")}
             type="number"
             placeholder="25"
             value={formData.age}
-            helperText="Поможет найти компанию по интересам"
+            helperText={t("Helps find company with common interests")}
             onInput={(value) => updateField("age", value)}
           />
 
           <div className="space-y-2">
             <label className="block text-[14px] font-medium text-text-primary">
-              Пол
+              {t("Gender")}
             </label>
             <RadioGroup
               options={genderOptions}
@@ -138,12 +140,12 @@ export const ProfileEditForm: React.FC<ProfileEditFormProps> = ({
           </div>
 
           <Textarea
-            label="О себе"
-            placeholder="Расскажите немного о себе..."
+            label={t("About Me")}
+            placeholder={t("Tell a bit about yourself...")}
             value={formData.bio}
             maxLength={500}
             showCharCount
-            helperText="Поделитесь своими интересами и увлечениями"
+            helperText={t("Share your interests and hobbies")}
             onInput={(value) => updateField("bio", value)}
           />
         </div>
@@ -151,11 +153,14 @@ export const ProfileEditForm: React.FC<ProfileEditFormProps> = ({
         {/* Status Badge */}
         <div className="flex justify-center">
           <Badge variant="success">
-            ✓ Профиль заполнен на{" "}
-            {Math.round(
-              (Object.values(formData).filter((v) => v).length / 6) * 100
-            )}
-            %
+            <Trans 
+              i18nKey="✓ Profile is {{percentage}}% complete" 
+              values={{ 
+                percentage: Math.round(
+                  (Object.values(formData).filter((v) => v).length / 6) * 100
+                )
+              }}
+            />
           </Badge>
         </div>
 
@@ -167,7 +172,7 @@ export const ProfileEditForm: React.FC<ProfileEditFormProps> = ({
             onClick={onCancel}
             disabled={isLoading}
           >
-            Отмена
+{t("Cancel")}
           </Button>
 
           <Button
@@ -176,7 +181,7 @@ export const ProfileEditForm: React.FC<ProfileEditFormProps> = ({
             onClick={handleSubmit}
             loading={isLoading}
           >
-            Сохранить
+{t("Save")}
           </Button>
         </div>
       </div>

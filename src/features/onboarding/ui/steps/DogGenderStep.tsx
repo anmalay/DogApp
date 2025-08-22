@@ -17,8 +17,8 @@ export const DogGenderStep: React.FC<DogGenderStepProps> = ({
   const { t } = useTranslation();
   
   const genderOptions: TagRadioOption[] = [
-    { value: "male", label: t("Мальчик 🐕") },
-    { value: "female", label: t("Девочка 🐕") },
+    { value: "male", label: t("Boy 🐕") },
+    { value: "female", label: t("Girl 🐕") },
   ];
 
   const handleGenderChange = (value: string) => {
@@ -29,7 +29,7 @@ export const DogGenderStep: React.FC<DogGenderStepProps> = ({
     <div className="space-y-6">
       <div className="text-center">
         <Text variant="bold-24" tag="h1" className="mb-2 text-center">
-          {t("Пол питомца")}
+          {t("Pet Gender")}
         </Text>
       </div>
 
@@ -42,7 +42,7 @@ export const DogGenderStep: React.FC<DogGenderStepProps> = ({
 
       {errors.gender && (
         <Text variant="medium-14" color="error" className="text-center">
-          {t("Пожалуйста, выберите пол питомца")}
+          {t("Please select your pet's gender")}
         </Text>
       )}
     </div>

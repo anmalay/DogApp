@@ -1,4 +1,5 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { Button } from "@shared/ui";
 
 interface VerificationViewProps {
@@ -10,6 +11,7 @@ export const VerificationView: React.FC<VerificationViewProps> = ({
   onVerify,
   onSkip,
 }) => {
+  const { t } = useTranslation();
   return (
     <div className="flex flex-col h-full">
       <div className="p-6 text-center flex-1 flex flex-col justify-center">
@@ -20,10 +22,10 @@ export const VerificationView: React.FC<VerificationViewProps> = ({
 
           <div className="space-y-4">
             <h1 className="text-2xl font-bold text-text-primary">
-              Мы за безопасность
+              {t("We care about safety")}
             </h1>
             <p className="text-text-secondary">
-              Пройдите верификацию, чтобы получить доступ ко всем функциям
+              {t("Complete verification to access all features")}
             </p>
           </div>
         </div>
@@ -36,7 +38,7 @@ export const VerificationView: React.FC<VerificationViewProps> = ({
           fullWidth
           onClick={onVerify}
         >
-          Пройти верификацию
+{t("Complete Verification")}
         </Button>
 
         <Button
@@ -45,7 +47,7 @@ export const VerificationView: React.FC<VerificationViewProps> = ({
           fullWidth
           onClick={onSkip}
         >
-          Пройти позже
+{t("Skip for Now")}
         </Button>
       </div>
     </div>

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { IonContent } from "@ionic/react";
+import { useTranslation } from "react-i18next";
 import { WelcomeView } from "./WelcomeView";
 import { StepperIntroView } from "./StepperIntroView";
 import { DogProfileStepper } from "../DogProfileStepper/DogProfileStepper";
@@ -9,6 +10,7 @@ type ScreenType = "welcome" | "stepper-intro" | "stepper" | "verification";
 
 export const WelcomeScreen: React.FC = () => {
   const [currentScreen, setCurrentScreen] = useState<ScreenType>("welcome");
+  const { t } = useTranslation();
 
   const showToastMessage = (message: string) => {
     console.log(message); // TODO: Replace with proper toast implementation
@@ -27,7 +29,7 @@ export const WelcomeScreen: React.FC = () => {
       <IonContent className="bg-white">
         <StepperIntroView
           onNext={() => setCurrentScreen("stepper")}
-          onSkip={() => showToastMessage("Переход в режим ограниченного функционала")}
+          onSkip={() => showToastMessage(t("Switching to limited functionality mode"))}
         />
       </IonContent>
     );
@@ -37,8 +39,8 @@ export const WelcomeScreen: React.FC = () => {
     return (
       <IonContent className="bg-white">
         <VerificationView
-          onVerify={() => showToastMessage("Переход к верификации")}
-          onSkip={() => showToastMessage("Переход в режим ограниченного функционала")}
+          onVerify={() => showToastMessage(t("Proceeding to verification"))}
+          onSkip={() => showToastMessage(t("Switching to limited functionality mode"))}
         />
       </IonContent>
     );

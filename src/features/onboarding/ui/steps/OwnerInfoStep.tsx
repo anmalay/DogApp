@@ -1,4 +1,5 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { Input, Avatar } from "@shared/ui";
 import { DogProfileData, StepErrors } from "../../model/types";
 
@@ -13,6 +14,7 @@ export const OwnerInfoStep: React.FC<OwnerInfoStepProps> = ({
   errors,
   onUpdate,
 }) => {
+  const { t } = useTranslation();
   const handleOwnerUpdate = (field: string, value: string) => {
     onUpdate({
       owner: {
@@ -26,7 +28,7 @@ export const OwnerInfoStep: React.FC<OwnerInfoStepProps> = ({
     <div className="space-y-6">
       <div className="text-center">
         <h1 className="text-2xl font-bold text-text-primary mb-2">
-          Информация о хозяине
+          {t("Owner Information")}
         </h1>
       </div>
 
@@ -43,25 +45,25 @@ export const OwnerInfoStep: React.FC<OwnerInfoStepProps> = ({
             className="cursor-pointer hover:opacity-80 transition-opacity"
           />
           <p className="text-sm text-text-muted mt-2">
-            Нажмите, чтобы добавить фото (необязательно)
+            {t("Click to add photo (optional)")}
           </p>
         </div>
 
         <Input
-          label="Ваше имя"
-          placeholder="Ваше имя"
+          label={t("Your Name")}
+          placeholder={t("Your Name")}
           value={data.owner.name}
           required
           error={errors.ownerName}
-          errorMessage={errors.ownerName ? "Имя обязательно для заполнения" : undefined}
+          errorMessage={errors.ownerName ? t("Name is required") : undefined}
           onInput={(value) => handleOwnerUpdate("name", value)}
         />
 
         <Input
-          label="Дата рождения"
+          label={t("Birth Date")}
           type="date"
           value={data.owner.birth_date || ""}
-          helperText="Необязательно, но поможет найти компанию по возрасту"
+          helperText={t("Optional, but helps find company by age")}
           onInput={(value) => handleOwnerUpdate("birth_date", value)}
         />
       </div>

@@ -47,12 +47,12 @@ export const DogBreedStep: React.FC<DogBreedStepProps> = ({
     <div className="space-y-6">
       <div className="text-center">
         <Text variant="bold-24" tag="h1" className="mb-2 text-center">
-          {t("Порода")}
+          {t("Breed")}
         </Text>
       </div>
 
       <Input
-        placeholder={t("Начните вводить породу")}
+        placeholder={t("Start typing breed")}
         value={searchValue}
         onInput={setSearchValue}
       />
@@ -67,7 +67,7 @@ export const DogBreedStep: React.FC<DogBreedStepProps> = ({
 
       {errors.breed && (
         <Text variant="medium-14" color="error" className="text-center">
-          {t("Пожалуйста, выберите породу питомца")}
+          {t("Please select your pet's breed")}
         </Text>
       )}
     </div>

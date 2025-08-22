@@ -1,4 +1,5 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { IonContent, IonToast } from "@ionic/react";
 import { Button } from "@shared/ui";
 import { useDogProfileStepper } from "../../model/useDogProfileStepper";
@@ -23,6 +24,7 @@ export const DogProfileStepper: React.FC<DogProfileStepperProps> = ({
   onComplete,
   onBack,
 }) => {
+  const { t } = useTranslation();
   const {
     currentStep,
     stepperData,
@@ -86,7 +88,7 @@ export const DogProfileStepper: React.FC<DogProfileStepperProps> = ({
               onClick={handleStepBack}
               className="flex-1"
             >
-              Назад
+{t("Back")}
             </Button>
 
             <Button
@@ -95,8 +97,8 @@ export const DogProfileStepper: React.FC<DogProfileStepperProps> = ({
               className="flex-1"
             >
               {currentStep === 9 && stepperData.photos.length === 0
-                ? "Добавить фото"
-                : "Дальше"}
+                ? t("Add Photo")
+                : t("Next")}
             </Button>
           </div>
         </div>

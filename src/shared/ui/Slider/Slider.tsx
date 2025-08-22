@@ -116,23 +116,27 @@ export const Slider: React.FC<SliderProps> = ({
         {/* Interactive area */}
         <div
           ref={sliderRef}
-          className="absolute inset-0 cursor-pointer touch-none"
+          className="absolute inset-0 cursor-pointer touch-none select-none"
           onMouseDown={handleStart}
           onTouchStart={handleStart}
+          style={{ touchAction: 'none' }}
         />
         
         {/* Thumb */}
         <div
           className={classNames(
-            "absolute top-[2px] transform -translate-x-1/2",
+            "absolute top-[2px] transform -translate-x-1/2 z-10",
             {
-              "cursor-grab": !disabled,
+              "cursor-grab": !disabled && !isDragging,
+              "cursor-grabbing": !disabled && isDragging,
               "cursor-not-allowed": disabled,
             }
           )}
           style={{
             left: `${percentage}%`,
           }}
+          onMouseDown={handleStart}
+          onTouchStart={handleStart}
         >
           <svg width="43" height="43" viewBox="0 0 43 43" fill="none" xmlns="http://www.w3.org/2000/svg">
             <g filter="url(#filter0_d_622_3090)">

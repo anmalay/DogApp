@@ -1,4 +1,5 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { DogProfileData, StepErrors } from "../../model/types";
 
 interface DogPhotosStepProps {
@@ -8,11 +9,12 @@ interface DogPhotosStepProps {
 }
 
 export const DogPhotosStep: React.FC<DogPhotosStepProps> = () => {
+  const { t } = useTranslation();
   return (
     <div className="space-y-6">
       <div className="text-center">
-        <h1 className="text-2xl font-bold text-text-primary mb-2">Фото питомца</h1>
-        <p className="text-text-secondary">Step content to be implemented</p>
+        <h1 className="text-2xl font-bold text-text-primary mb-2">{t("Pet Photos")}</h1>
+        <p className="text-text-secondary">{t("Step content to be implemented")}</p>
       </div>
     </div>
   );
