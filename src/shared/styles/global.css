@@ -16,20 +16,46 @@
   --color-accent-light: #ffcf3e;
   --color-accent-dark: #e0b223;
 
-  /* New Cool color palette */
-  --color-cool-gray: #F3F3F3;
-  --color-cool-dark: #3F335A;
-  --color-cool-white: #FFFFFF;
-  --color-cool-transparent: #FFFFFF;
-  --color-cool-green: #23BA6E;
-  --color-cool-pink: #FE9CC5;
-  --color-cool-medium-violet: #645A7A;
-  --color-cool-light-viola: #E4DFF0;
-  --color-cool-dark-gray: #808794;
-  --color-cool-red: #F43F5E;
-  --color-cool-violet: #F3EEFF;
-  --color-cool-red-light: #FCE5EA;
-  --color-cool-viola: #8552FF;
+  /* Theme-aware color palette */
+  /* Primary colors */
+  --color-primary: #3F335A;
+  --color-primary-light: #645A7A;
+  --color-primary-dark: #2D2440;
+  
+  /* Secondary colors */
+  --color-secondary: #23BA6E;
+  --color-secondary-light: #4CD085;
+  --color-secondary-dark: #1A9456;
+  
+  /* Background colors */
+  --color-background: #FFFFFF;
+  --color-background-secondary: #F3F3F3;
+  --color-surface: #FFFFFF;
+  --color-surface-secondary: #E4DFF0;
+  
+  /* Text colors */
+  --color-text-primary: #3F335A;
+  --color-text-secondary: #645A7A;
+  --color-text-muted: #808794;
+  --color-text-on-primary: #FFFFFF;
+  --color-text-on-secondary: #FFFFFF;
+  
+  /* Border colors */
+  --color-border: #E4DFF0;
+  --color-border-light: #F3EEFF;
+  --color-border-dark: #645A7A;
+  
+  /* State colors */
+  --color-success: #23BA6E;
+  --color-warning: #FE9CC5;
+  --color-error: #F43F5E;
+  --color-info: #8552FF;
+  
+  /* Utility colors */
+  --color-white: #FFFFFF;
+  --color-black: #000000;
+  --color-transparent: transparent;
+  
 
   /* Font family */
   --font-family-sans: "Golos Text", system-ui, -apple-system, sans-serif;
@@ -94,7 +120,7 @@
   }
 
   .skeleton {
-    @apply animate-pulse bg-gray-200 rounded;
+    @apply animate-pulse bg-background-secondary rounded;
   }
 }
 
@@ -102,7 +128,8 @@
 
 /* Ionic overrides for better integration with Tailwind */
 ion-content {
-  --background: #f9fafb; /* Tailwind gray-50 */
+  --background: var(--color-background-secondary);
+  --padding-bottom: env(safe-area-inset-bottom);
 }
 
 ion-toolbar {
@@ -114,11 +141,14 @@ ion-button {
   font-weight: 500;
   text-transform: none;
   letter-spacing: 0;
+  transition: all 0.2s ease-in-out;
 }
 
 ion-chip {
   --border-radius: 9999px;
   font-weight: 500;
+  transition: all 0.2s ease-in-out;
+  border: none;
 }
 
 ion-card {
@@ -156,7 +186,7 @@ ion-page {
 }
 
 .skeleton-loading {
-  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background: linear-gradient(90deg, var(--color-background-secondary) 25%, var(--color-border) 50%, var(--color-background-secondary) 75%);
   background-size: 200% 100%;
   animation: skeleton-loading 1.5s infinite;
 }
@@ -168,16 +198,16 @@ ion-page {
 }
 
 ::-webkit-scrollbar-track {
-  background: #f1f1f1;
+  background: var(--color-background-secondary);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #c1c1c1;
+  background: var(--color-border);
   border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #a8a8a8;
+  background: var(--color-border-dark);
 }
 
 /* Скрытие скроллбара для горизонтального скролла */
@@ -189,42 +219,10 @@ ion-page {
   display: none;
 }
 
-/* Улучшенные neumorphic тени */
-.shadow-neumorphic {
-  box-shadow: 8px 8px 16px rgba(0, 0, 0, 0.08),
-    -8px -8px 16px rgba(255, 255, 255, 0.95);
-}
 
-.shadow-neumorphic:hover {
-  box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.1),
-    -10px -10px 20px rgba(255, 255, 255, 0.95);
-}
-
-.shadow-neumorphic-inset {
-  box-shadow: inset 4px 4px 8px rgba(0, 0, 0, 0.08),
-    inset -4px -4px 8px rgba(255, 255, 255, 0.95);
-}
-
-/* Glassmorphism эффект */
-.glass {
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  background-color: rgba(255, 255, 255, 0.8);
-}
-
-/* Анимации для кнопок */
-ion-button {
-  transition: all 0.2s ease-in-out;
-}
 
 ion-button:active {
   transform: scale(0.98);
-}
-
-/* Улучшенные IonChip стили */
-ion-chip {
-  transition: all 0.2s ease-in-out;
-  border: none;
 }
 
 ion-chip:hover {
@@ -232,7 +230,7 @@ ion-chip:hover {
 }
 
 /* Анимация для избранного */
-.text-red-500 {
+.text-error {
   animation: heartBeat 0.3s ease-in-out;
 }
 
@@ -265,10 +263,6 @@ ion-chip {
   min-width: 44px;
 }
 
-/* Правильные отступы для safe area */
-ion-content {
-  --padding-bottom: env(safe-area-inset-bottom);
-}
 
 /* Улучшенная типографика */
 h1,

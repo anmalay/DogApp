@@ -1,5 +1,6 @@
 import React from "react";
-import { Input } from "@shared/ui";
+import { useTranslation } from "react-i18next";
+import { Input, Text } from "@shared/ui";
 import { DogProfileData, StepErrors } from "../../model/types";
 
 interface DogNameStepProps {
@@ -13,16 +14,18 @@ export const DogNameStep: React.FC<DogNameStepProps> = ({
   errors,
   onUpdate,
 }) => {
+  const { t } = useTranslation();
+
   return (
     <div className="space-y-6">
       <div className="text-center">
-        <h1 className="text-2xl font-bold text-gray-800 mb-2">
-          Как зовут вашего питомца?
-        </h1>
+        <Text variant="bold-24" tag="h1" className="mb-2 text-center">
+          {t("Как зовут вашего питомца?")}
+        </Text>
       </div>
 
       <Input
-        placeholder="Имя питомца"
+        placeholder={t("Имя питомца")}
         value={data.name}
         maxLength={30}
         error={errors.name}

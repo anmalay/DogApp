@@ -1,5 +1,6 @@
 import React from "react";
-import { Textarea } from "@shared/ui";
+import { useTranslation } from "react-i18next";
+import { Textarea, Text } from "@shared/ui";
 import { DogProfileData, StepErrors } from "../../model/types";
 
 interface DogCommentStepProps {
@@ -12,22 +13,26 @@ export const DogCommentStep: React.FC<DogCommentStepProps> = ({
   data,
   onUpdate,
 }) => {
+  const { t } = useTranslation();
+
   return (
     <div className="space-y-6">
       <div className="text-center">
-        <h1 className="text-2xl font-bold text-gray-800 mb-2">
-          Расскажите о питомце
-        </h1>
-        <p className="text-gray-600">Необязательный шаг</p>
+        <Text variant="bold-24" tag="h1" className="mb-2 text-center">
+          {t("Расскажите о питомце")}
+        </Text>
+        <Text variant="medium-14" color="muted" className="text-center">
+          {t("Необязательный шаг")}
+        </Text>
       </div>
 
       <Textarea
-        placeholder="Расскажите, что важно знать другим хозяевам перед прогулкой"
+        placeholder={t("Расскажите, что важно знать другим хозяевам перед прогулкой")}
         value={data.comment}
         maxLength={200}
         rows={4}
         showCharCount
-        helperText="Поделитесь особенностями характера, привычками или важными деталями"
+        helperText={t("Поделитесь особенностями характера, привычками или важными деталями")}
         onInput={(value) => onUpdate({ comment: value })}
       />
     </div>

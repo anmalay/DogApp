@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { TagRadioGroup, TagRadioOption, Input } from "@shared/ui";
+import { useTranslation } from "react-i18next";
+import { TagRadioGroup, TagRadioOption, Input, Text } from "@shared/ui";
 import { DogProfileData, StepErrors } from "../../model/types";
 
 const mockBreeds = [
@@ -26,6 +27,7 @@ export const DogBreedStep: React.FC<DogBreedStepProps> = ({
   errors,
   onUpdate,
 }) => {
+  const { t } = useTranslation();
   const [searchValue, setSearchValue] = useState("");
 
   const filteredBreeds = mockBreeds.filter(breed =>
@@ -34,7 +36,7 @@ export const DogBreedStep: React.FC<DogBreedStepProps> = ({
 
   const breedOptions: TagRadioOption[] = filteredBreeds.map(breed => ({
     value: breed,
-    label: breed,
+    label: t(breed),
   }));
 
   const handleBreedChange = (value: string) => {
@@ -44,11 +46,13 @@ export const DogBreedStep: React.FC<DogBreedStepProps> = ({
   return (
     <div className="space-y-6">
       <div className="text-center">
-        <h1 className="text-2xl font-bold text-cool-dark mb-2 font-sans">Порода</h1>
+        <Text variant="bold-24" tag="h1" className="mb-2 text-center">
+          {t("Порода")}
+        </Text>
       </div>
 
       <Input
-        placeholder="Начните вводить породу"
+        placeholder={t("Начните вводить породу")}
         value={searchValue}
         onInput={setSearchValue}
       />
@@ -62,9 +66,9 @@ export const DogBreedStep: React.FC<DogBreedStepProps> = ({
       />
 
       {errors.breed && (
-        <p className="text-cool-red text-sm text-center">
-          Пожалуйста, выберите породу питомца
-        </p>
+        <Text variant="medium-14" color="error" className="text-center">
+          {t("Пожалуйста, выберите породу питомца")}
+        </Text>
       )}
     </div>
   );

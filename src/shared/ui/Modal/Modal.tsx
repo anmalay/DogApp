@@ -1,5 +1,14 @@
 import React from "react";
-import { IonModal, IonHeader, IonToolbar, IonTitle, IonContent, IonButton, IonButtons, IonIcon } from "@ionic/react";
+import {
+  IonModal,
+  IonHeader,
+  IonToolbar,
+  IonTitle,
+  IonContent,
+  IonButton,
+  IonButtons,
+  IonIcon,
+} from "@ionic/react";
 import { close } from "ionicons/icons";
 import classNames from "classnames";
 
@@ -29,11 +38,7 @@ export const Modal: React.FC<ModalProps> = ({
   children,
   className,
 }) => {
-  const modalClasses = classNames(
-    "rounded-t-xl",
-    sizeStyles[size],
-    className
-  );
+  const modalClasses = classNames("rounded-t-xl", sizeStyles[size], className);
 
   return (
     <IonModal
@@ -52,7 +57,7 @@ export const Modal: React.FC<ModalProps> = ({
                 <IonButton
                   fill="clear"
                   onClick={onDidDismiss}
-                  className="text-gray-500 hover:text-gray-700"
+                  className="text-text-muted hover:text-text-primary"
                 >
                   <IonIcon icon={close} />
                 </IonButton>
@@ -61,10 +66,8 @@ export const Modal: React.FC<ModalProps> = ({
           </IonToolbar>
         </IonHeader>
       )}
-      
-      <IonContent className="p-6">
-        {children}
-      </IonContent>
+
+      <IonContent className="p-6">{children}</IonContent>
     </IonModal>
   );
 };

@@ -22,7 +22,6 @@ export interface RadioGroupProps {
 export const RadioGroup: React.FC<RadioGroupProps> = ({
   options,
   value,
-  name,
   disabled = false,
   error = false,
   helperText,
@@ -52,9 +51,9 @@ export const RadioGroup: React.FC<RadioGroupProps> = ({
           <IonItem
             key={option.value}
             className={classNames("rounded-lg border transition-colors", {
-              "border-purple-500 bg-purple-50": value === option.value && !error,
-              "border-red-500 bg-red-50": error,
-              "border-gray-200": value !== option.value && !error,
+              "border-primary bg-primary/5": value === option.value && !error,
+              "border-error bg-error/5": error,
+              "border-border": value !== option.value && !error,
               "opacity-50 cursor-not-allowed": option.disabled || disabled,
             })}
             lines="none"
@@ -72,8 +71,8 @@ export const RadioGroup: React.FC<RadioGroupProps> = ({
               color={error ? "danger" : "primary"}
             />
             <IonLabel className={classNames("ml-3", {
-              "text-red-600": error,
-              "text-gray-800": !error,
+              "text-error": error,
+              "text-text-primary": !error,
             })}>
               {option.label}
             </IonLabel>
@@ -82,9 +81,9 @@ export const RadioGroup: React.FC<RadioGroupProps> = ({
       </IonRadioGroup>
 
       {helperText && (
-        <span className={classNames("text-sm block", {
-          "text-red-600": error,
-          "text-gray-500": !error,
+        <span className={classNames("text-[14px] block", {
+          "text-error": error,
+          "text-text-muted": !error,
         })}>
           {helperText}
         </span>

@@ -14,15 +14,15 @@ export const StepperIntroView: React.FC<StepperIntroViewProps> = ({
     <div className="flex flex-col h-full">
       <div className="p-6 text-center flex-1 flex flex-col justify-center">
         <div className="space-y-6">
-          <div className="w-24 h-24 mx-auto bg-purple-100 rounded-full flex items-center justify-center">
+          <div className="w-24 h-24 mx-auto bg-primary/20 rounded-full flex items-center justify-center">
             <div className="text-4xl">🐕</div>
           </div>
 
           <div className="space-y-4">
-            <h1 className="text-2xl font-bold text-gray-800">
+            <h1 className="text-2xl font-bold text-text-primary">
               Расскажите о своей собаке
             </h1>
-            <p className="text-gray-600">
+            <p className="text-text-secondary">
               Это поможет найти подходящих друзей для прогулок
             </p>
           </div>

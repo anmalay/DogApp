@@ -69,34 +69,33 @@ export const Button: React.FC<ButtonProps> = ({
       baseClasses.push("w-full");
     }
 
-    // Variant-specific styles
+    // Variant-specific styles using Tailwind theme classes
     if (disabled || variant === "disabled") {
-      baseClasses.push("bg-zinc-100", "text-cool-dark-gray", "cursor-not-allowed");
+      baseClasses.push("bg-background-secondary", "text-text-muted", "cursor-not-allowed");
     } else {
       switch (variant) {
         case "primary":
-          baseClasses.push("bg-gray-700", "text-white", "hover:bg-gray-800");
+          baseClasses.push("bg-primary", "text-text-on-primary", "hover:bg-primary-light");
           break;
         case "secondary":
           baseClasses.push(
-            "bg-white",
-            "text-gray-700", 
-            "shadow-[0px_5px_9px_0px_rgba(66,58,58,0.06)]",
-            "hover:shadow-[0px_7px_12px_0px_rgba(66,58,58,0.08)]"
+            "bg-surface",
+            "text-text-primary", 
+            "shadow-[0px_5px_9px_0px_var(--color-border)]",
+            "hover:shadow-[0px_7px_12px_0px_var(--color-border)]"
           );
           break;
         case "outline":
           baseClasses.push(
-            "bg-white",
-            "text-gray-700",
-            "outline",
-            "outline-1",
-            "outline-slate-200",
-            "hover:outline-slate-300"
+            "bg-surface",
+            "text-text-primary",
+            "border",
+            "border-border",
+            "hover:border-border-dark"
           );
           break;
         default:
-          baseClasses.push("bg-gray-700", "text-white", "hover:bg-gray-800");
+          baseClasses.push("bg-primary", "text-text-on-primary", "hover:bg-primary-light");
       }
     }
 
@@ -153,9 +152,6 @@ export const Button: React.FC<ButtonProps> = ({
       disabled={disabled || loading}
       onClick={handleClick}
       className={classNames(getButtonClasses(), className)}
-      style={{
-        fontFamily: 'Golos Text',
-      }}
     >
       {renderContent()}
     </button>

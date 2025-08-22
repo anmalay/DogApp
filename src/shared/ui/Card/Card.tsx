@@ -13,9 +13,9 @@ export interface CardProps {
 }
 
 const variantStyles = {
-  default: "bg-white shadow-sm",
-  elevated: "bg-white shadow-lg",
-  outlined: "bg-white border-2 border-gray-200 shadow-none",
+  default: "bg-surface shadow-sm",
+  elevated: "bg-surface shadow-lg",
+  outlined: "bg-surface border-2 border-border shadow-none",
 };
 
 const paddingStyles = {
@@ -50,12 +50,12 @@ export const Card: React.FC<CardProps> = ({
       {hasHeader && (
         <IonCardHeader className="pb-2">
           {title && (
-            <IonCardTitle className="text-lg font-semibold text-gray-800">
+            <IonCardTitle className="text-lg font-semibold text-text-primary font-sans">
               {title}
             </IonCardTitle>
           )}
           {subtitle && (
-            <IonCardSubtitle className="text-sm text-gray-600">
+            <IonCardSubtitle className="text-sm text-text-secondary font-sans">
               {subtitle}
             </IonCardSubtitle>
           )}

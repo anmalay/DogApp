@@ -1,5 +1,6 @@
 import React from "react";
-import { Slider } from "@shared/ui";
+import { useTranslation } from "react-i18next";
+import { Slider, Text } from "@shared/ui";
 import { DogProfileData, StepErrors } from "../../model/types";
 
 interface DogWeightStepProps {
@@ -12,10 +13,14 @@ export const DogWeightStep: React.FC<DogWeightStepProps> = ({
   data,
   onUpdate,
 }) => {
+  const { t } = useTranslation();
+  
   return (
     <div className="space-y-6">
       <div className="text-center">
-        <h1 className="text-2xl font-bold text-cool-dark mb-2 font-sans">Вес питомца</h1>
+        <Text variant="bold-24" tag="h1" className="mb-2 text-center">
+          {t("Вес питомца")}
+        </Text>
       </div>
 
       <div className="w-full h-7 inline-flex justify-start items-start gap-6">
@@ -29,9 +34,9 @@ export const DogWeightStep: React.FC<DogWeightStepProps> = ({
           />
         </div>
         <div className="flex justify-end items-start gap-5">
-          <div className="text-gray-700 text-base font-medium font-['Golos_Text']">
-            {data.weight || 1} кг
-          </div>
+          <Text variant="medium-16">
+            {data.weight || 1} {t("кг")}
+          </Text>
         </div>
       </div>
     </div>

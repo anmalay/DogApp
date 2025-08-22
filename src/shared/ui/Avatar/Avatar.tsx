@@ -31,12 +31,12 @@ export const Avatar: React.FC<AvatarProps> = ({
   initials,
   size = "medium",
   variant = "circular",
-  backgroundColor = "bg-gray-300",
+  backgroundColor = "bg-background-secondary",
   onClick,
   className,
 }) => {
   const avatarClasses = classNames(
-    "flex items-center justify-center font-semibold text-gray-700 overflow-hidden",
+    "flex items-center justify-center font-semibold text-text-primary overflow-hidden",
     "transition-transform duration-200",
     sizeStyles[size],
     variantStyles[variant],

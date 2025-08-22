@@ -39,3 +39,7 @@ export { RadioButton } from "./RadioButton";
 export type { RadioButtonProps } from "./RadioButton";
 
 export { CheckIcon } from "./icons";
+
+
+export { Text } from "./Text";
+export type { TextProps, TextVariant, TextTag } from "./Text";

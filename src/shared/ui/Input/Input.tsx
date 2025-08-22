@@ -59,11 +59,17 @@ export const Input: React.FC<InputProps> = ({
   const getInputClasses = () => {
     const baseClasses = [
       "font-normal",
-      "bg-cool-white",
+      "font-sans",
+      "bg-background",
       "transition-all",
       "duration-200",
       "border-0",
       "outline-none",
+      "text-input",
+      "leading-[21px]",
+      "p-5",
+      "h-input",
+      "rounded-[16px]",
     ];
 
     // Size classes
@@ -75,17 +81,17 @@ export const Input: React.FC<InputProps> = ({
 
     // State-based styling
     if (error) {
-      baseClasses.push("outline", "outline-1", "outline-cool-red", "text-cool-dark");
+      baseClasses.push("outline", "outline-1", "outline-error", "text-text-primary");
     } else if (focused) {
-      baseClasses.push("outline", "outline-1", "outline-cool-light-viola", "text-cool-dark");
+      baseClasses.push("outline", "outline-1", "outline-primary", "text-text-primary");
     } else if (required && !hasValue) {
-      baseClasses.push("outline", "outline-1", "outline-cool-viola", "text-cool-dark-gray");
+      baseClasses.push("outline", "outline-1", "outline-border", "text-text-muted");
     } else if (hasValue) {
       // Filled state
-      baseClasses.push("text-cool-dark");
+      baseClasses.push("text-text-primary");
     } else {
       // Default state
-      baseClasses.push("text-cool-dark-gray");
+      baseClasses.push("text-text-muted");
     }
 
     if (disabled) {
@@ -98,9 +104,9 @@ export const Input: React.FC<InputProps> = ({
   return (
     <div className={classNames("flex flex-col", className)}>
       {label && (
-        <label className="block text-sm font-medium text-cool-dark mb-2">
+        <label className="block text-sm font-medium text-text-primary mb-2 font-sans">
           {label}
-          {required && <span className="text-cool-red ml-1">*</span>}
+          {required && <span className="text-error ml-1">*</span>}
         </label>
       )}
       
@@ -115,26 +121,11 @@ export const Input: React.FC<InputProps> = ({
           onFocus={handleFocus}
           onBlur={handleBlur}
           className={getInputClasses()}
-          style={{
-            fontSize: '16px',
-            fontWeight: 400,
-            lineHeight: '21px',
-            padding: '20px',
-            height: '64px',
-            borderRadius: '16px',
-          }}
         />
 
         {/* Error message */}
         {error && errorMessage && (
-          <span 
-            className="text-cool-red font-normal"
-            style={{
-              fontSize: '14px',
-              lineHeight: '18px',
-              fontWeight: 400,
-            }}
-          >
+          <span className="text-error font-normal text-error-text leading-[18px] font-sans">
             {errorMessage}
           </span>
         )}
@@ -142,7 +133,7 @@ export const Input: React.FC<InputProps> = ({
 
       {/* Helper text (only show if no error) */}
       {helperText && !error && (
-        <span className="text-sm text-cool-dark-gray font-normal mt-2">
+        <span className="text-sm text-text-muted font-normal mt-2 font-sans">
           {helperText}
         </span>
       )}

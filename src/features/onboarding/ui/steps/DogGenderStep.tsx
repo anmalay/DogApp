@@ -1,5 +1,6 @@
 import React from "react";
-import { TagRadioGroup, TagRadioOption } from "@shared/ui";
+import { useTranslation } from "react-i18next";
+import { TagRadioGroup, TagRadioOption, Text } from "@shared/ui";
 import { DogProfileData, StepErrors } from "../../model/types";
 
 interface DogGenderStepProps {
@@ -13,9 +14,11 @@ export const DogGenderStep: React.FC<DogGenderStepProps> = ({
   errors,
   onUpdate,
 }) => {
+  const { t } = useTranslation();
+  
   const genderOptions: TagRadioOption[] = [
-    { value: "male", label: "Мальчик 🐕" },
-    { value: "female", label: "Девочка 🐕" },
+    { value: "male", label: t("Мальчик 🐕") },
+    { value: "female", label: t("Девочка 🐕") },
   ];
 
   const handleGenderChange = (value: string) => {
@@ -25,7 +28,9 @@ export const DogGenderStep: React.FC<DogGenderStepProps> = ({
   return (
     <div className="space-y-6">
       <div className="text-center">
-        <h1 className="text-2xl font-bold text-cool-dark mb-2 font-sans">Пол питомца</h1>
+        <Text variant="bold-24" tag="h1" className="mb-2 text-center">
+          {t("Пол питомца")}
+        </Text>
       </div>
 
       <TagRadioGroup
@@ -36,9 +41,9 @@ export const DogGenderStep: React.FC<DogGenderStepProps> = ({
       />
 
       {errors.gender && (
-        <p className="text-cool-red text-sm text-center">
-          Пожалуйста, выберите пол питомца
-        </p>
+        <Text variant="medium-14" color="error" className="text-center">
+          {t("Пожалуйста, выберите пол питомца")}
+        </Text>
       )}
     </div>
   );

@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import { IonContent, IonToast } from "@ionic/react";
 import { Button } from "@shared/ui";
-import { DogProfileData, useDogProfileStepper } from "../../model/useDogProfileStepper";
+import { useDogProfileStepper } from "../../model/useDogProfileStepper";
 import { StepperHeader } from "./StepperHeader";
 import { DogNameStep } from "../steps/DogNameStep";
 import { DogGenderStep } from "../steps/DogGenderStep";
@@ -76,10 +76,10 @@ export const DogProfileStepper: React.FC<DogProfileStepperProps> = ({
         onBack={handleStepBack}
       />
 
-      <IonContent className="bg-white">
+      <IonContent className="bg-background">
         <div className="p-6">{renderStep()}</div>
 
-        <div className="p-6 border-t border-gray-200">
+        <div className="p-6 border-t border-border">
           <div className="flex space-x-4">
             <Button
               variant="outline"

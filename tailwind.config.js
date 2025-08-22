@@ -2,33 +2,41 @@ export const content = ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"];
 export const theme = {
   extend: {
     colors: {
-      // Legacy colors (keeping for backward compatibility)
+      // Theme-aware color system using CSS variables
       primary: {
-        DEFAULT: "#5C6BC0",
-        light: "#7986CB",
-        dark: "#5161a9",
+        DEFAULT: "var(--color-primary)",
+        light: "var(--color-primary-light)",
+        dark: "var(--color-primary-dark)",
       },
-      accent: {
-        DEFAULT: "#FFCA28",
-        light: "#ffcf3e",
-        dark: "#e0b223",
+      secondary: {
+        DEFAULT: "var(--color-secondary)",
+        light: "var(--color-secondary-light)",
+        dark: "var(--color-secondary-dark)",
       },
-      // New Cool color palette
-      cool: {
-        gray: "#F3F3F3",
-        dark: "#3F335A",
-        white: "#FFFFFF",
-        transparent: "#FFFFFF",
-        green: "#23BA6E",
-        pink: "#FE9CC5",
-        "medium-violet": "#645A7A",
-        "light-viola": "#E4DFF0",
-        "dark-gray": "#808794",
-        red: "#F43F5E",
-        violet: "#F3EEFF",
-        "red-light": "#FCE5EA",
-        viola: "#8552FF",
+      background: {
+        DEFAULT: "var(--color-background)",
+        secondary: "var(--color-background-secondary)",
       },
+      surface: {
+        DEFAULT: "var(--color-surface)",
+        secondary: "var(--color-surface-secondary)",
+      },
+      text: {
+        primary: "var(--color-text-primary)",
+        secondary: "var(--color-text-secondary)",
+        muted: "var(--color-text-muted)",
+        "on-primary": "var(--color-text-on-primary)",
+        "on-secondary": "var(--color-text-on-secondary)",
+      },
+      border: {
+        DEFAULT: "var(--color-border)",
+        light: "var(--color-border-light)",
+        dark: "var(--color-border-dark)",
+      },
+      success: "var(--color-success)",
+      warning: "var(--color-warning)",
+      error: "var(--color-error)",
+      info: "var(--color-info)",
     },
     fontFamily: {
       sans: ["Golos Text", "system-ui", "-apple-system", "sans-serif"],
@@ -42,10 +50,23 @@ export const theme = {
       // Common spacings for inputs
       '5': '20px',
       '1.5': '6px',
+      // Additional pixel-based spacings
+      '1': '4px',
+      '2': '8px',
+      '3': '12px',
+      '4': '16px',
+      '6': '24px',
+      '8': '32px',
+      '10': '40px',
+      '12': '48px',
     },
     height: {
       // Input heights
       'input': '64px',
+      'textarea': '124px',
+    },
+    minHeight: {
+      // Textarea minimum height
       'textarea': '124px',
     },
     borderRadius: {

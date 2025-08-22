@@ -1,5 +1,6 @@
 import React from "react";
-import { Checkbox } from "@shared/ui";
+import { useTranslation } from "react-i18next";
+import { Checkbox, Text } from "@shared/ui";
 import { DogProfileData, StepErrors } from "../../model/types";
 
 interface DogHealthStepProps {
@@ -12,6 +13,8 @@ export const DogHealthStep: React.FC<DogHealthStepProps> = ({
   data,
   onUpdate,
 }) => {
+  const { t } = useTranslation();
+  
   const handleHealthChange = (key: string, checked: boolean) => {
     onUpdate({
       health: {
@@ -21,31 +24,32 @@ export const DogHealthStep: React.FC<DogHealthStepProps> = ({
     });
   };
 
-
   return (
     <div className="space-y-6">
       <div className="text-center">
-        <h1 className="text-2xl font-bold text-cool-dark mb-2 font-sans">
-          Информация о здоровье
-        </h1>
-        <p className="text-cool-gray">Необязательный шаг</p>
+        <Text variant="bold-24" tag="h1" className="mb-2 text-center">
+          {t("Информация о здоровье")}
+        </Text>
+        <Text variant="medium-14" color="muted" className="text-center">
+          {t("Необязательный шаг")}
+        </Text>
       </div>
 
       <div className="space-y-4">
         <Checkbox
-          label="Стерилизована"
+          label={t("Стерилизована")}
           checked={data.health.sterilized || false}
           onChange={(checked) => handleHealthChange("sterilized", checked)}
         />
         
         <Checkbox
-          label="Вакцинирована"
+          label={t("Вакцинирована")}
           checked={data.health.vaccinated || false}
           onChange={(checked) => handleHealthChange("vaccinated", checked)}
         />
         
         <Checkbox
-          label="Обработана от паразитов"
+          label={t("Обработана от паразитов")}
           checked={data.health.parasite_treated || false}
           onChange={(checked) => handleHealthChange("parasite_treated", checked)}
         />

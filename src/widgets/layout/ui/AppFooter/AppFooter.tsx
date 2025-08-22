@@ -82,7 +82,7 @@ export const AppFooter: FC = () => {
   return (
     <IonTabBar
       slot="bottom"
-      className="border-t border-gray-200"
+      className="border-t border-border"
       style={{
         "--background": "white",
         height: "56px",
@@ -108,7 +108,7 @@ export const AppFooter: FC = () => {
                   ? isCreate
                     ? "text-[var(--ion-color-tertiary)]"
                     : "text-[var(--ion-color-primary)]"
-                  : "text-gray-400"
+                  : "text-text-muted"
               )}
             />
             <IonLabel
@@ -118,7 +118,7 @@ export const AppFooter: FC = () => {
                   ? isCreate
                     ? "text-[var(--ion-color-tertiary)]"
                     : "text-[var(--ion-color-primary)]"
-                  : "text-gray-400"
+                  : "text-text-muted"
               )}
             >
               {tab.label}

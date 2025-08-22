@@ -10,6 +10,8 @@ export interface SliderProps {
   onChange?: (value: number) => void;
   className?: string;
   disabled?: boolean;
+  label?: string;
+  unit?: string;
 }
 
 export const Slider: React.FC<SliderProps> = ({
@@ -21,6 +23,7 @@ export const Slider: React.FC<SliderProps> = ({
   onChange,
   className,
   disabled = false,
+  unit,
 }) => {
   const [internalValue, setInternalValue] = useState(value ?? defaultValue ?? min);
   const [isDragging, setIsDragging] = useState(false);
@@ -38,86 +41,127 @@ export const Slider: React.FC<SliderProps> = ({
     onChange?.(steppedValue);
   }, [min, max, step, value, onChange]);
 
-  const handleMouseDown = useCallback((event: React.MouseEvent) => {
+  const getPositionFromEvent = useCallback((event: MouseEvent | TouchEvent) => {
+    const rect = sliderRef.current?.getBoundingClientRect();
+    if (!rect) return null;
+    
+    const clientX = 'touches' in event ? event.touches[0].clientX : event.clientX;
+    const x = clientX - rect.left;
+    const percentage = Math.min(1, Math.max(0, x / rect.width));
+    return min + percentage * (max - min);
+  }, [min, max]);
+
+  const handleStart = useCallback((event: React.MouseEvent | React.TouchEvent) => {
     if (disabled) return;
+    event.preventDefault();
     setIsDragging(true);
     
-    const rect = sliderRef.current?.getBoundingClientRect();
-    if (!rect) return;
-    
-    const x = event.clientX - rect.left;
-    const percentage = x / rect.width;
-    const newValue = min + percentage * (max - min);
-    updateValue(newValue);
-  }, [disabled, min, max, updateValue]);
+    const newValue = getPositionFromEvent(event.nativeEvent as MouseEvent | TouchEvent);
+    if (newValue !== null) {
+      updateValue(newValue);
+    }
+  }, [disabled, getPositionFromEvent, updateValue]);
 
-  const handleMouseMove = useCallback((event: MouseEvent) => {
+  const handleMove = useCallback((event: MouseEvent | TouchEvent) => {
     if (!isDragging || disabled) return;
+    event.preventDefault();
     
-    const rect = sliderRef.current?.getBoundingClientRect();
-    if (!rect) return;
-    
-    const x = event.clientX - rect.left;
-    const percentage = Math.min(1, Math.max(0, x / rect.width));
-    const newValue = min + percentage * (max - min);
-    updateValue(newValue);
-  }, [isDragging, disabled, min, max, updateValue]);
+    const newValue = getPositionFromEvent(event);
+    if (newValue !== null) {
+      updateValue(newValue);
+    }
+  }, [isDragging, disabled, getPositionFromEvent, updateValue]);
 
-  const handleMouseUp = useCallback(() => {
+  const handleEnd = useCallback(() => {
     setIsDragging(false);
   }, []);
 
   useEffect(() => {
     if (isDragging) {
-      document.addEventListener('mousemove', handleMouseMove);
+      const handleMouseMove = (e: MouseEvent) => handleMove(e);
+      const handleTouchMove = (e: TouchEvent) => handleMove(e);
+      const handleMouseUp = () => handleEnd();
+      const handleTouchEnd = () => handleEnd();
+      
+      document.addEventListener('mousemove', handleMouseMove, { passive: false });
+      document.addEventListener('touchmove', handleTouchMove, { passive: false });
       document.addEventListener('mouseup', handleMouseUp);
+      document.addEventListener('touchend', handleTouchEnd);
+      
       return () => {
         document.removeEventListener('mousemove', handleMouseMove);
+        document.removeEventListener('touchmove', handleTouchMove);
         document.removeEventListener('mouseup', handleMouseUp);
+        document.removeEventListener('touchend', handleTouchEnd);
       };
     }
-  }, [isDragging, handleMouseMove, handleMouseUp]);
+  }, [isDragging, handleMove, handleEnd]);
 
   const percentage = ((currentValue - min) / (max - min)) * 100;
 
   return (
-    <div className={classNames('relative w-full', className)}>
-      <div
-        ref={sliderRef}
-        className="relative h-2 bg-gray-200 rounded-full cursor-pointer"
-        onMouseDown={handleMouseDown}
-        style={{
-          background: '#E5E7EB',
-          height: '8px',
-          borderRadius: '4px',
-        }}
-      >
+    <div className={classNames('w-full h-7 inline-flex justify-start items-start gap-6', className)}>
+      <div className="flex-1 h-7 relative">
+        {/* Background track */}
+        <div className="w-full h-[3px] left-0 top-[13px] absolute opacity-50 bg-border rounded-full" />
+        
         {/* Progress track */}
         <div
-          className="absolute top-0 left-0 h-full rounded-full"
+          className="h-[3px] left-0 top-[13px] absolute bg-secondary rounded-full"
           style={{
             width: `${percentage}%`,
-            background: '#10B981',
-            height: '8px',
-            borderRadius: '4px',
           }}
+        />
+        
+        {/* Interactive area */}
+        <div
+          ref={sliderRef}
+          className="absolute inset-0 cursor-pointer touch-none"
+          onMouseDown={handleStart}
+          onTouchStart={handleStart}
         />
         
         {/* Thumb */}
         <div
-          className="absolute top-1/2 transform -translate-y-1/2 -translate-x-1/2"
+          className={classNames(
+            "absolute top-[2px] transform -translate-x-1/2",
+            {
+              "cursor-grab": !disabled,
+              "cursor-not-allowed": disabled,
+            }
+          )}
           style={{
             left: `${percentage}%`,
-            width: '20px',
-            height: '20px',
-            background: '#FFFFFF',
-            border: '2px solid #10B981',
-            borderRadius: '50%',
-            boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
-            cursor: disabled ? 'not-allowed' : 'grab',
           }}
-        />
+        >
+          <svg width="43" height="43" viewBox="0 0 43 43" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <g filter="url(#filter0_d_622_3090)">
+              <circle cx="21.5" cy="16.5" r="12.5" fill="white"/>
+              <circle cx="21.5" cy="16.5" r="11" stroke="var(--color-secondary)" strokeWidth="3"/>
+            </g>
+            <defs>
+              <filter id="filter0_d_622_3090" x="0" y="0" width="43" height="43" filterUnits="userSpaceOnUse" colorInterpolationFilters="sRGB">
+                <feFlood floodOpacity="0" result="BackgroundImageFix"/>
+                <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+                <feOffset dy="5"/>
+                <feGaussianBlur stdDeviation="4.5"/>
+                <feComposite in2="hardAlpha" operator="out"/>
+                <feColorMatrix type="matrix" values="0 0 0 0 0.258824 0 0 0 0 0.227451 0 0 0 0 0.227451 0 0 0 0.06 0"/>
+                <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_622_3090"/>
+                <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_622_3090" result="shape"/>
+              </filter>
+            </defs>
+          </svg>
+        </div>
       </div>
+      
+      {currentValue && unit && (
+        <div className="flex justify-end items-start gap-5">
+          <div className="text-text-primary text-base font-medium font-sans">
+            {currentValue} {unit}
+          </div>
+        </div>
+      )}
     </div>
   );
 };

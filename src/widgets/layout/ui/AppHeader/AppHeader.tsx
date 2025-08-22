@@ -64,7 +64,7 @@ export const AppHeader: FC<AppHeaderProps> = ({
               }
             : {
                 "--background":
-                  "linear-gradient(135deg, #5C6BC0 0%, #7986CB 100%)",
+                  "linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-light) 100%)",
                 "--color": "white",
               }
         }
@@ -94,7 +94,7 @@ export const AppHeader: FC<AppHeaderProps> = ({
                 <IonIcon
                   icon={personCircleOutline}
                   className="text-3xl"
-                  style={{ color: transparent ? "#1f2937" : "white" }}
+                  style={{ color: transparent ? "var(--color-text-primary)" : "var(--color-text-on-primary)" }}
                 />
               )}
             </IonButton>
@@ -116,7 +116,7 @@ export const AppHeader: FC<AppHeaderProps> = ({
           >
             <IonIcon
               icon={notificationsOutline}
-              style={{ color: transparent ? "#1f2937" : "white" }}
+              style={{ color: transparent ? "var(--color-text-primary)" : "var(--color-text-on-primary)" }}
             />
             {notificationCount > 0 && (
               <IonBadge
@@ -140,7 +140,7 @@ export const AppHeader: FC<AppHeaderProps> = ({
             >
               <IonIcon
                 icon={addOutline}
-                style={{ color: transparent ? "#1f2937" : "white" }}
+                style={{ color: transparent ? "var(--color-text-primary)" : "var(--color-text-on-primary)" }}
               />
             </IonButton>
           )}

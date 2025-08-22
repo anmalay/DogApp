@@ -10,18 +10,18 @@ export interface BadgeProps {
 }
 
 const variantStyles = {
-  primary: "bg-purple-100 text-purple-800 border-purple-200",
-  secondary: "bg-gray-100 text-gray-800 border-gray-200",
-  success: "bg-green-100 text-green-800 border-green-200",
-  warning: "bg-yellow-100 text-yellow-800 border-yellow-200",
-  error: "bg-red-100 text-red-800 border-red-200",
-  info: "bg-blue-100 text-blue-800 border-blue-200",
+  primary: "bg-primary/10 text-primary border-primary/20",
+  secondary: "bg-secondary/10 text-secondary border-secondary/20",
+  success: "bg-success/10 text-success border-success/20",
+  warning: "bg-warning/10 text-warning border-warning/20",
+  error: "bg-error/10 text-error border-error/20",
+  info: "bg-info/10 text-info border-info/20",
 };
 
 const sizeStyles = {
-  small: "px-2 py-1 text-xs",
-  medium: "px-3 py-1 text-sm",
-  large: "px-4 py-2 text-base",
+  small: "px-[8px] py-[4px] text-[12px]",
+  medium: "px-[12px] py-[4px] text-[14px]",
+  large: "px-[16px] py-[8px] text-[16px]",
 };
 
 export const Badge: React.FC<BadgeProps> = ({

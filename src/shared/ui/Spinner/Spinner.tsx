@@ -14,8 +14,8 @@ const sizeStyles = {
 };
 
 const colorStyles = {
-  primary: "border-purple-600 border-t-transparent",
-  secondary: "border-gray-600 border-t-transparent",
+  primary: "border-primary border-t-transparent",
+  secondary: "border-secondary border-t-transparent",
   white: "border-white border-t-transparent",
 };
 

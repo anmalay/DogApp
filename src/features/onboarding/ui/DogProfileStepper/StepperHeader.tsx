@@ -14,7 +14,7 @@ export const StepperHeader: React.FC<StepperHeaderProps> = ({
   onBack,
 }) => {
   return (
-    <div className="bg-white p-4 border-b border-gray-200">
+    <div className="bg-background p-4 border-b border-border">
       <div className="flex items-center space-x-4">
         <IonIcon
           icon={arrowBack}
@@ -23,7 +23,7 @@ export const StepperHeader: React.FC<StepperHeaderProps> = ({
         />
         <div className="flex-1">
           <IonProgressBar value={currentStep / totalSteps} color="primary" />
-          <IonText className="text-sm text-gray-500 mt-1 block">
+          <IonText className="text-sm text-text-muted mt-1 block">
             Шаг {currentStep} из {totalSteps}
           </IonText>
         </div>

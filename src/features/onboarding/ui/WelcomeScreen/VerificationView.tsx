@@ -14,15 +14,15 @@ export const VerificationView: React.FC<VerificationViewProps> = ({
     <div className="flex flex-col h-full">
       <div className="p-6 text-center flex-1 flex flex-col justify-center">
         <div className="space-y-6">
-          <div className="w-24 h-24 mx-auto bg-green-100 rounded-full flex items-center justify-center">
+          <div className="w-24 h-24 mx-auto bg-secondary/20 rounded-full flex items-center justify-center">
             <div className="text-4xl">🛡️</div>
           </div>
 
           <div className="space-y-4">
-            <h1 className="text-2xl font-bold text-gray-800">
+            <h1 className="text-2xl font-bold text-text-primary">
               Мы за безопасность
             </h1>
-            <p className="text-gray-600">
+            <p className="text-text-secondary">
               Пройдите верификацию, чтобы получить доступ ко всем функциям
             </p>
           </div>

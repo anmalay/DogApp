@@ -48,26 +48,25 @@ export const Tag: React.FC<TagProps> = ({
       baseClasses.push("gap-2");
     }
 
-    // Variant and state classes
+    // Variant and state classes using Tailwind theme classes
     if (disabled) {
-      baseClasses.push("bg-zinc-100", "text-gray-400", "cursor-not-allowed");
+      baseClasses.push("bg-background-secondary", "text-text-muted", "cursor-not-allowed");
     } else if (selected) {
       if (variant === "accent") {
-        baseClasses.push("bg-pink-300", "text-white");
+        baseClasses.push("bg-warning", "text-text-on-primary");
       } else {
-        baseClasses.push("bg-gray-700", "text-white");
+        baseClasses.push("bg-primary", "text-text-on-primary");
       }
     } else {
       if (variant === "outline") {
         baseClasses.push(
           "bg-transparent",
-          "text-gray-500",
-          "outline",
-          "outline-1",
-          "outline-slate-200"
+          "text-text-muted",
+          "border",
+          "border-border"
         );
       } else {
-        baseClasses.push("bg-white", "text-gray-700", "hover:bg-gray-50");
+        baseClasses.push("bg-surface", "text-text-primary", "hover:bg-background-secondary");
       }
     }
 
@@ -84,10 +83,6 @@ export const Tag: React.FC<TagProps> = ({
     <div
       className={classNames(getTagClasses(), className)}
       onClick={handleClick}
-      style={{
-        fontFamily: 'Golos Text',
-        lineHeight: size === "small" ? 'normal' : 'tight',
-      }}
     >
       {icon && (
         <div className={size === "small" ? "w-4 h-4" : "w-5 h-5"}>

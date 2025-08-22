@@ -1,13 +1,13 @@
 import React, { useState } from "react";
-import { 
-  Button, 
-  Input, 
-  Textarea, 
-  Card, 
-  Avatar, 
+import {
+  Button,
+  Input,
+  Textarea,
+  Card,
+  Avatar,
   Badge,
   RadioGroup,
-  RadioOption 
+  RadioOption,
 } from "@shared/ui";
 
 interface ProfileFormData {
@@ -51,18 +51,18 @@ export const ProfileEditForm: React.FC<ProfileEditFormProps> = ({
   ];
 
   const updateField = (field: keyof ProfileFormData, value: string) => {
-    setFormData(prev => ({ ...prev, [field]: value }));
+    setFormData((prev) => ({ ...prev, [field]: value }));
     if (errors[field]) {
-      setErrors(prev => ({ ...prev, [field]: false }));
+      setErrors((prev) => ({ ...prev, [field]: false }));
     }
   };
 
   const validateForm = () => {
     const newErrors: Record<string, boolean> = {};
-    
+
     if (!formData.name.trim()) newErrors.name = true;
     if (!formData.email.trim()) newErrors.email = true;
-    
+
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -74,7 +74,11 @@ export const ProfileEditForm: React.FC<ProfileEditFormProps> = ({
   };
 
   return (
-    <Card title="Редактировать профиль" variant="elevated" className="max-w-md mx-auto">
+    <Card
+      title="Редактировать профиль"
+      variant="elevated"
+      className="max-w-md mx-auto"
+    >
       <div className="space-y-6">
         {/* Avatar Section */}
         <div className="text-center">
@@ -85,7 +89,7 @@ export const ProfileEditForm: React.FC<ProfileEditFormProps> = ({
             onClick={() => console.log("Upload avatar")}
             className="cursor-pointer hover:opacity-80 transition-opacity"
           />
-          <p className="text-sm text-gray-500 mt-2">
+          <p className="text-[14px] text-text-muted mt-2">
             Нажмите, чтобы изменить аватар
           </p>
         </div>
@@ -123,7 +127,7 @@ export const ProfileEditForm: React.FC<ProfileEditFormProps> = ({
           />
 
           <div className="space-y-2">
-            <label className="block text-sm font-medium text-gray-700">
+            <label className="block text-[14px] font-medium text-text-primary">
               Пол
             </label>
             <RadioGroup
@@ -147,7 +151,11 @@ export const ProfileEditForm: React.FC<ProfileEditFormProps> = ({
         {/* Status Badge */}
         <div className="flex justify-center">
           <Badge variant="success">
-            ✓ Профиль заполнен на {Math.round((Object.values(formData).filter(v => v).length / 6) * 100)}%
+            ✓ Профиль заполнен на{" "}
+            {Math.round(
+              (Object.values(formData).filter((v) => v).length / 6) * 100
+            )}
+            %
           </Badge>
         </div>
 
@@ -161,7 +169,7 @@ export const ProfileEditForm: React.FC<ProfileEditFormProps> = ({
           >
             Отмена
           </Button>
-          
+
           <Button
             variant="primary"
             fullWidth
