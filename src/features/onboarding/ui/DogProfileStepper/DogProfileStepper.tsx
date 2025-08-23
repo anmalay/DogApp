@@ -1,6 +1,6 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { IonContent, IonToast } from "@ionic/react";
+import { IonToast } from "@ionic/react";
 import { Button } from "@shared/ui";
 import { useDogProfileStepper } from "../../model/useDogProfileStepper";
 import { StepperHeader } from "./StepperHeader";
@@ -14,6 +14,7 @@ import { DogCharacterStep } from "../steps/DogCharacterStep";
 import { DogCommentStep } from "../steps/DogCommentStep";
 import { DogPhotosStep } from "../steps/DogPhotosStep";
 import { OwnerInfoStep } from "../steps/OwnerInfoStep";
+import welcomeDogImage from "@shared/assets/images/welcome/welcomeDog.webp";
 
 interface DogProfileStepperProps {
   onComplete: () => void;
@@ -71,30 +72,48 @@ export const DogProfileStepper: React.FC<DogProfileStepperProps> = ({
   };
 
   return (
-    <>
-      <StepperHeader
-        currentStep={currentStep}
-        totalSteps={10}
-        onBack={handleStepBack}
-      />
+    <div className="w-full h-screen flex flex-col bg-[#F3F3F3] pt-5 pb-10 px-5 pt-10">
+      <div className="flex flex-col flex-1 gap-[40px]">
+        {/* Header Section */}
+        <div className="flex flex-col gap-[40px]">
+          <StepperHeader
+            currentStep={currentStep}
+            totalSteps={10}
+            onBack={handleStepBack}
+          />
 
-      <IonContent className="bg-background">
-        <div className="p-6">{renderStep()}</div>
+          {/* Dog Image */}
+          <div className="w-full h-[380px] relative overflow-hidden rounded-[24px]">
+            <img
+              src={welcomeDogImage}
+              alt="Welcome Dog"
+              className="w-full h-full object-cover"
+            />
+          </div>
+        </div>
 
-        <div className="p-6 border-t border-border">
-          <div className="flex space-x-4">
+        {/* Content Section */}
+        <div className="flex-1 flex flex-col justify-between items-center pb-5">
+          <div className="w-full">{renderStep()}</div>
+
+          {/* Action Buttons */}
+          <div className="w-full flex gap-[10px]">
             <Button
               variant="outline"
+              size="large"
+              fullWidth
               onClick={handleStepBack}
-              className="flex-1"
+              className="text-[#3F335A] bg-white hover:bg-gray-50"
             >
-{t("Back")}
+              {t("Back")}
             </Button>
 
             <Button
               variant="primary"
+              size="large"
+              fullWidth
               onClick={handleNext}
-              className="flex-1"
+              className="bg-[#3F335A] hover:bg-[#342B47]"
             >
               {currentStep === 9 && stepperData.photos.length === 0
                 ? t("Add Photo")
@@ -102,7 +121,7 @@ export const DogProfileStepper: React.FC<DogProfileStepperProps> = ({
             </Button>
           </div>
         </div>
-      </IonContent>
+      </div>
 
       <IonToast
         isOpen={showToast}
@@ -110,6 +129,6 @@ export const DogProfileStepper: React.FC<DogProfileStepperProps> = ({
         duration={2000}
         onDidDismiss={() => setShowToast(false)}
       />
-    </>
+    </div>
   );
 };

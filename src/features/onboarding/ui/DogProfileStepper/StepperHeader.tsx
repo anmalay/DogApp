@@ -1,7 +1,4 @@
 import React from "react";
-import { useTranslation } from "react-i18next";
-import { IonIcon, IonProgressBar, IonText } from "@ionic/react";
-import { arrowBack } from "ionicons/icons";
 
 interface StepperHeaderProps {
   currentStep: number;
@@ -14,22 +11,30 @@ export const StepperHeader: React.FC<StepperHeaderProps> = ({
   totalSteps,
   onBack,
 }) => {
-  const { t } = useTranslation();
   return (
-    <div className="bg-background p-4 border-b border-border">
-      <div className="flex items-center space-x-4">
-        <IonIcon
-          icon={arrowBack}
-          className="text-2xl cursor-pointer"
-          onClick={onBack}
-        />
-        <div className="flex-1">
-          <IonProgressBar value={currentStep / totalSteps} color="primary" />
-          <IonText className="text-sm text-text-muted mt-1 block">
-            {t("Step")} {currentStep} {t("of")} {totalSteps}
-          </IonText>
+    <div 
+      className="flex items-center gap-[5px] w-full h-1 py-0.5" 
+      data-step={currentStep}
+    >
+      {Array.from({ length: totalSteps }).map((_, index) => (
+        <div key={index} className="flex-1">
+          <svg 
+            width="100%" 
+            height="4" 
+            viewBox="0 0 31 4" 
+            fill="none" 
+            xmlns="http://www.w3.org/2000/svg"
+            preserveAspectRatio="none"
+          >
+            <rect 
+              width="100%" 
+              height="4" 
+              rx="2" 
+              fill={index < currentStep ? "#3F335A" : "white"}
+            />
+          </svg>
         </div>
-      </div>
+      ))}
     </div>
   );
 };
