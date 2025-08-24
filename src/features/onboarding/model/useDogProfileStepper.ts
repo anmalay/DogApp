@@ -2,12 +2,21 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { DogProfileData, StepErrors } from "./types";
 
+const getCurrentDate = () => {
+  const today = new Date();
+  return {
+    day: today.getDate(),
+    month: today.getMonth() + 1,
+    year: today.getFullYear(),
+  };
+};
+
 const initialData: DogProfileData = {
   name: "",
   gender: "",
   weight: 20,
   breed: "",
-  birthDate: { day: 1, month: 1, year: 2022 },
+  birthDate: getCurrentDate(),
   health: {
     sterilized: false,
     vaccinated: false,

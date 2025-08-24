@@ -30,7 +30,7 @@ export const DatePicker: React.FC<DatePickerProps> = ({
   const scrollRefs = useRef<{ [key: string]: HTMLDivElement | null }>({});
 
   const currentYear = new Date().getFullYear();
-  const years = Array.from({ length: 15 }, (_, i) => currentYear - i);
+  const years = Array.from({ length: 100 }, (_, i) => currentYear - i);
   const days = Array.from({ length: 31 }, (_, i) => i + 1);
 
   const handleScroll = (type: 'day' | 'month' | 'year', element: HTMLDivElement) => {
