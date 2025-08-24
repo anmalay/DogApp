@@ -1,5 +1,6 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
+import { DatePicker } from "@shared/ui";
 import { DogProfileData, StepErrors } from "../../model/types";
 
 interface DogBirthDateStepProps {
@@ -8,13 +9,28 @@ interface DogBirthDateStepProps {
   onUpdate: (updates: Partial<DogProfileData>) => void;
 }
 
-export const DogBirthDateStep: React.FC<DogBirthDateStepProps> = () => {
+export const DogBirthDateStep: React.FC<DogBirthDateStepProps> = ({
+  data,
+  onUpdate,
+}) => {
   const { t } = useTranslation();
+
+  const handleDateChange = (birthDate: { day: number; month: number; year: number }) => {
+    onUpdate({ birthDate });
+  };
+
   return (
-    <div className="space-y-6">
-      <div className="text-center">
-        <h1 className="text-2xl font-bold text-text-primary mb-2">{t("Birth Date")}</h1>
-        <p className="text-text-secondary">{t("Step content to be implemented")}</p>
+    <div className="self-stretch relative inline-flex flex-col justify-start items-center gap-12">
+      <div className="self-stretch justify-start text-gray-700 text-2xl font-bold font-['Golos_Text'] leading-relaxed text-center">
+        {t("When was {{name}} born?", { name: data.name || t("your dog") })}
+      </div>
+      
+      <div className="self-stretch h-72 relative flex flex-col justify-start items-center overflow-hidden">
+        <DatePicker
+          value={data.birthDate}
+          onChange={handleDateChange}
+          className="w-full"
+        />
       </div>
     </div>
   );
