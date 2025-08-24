@@ -21,18 +21,13 @@ export const DogCommentStep: React.FC<DogCommentStepProps> = ({
         <Text variant="bold-24" tag="h1" className="mb-2 text-center">
           {t("Tell us about your pet")}
         </Text>
-        <Text variant="medium-14" color="muted" className="text-center">
-          {t("Optional step")}
-        </Text>
       </div>
 
       <Textarea
         placeholder={t("Tell what other owners should know before walks")}
         value={data.comment}
-        maxLength={200}
         rows={4}
         showCharCount
-        helperText={t("Share personality traits, habits or important details")}
         onInput={(value) => onUpdate({ comment: value })}
       />
     </div>

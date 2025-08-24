@@ -91,5 +91,7 @@
   "Profile": "Профиль",
   "Activities": "Активности",
   "Please select a breed to continue": "Выберите породу, чтобы продолжить",
-  "Excellent! One step left": "Отлично! Остался один шаг"
+  "Excellent! One step left": "Отлично! Остался один шаг",
+  "When was {{name}} born?": "Когда родилась {{name}}?",
+  "your dog": "ваша собака"
 }

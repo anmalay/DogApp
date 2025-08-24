@@ -72,15 +72,31 @@ export const Textarea: React.FC<TextareaProps> = ({
       "p-5",
       "min-h-textarea",
       "rounded-input",
+      "rounded-[16px]",
     ];
 
     // State-based styling
     if (error) {
-      baseClasses.push("outline", "outline-1", "outline-error", "text-text-primary");
+      baseClasses.push(
+        "outline",
+        "outline-1",
+        "outline-error",
+        "text-text-primary"
+      );
     } else if (focused) {
-      baseClasses.push("outline", "outline-1", "outline-primary", "text-text-primary");
+      baseClasses.push(
+        "outline",
+        "outline-1",
+        "outline-primary",
+        "text-text-primary"
+      );
     } else if (required && !hasValue) {
-      baseClasses.push("outline", "outline-1", "outline-border", "text-text-muted");
+      baseClasses.push(
+        "outline",
+        "outline-1",
+        "outline-border",
+        "text-text-muted"
+      );
     } else if (hasValue) {
       // Filled state
       baseClasses.push("text-text-primary");
@@ -104,8 +120,12 @@ export const Textarea: React.FC<TextareaProps> = ({
           {required && <span className="text-error ml-1">*</span>}
         </label>
       )}
-      
-      <div className={classNames("flex flex-col", { "gap-1.5": error && errorMessage })}>
+
+      <div
+        className={classNames("flex flex-col", {
+          "gap-1.5": error && errorMessage,
+        })}
+      >
         <textarea
           value={value}
           placeholder={focused ? "" : placeholder}

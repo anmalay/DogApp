@@ -43,3 +43,6 @@ export { CheckIcon } from "./icons";
 
 export { Text } from "./Text";
 export type { TextProps, TextVariant, TextTag } from "./Text";
+
+export { DatePicker } from "./DatePicker";
+export type { DatePickerProps, DatePickerValue } from "./DatePicker";

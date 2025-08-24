@@ -14,7 +14,7 @@ export const DogHealthStep: React.FC<DogHealthStepProps> = ({
   onUpdate,
 }) => {
   const { t } = useTranslation();
-  
+
   const handleHealthChange = (key: string, checked: boolean) => {
     onUpdate({
       health: {
@@ -30,28 +30,27 @@ export const DogHealthStep: React.FC<DogHealthStepProps> = ({
         <Text variant="bold-24" tag="h1" className="mb-2 text-center">
           {t("Health Information")}
         </Text>
-        <Text variant="medium-14" color="muted" className="text-center">
-          {t("Optional step")}
-        </Text>
       </div>
 
-      <div className="space-y-4">
+      <div className="space-y-1">
         <Checkbox
           label={t("Spayed/Neutered")}
           checked={data.health.sterilized || false}
           onChange={(checked) => handleHealthChange("sterilized", checked)}
         />
-        
+
         <Checkbox
           label={t("Vaccinated")}
           checked={data.health.vaccinated || false}
           onChange={(checked) => handleHealthChange("vaccinated", checked)}
         />
-        
+
         <Checkbox
           label={t("Parasite treated")}
           checked={data.health.parasite_treated || false}
-          onChange={(checked) => handleHealthChange("parasite_treated", checked)}
+          onChange={(checked) =>
+            handleHealthChange("parasite_treated", checked)
+          }
         />
       </div>
     </div>

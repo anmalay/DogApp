@@ -49,33 +49,38 @@ export const useDogProfileStepper = (
   };
 
   const updateStepperData = (updates: Partial<DogProfileData>) => {
-    setStepperData((prev) => {
-      const newData = { ...prev, ...updates };
-      
-      // Clear relevant errors when data is updated
-      const newErrors = { ...errors };
+    setStepperData((prev) => ({ ...prev, ...updates }));
+
+    // Clear relevant errors when data is updated
+    setErrors((prevErrors) => {
+      const newErrors = { ...prevErrors };
+      let hasChanges = false;
+
       if (updates.name !== undefined && newErrors.name) {
         delete newErrors.name;
-        setErrors(newErrors);
+        hasChanges = true;
       }
       if (updates.gender !== undefined && newErrors.gender) {
         delete newErrors.gender;
-        setErrors(newErrors);
+        hasChanges = true;
       }
       if (updates.breed !== undefined && newErrors.breed) {
         delete newErrors.breed;
-        setErrors(newErrors);
+        hasChanges = true;
       }
       if (updates.owner?.name !== undefined && newErrors.ownerName) {
         delete newErrors.ownerName;
-        setErrors(newErrors);
+        hasChanges = true;
       }
-      
-      return newData;
+
+      return hasChanges ? newErrors : prevErrors;
     });
   };
 
-  const validateStep = (step: number, currentData?: DogProfileData): boolean => {
+  const validateStep = (
+    step: number,
+    currentData?: DogProfileData
+  ): boolean => {
     const dataToValidate = currentData || stepperData;
     const newErrors: StepErrors = {};
 
@@ -134,7 +139,7 @@ export const useDogProfileStepper = (
             onComplete();
           }, 2000);
         }
-        
+
         return currentData;
       });
     }, 0);

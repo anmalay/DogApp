@@ -83,13 +83,18 @@ export const DogProfileStepper: React.FC<DogProfileStepperProps> = ({
           />
 
           {/* Dog Image */}
-          <div className="w-full h-[380px] relative overflow-hidden rounded-[24px]">
-            <img
-              src={welcomeDogImage}
-              alt="Welcome Dog"
-              className="w-full h-full object-cover"
-            />
-          </div>
+          {(currentStep === 1 ||
+            currentStep === 2 ||
+            currentStep === 3 ||
+            currentStep === 8) && (
+            <div className="w-full h-[380px] relative overflow-hidden rounded-[24px]">
+              <img
+                src={welcomeDogImage}
+                alt="Welcome Dog"
+                className="w-full h-full object-cover"
+              />
+            </div>
+          )}
         </div>
 
         {/* Content Section */}
