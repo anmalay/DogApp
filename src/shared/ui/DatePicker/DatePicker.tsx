@@ -136,24 +136,24 @@ export const DatePicker: React.FC<DatePickerProps> = ({
 
   return (
     <div className={`w-full h-72 relative flex flex-col justify-start items-center overflow-hidden ${className}`}>
-      <div className="flex justify-between items-center w-full h-full relative px-5">
+      <div className="flex justify-between items-center w-full h-full relative">
         {renderColumn('day', days, 'w-7')}
-        {renderColumn('month', months, 'w-16')}
+        {renderColumn('month', months, 'w-24')}
         {renderColumn('year', years, 'w-12')}
       </div>
 
       {/* Selection highlight overlay spanning full component width */}
-      <div className="absolute top-1/2 left-0 right-0 h-14 -translate-y-1/2 bg-white rounded-2xl pointer-events-none z-10 mx-5" />
+      <div className="absolute top-1/2 left-0 right-0 h-14 -translate-y-1/2 bg-white rounded-2xl pointer-events-none z-10" />
       
       {/* Text overlay for selected values - aligned with columns */}
-      <div className="absolute top-1/2 left-0 right-0 h-14 -translate-y-1/2 flex justify-between items-center pointer-events-none z-20 px-5">
+      <div className="absolute top-1/2 left-0 right-0 h-14 -translate-y-1/2 flex justify-between items-center pointer-events-none z-20">
         <div className="flex-1 flex justify-center">
           <span className="w-7 text-center text-base font-medium font-['Golos_Text'] text-gray-700">
             {value.day}
           </span>
         </div>
         <div className="flex-1 flex justify-center">
-          <span className="w-16 text-center text-base font-medium font-['Golos_Text'] text-gray-700">
+          <span className="w-24 text-center text-base font-medium font-['Golos_Text'] text-gray-700">
             {months[value.month - 1]}
           </span>
         </div>

@@ -15,16 +15,20 @@ export const DogBirthDateStep: React.FC<DogBirthDateStepProps> = ({
 }) => {
   const { t } = useTranslation();
 
-  const handleDateChange = (birthDate: { day: number; month: number; year: number }) => {
+  const handleDateChange = (birthDate: {
+    day: number;
+    month: number;
+    year: number;
+  }) => {
     onUpdate({ birthDate });
   };
 
   return (
-    <div className="self-stretch relative inline-flex flex-col justify-start items-center gap-12">
+    <div className="self-stretch relative inline-flex flex-col justify-start items-center gap-12 w-full">
       <div className="self-stretch justify-start text-gray-700 text-2xl font-bold font-['Golos_Text'] leading-relaxed text-center">
         {t("When was {{name}} born?", { name: data.name || t("your dog") })}
       </div>
-      
+
       <div className="self-stretch h-72 relative flex flex-col justify-start items-center overflow-hidden">
         <DatePicker
           value={data.birthDate}
