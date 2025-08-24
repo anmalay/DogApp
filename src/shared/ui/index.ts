@@ -30,7 +30,13 @@ export { Modal } from "./Modal/Modal";
 export type { ModalProps } from "./Modal/Modal";
 
 export { Tag, TagRadioGroup, TagCheckboxGroup } from "./Tag";
-export type { TagProps, TagRadioGroupProps, TagCheckboxGroupProps, TagRadioOption, TagCheckboxOption } from "./Tag";
+export type {
+  TagProps,
+  TagRadioGroupProps,
+  TagCheckboxGroupProps,
+  TagRadioOption,
+  TagCheckboxOption,
+} from "./Tag";
 
 export { Slider } from "./Slider";
 export type { SliderProps } from "./Slider";
@@ -40,9 +46,5 @@ export type { RadioButtonProps } from "./RadioButton";
 
 export { CheckIcon } from "./icons";
 
-
 export { Text } from "./Text";
 export type { TextProps, TextVariant, TextTag } from "./Text";
-
-export { DatePicker } from "./DatePicker";
-export type { DatePickerProps, DatePickerValue } from "./DatePicker";
