@@ -1,5 +1,5 @@
 import React from "react";
-import { useTranslation } from "react-i18next";
+import { ImageUpload } from "../../../../shared/ui";
 import { DogProfileData, StepErrors } from "../../model/types";
 
 interface DogPhotosStepProps {
@@ -8,14 +8,21 @@ interface DogPhotosStepProps {
   onUpdate: (updates: Partial<DogProfileData>) => void;
 }
 
-export const DogPhotosStep: React.FC<DogPhotosStepProps> = () => {
-  const { t } = useTranslation();
+export const DogPhotosStep: React.FC<DogPhotosStepProps> = ({
+  data,
+  onUpdate,
+}) => {
+  const handlePhotosChange = (photos: string[]) => {
+    onUpdate({ photos });
+  };
+
   return (
     <div className="space-y-6">
-      <div className="text-center">
-        <h1 className="text-2xl font-bold text-text-primary mb-2">{t("Pet Photos")}</h1>
-        <p className="text-text-secondary">{t("Step content to be implemented")}</p>
-      </div>
+      <ImageUpload
+        images={data.photos}
+        onChange={handlePhotosChange}
+        maxImages={4}
+      />
     </div>
   );
 };

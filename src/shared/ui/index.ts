@@ -29,6 +29,9 @@ export type { SpinnerProps } from "./Spinner/Spinner";
 export { Modal } from "./Modal/Modal";
 export type { ModalProps } from "./Modal/Modal";
 
+export { BottomDrawer } from "./BottomDrawer";
+export type { BottomDrawerProps } from "./BottomDrawer/BottomDrawer";
+
 export { Tag, TagRadioGroup, TagCheckboxGroup } from "./Tag";
 export type {
   TagProps,
@@ -44,10 +47,13 @@ export type { SliderProps } from "./Slider";
 export { RadioButton } from "./RadioButton";
 export type { RadioButtonProps } from "./RadioButton";
 
-export { CheckIcon } from "./icons";
+export { CheckIcon, CameraIcon, MenuDotsIcon, PawIcon, TrashIcon, DrawerHandleIcon } from "./icons";
 
 export { Text } from "./Text";
 export type { TextProps, TextVariant, TextTag } from "./Text";
 
 export { DatePicker } from "./DatePicker";
 export type { DatePickerProps } from "./DatePicker";
+
+export { ImageUpload } from "./ImageUpload";
+export type { ImageUploadProps } from "./ImageUpload";
