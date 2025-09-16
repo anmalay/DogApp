@@ -9,7 +9,6 @@ interface StepperHeaderProps {
 export const StepperHeader: React.FC<StepperHeaderProps> = ({
   currentStep,
   totalSteps,
-  onBack,
 }) => {
   return (
     <div 

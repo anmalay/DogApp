@@ -102,7 +102,7 @@ export const useDogProfileStepper = (
         }
         break;
       case 2:
-        if (!dataToValidate.gender || dataToValidate.gender === "") {
+        if (!dataToValidate.gender) {
           newErrors.gender = true;
           setErrors(newErrors);
           return false;

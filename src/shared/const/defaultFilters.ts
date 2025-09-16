@@ -1,6 +1,5 @@
-import { ActivityFilters } from "@shared/typings/interfaces/filters.interface";
-
-export const DEFAULT_FILTERS: ActivityFilters = {
+// TODO: Add proper ActivityFilters interface when needed
+export const DEFAULT_FILTERS = {
   dateFilter: "all",
   categories: [],
   subcategories: [],

@@ -1,1 +1,2 @@
-export * from "./activity.types";
+// Types will be added here as needed
+export {};

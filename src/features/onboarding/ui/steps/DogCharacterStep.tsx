@@ -45,7 +45,11 @@ export const DogCharacterStep: React.FC<DogCharacterStepProps> = ({
     onUpdate({
       character: {
         ...data.character,
-        comfortable_with_gender: values,
+        comfortable_with: {
+          ...data.character.comfortable_with,
+          males: values.includes("males"),
+          females: values.includes("females"),
+        },
       },
     });
   };
@@ -54,7 +58,12 @@ export const DogCharacterStep: React.FC<DogCharacterStepProps> = ({
     onUpdate({
       character: {
         ...data.character,
-        comfortable_with_size: values,
+        comfortable_with: {
+          ...data.character.comfortable_with,
+          big_dogs: values.includes("big_dogs"),
+          small_dogs: values.includes("small_dogs"),
+          same_size: values.includes("same_size"),
+        },
       },
     });
   };
@@ -89,7 +98,10 @@ export const DogCharacterStep: React.FC<DogCharacterStepProps> = ({
             <div className="self-stretch inline-flex justify-start items-start gap-1 flex-wrap content-start">
               <TagCheckboxGroup
                 options={genderComfortOptions}
-                values={data.character?.comfortable_with_gender || []}
+                values={[
+                  ...(data.character?.comfortable_with?.males ? ["males"] : []),
+                  ...(data.character?.comfortable_with?.females ? ["females"] : []),
+                ]}
                 onChange={handleGenderComfortChange}
                 size="medium"
                 className="justify-start"
@@ -104,7 +116,11 @@ export const DogCharacterStep: React.FC<DogCharacterStepProps> = ({
             <div className="self-stretch inline-flex justify-start items-start gap-1 flex-wrap content-start">
               <TagCheckboxGroup
                 options={sizeComfortOptions}
-                values={data.character?.comfortable_with_size || []}
+                values={[
+                  ...(data.character?.comfortable_with?.big_dogs ? ["big_dogs"] : []),
+                  ...(data.character?.comfortable_with?.small_dogs ? ["small_dogs"] : []),
+                  ...(data.character?.comfortable_with?.same_size ? ["same_size"] : []),
+                ]}
                 onChange={handleSizeComfortChange}
                 size="medium"
                 className="justify-start"

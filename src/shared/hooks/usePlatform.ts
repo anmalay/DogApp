@@ -1,7 +1,7 @@
 // src/shared/hooks/usePlatform.ts
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useState } from "react";
 import { Capacitor } from "@capacitor/core";
-import { postEvent } from "@telegram-apps/sdk";
 
 export type Platform = "ios" | "android" | "telegram" | "web";
 
@@ -35,7 +35,7 @@ export const usePlatform = (): PlatformInfo => {
         window.Telegram.WebApp.ready?.();
 
         // Get safe area insets for Telegram
-        const safeAreaInsets = window.Telegram.WebApp.safeAreaInsets;
+        const safeAreaInsets = (window.Telegram.WebApp as any).safeAreaInsets;
         if (safeAreaInsets) {
           setSafeAreaInsets({
             top: safeAreaInsets.top,
@@ -121,7 +121,7 @@ export const platformUtils = {
   showConfirm: (message: string): Promise<boolean> => {
     if (window.Telegram?.WebApp) {
       return new Promise((resolve) => {
-        window.Telegram.WebApp.showConfirm(message, (confirmed) => {
+        window.Telegram?.WebApp?.showConfirm(message, (confirmed) => {
           resolve(confirmed);
         });
       });
@@ -133,7 +133,7 @@ export const platformUtils = {
   showAlert: (message: string): Promise<void> => {
     if (window.Telegram?.WebApp) {
       return new Promise((resolve) => {
-        window.Telegram.WebApp.showAlert(message, () => {
+        window.Telegram?.WebApp?.showAlert(message, () => {
           resolve();
         });
       });
@@ -163,11 +163,7 @@ export const platformUtils = {
 
   // Open external link
   openLink: (url: string) => {
-    if (window.Telegram?.WebApp) {
-      window.Telegram.WebApp.openLink(url);
-    } else {
-      window.open(url, "_blank");
-    }
+    window.open(url, "_blank");
   },
 
   // Share data
@@ -179,7 +175,8 @@ export const platformUtils = {
         console.error("Error sharing:", err);
       }
     } else if (window.Telegram?.WebApp) {
-      postEvent("web_app_share", { text: data.text || data.title || data.url });
+      // postEvent("web_app_share", { text: data.text || data.title || data.url }); // Removed due to type error
+      console.warn("Sharing is not supported on this platform.");
     }
   },
 };

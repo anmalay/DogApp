@@ -1,5 +1,5 @@
 // src/widgets/layout/ui/AppFooter/AppFooter.tsx
-import React, { FC } from "react";
+import { FC } from "react";
 import {
   IonTabBar,
   IonTabButton,

@@ -16,29 +16,21 @@ export const WelcomeView: React.FC<WelcomeViewProps> = ({ onNext }) => {
         </div>
 
         <div className="space-y-4">
-          <h1 className="text-3xl font-bold text-text-primary">{t("DogApp")}</h1>
+          <h1 className="text-3xl font-bold text-text-primary">
+            {t("DogApp")}
+          </h1>
           <p className="text-lg text-text-secondary">
             {t("Find friends for your pet")}
           </p>
         </div>
 
         <div className="space-y-4 w-full">
-          <Button
-            variant="primary"
-            size="large"
-            fullWidth
-            onClick={onNext}
-          >
-{t("Create Account")}
+          <Button variant="primary" size="large" fullWidth onClick={onNext}>
+            {t("Create Account")}
           </Button>
 
-          <Button
-            variant="outline"
-            size="large"
-            fullWidth
-            onClick={onNext}
-          >
-{t("Sign In")}
+          <Button variant="outline" size="large" fullWidth onClick={onNext}>
+            {t("Sign In")}
           </Button>
         </div>
       </div>

@@ -1,5 +1,5 @@
 // src/widgets/layout/ui/AppHeader/AppHeader.tsx
-import React, { FC } from "react";
+import { FC } from "react";
 import {
   IonHeader,
   IonToolbar,
