@@ -1,6 +1,6 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { IonToast } from "@ionic/react";
+import { IonToast, IonPage, IonContent } from "@ionic/react";
 import { Button } from "@shared/ui";
 import { useDogProfileStepper } from "../../model/useDogProfileStepper";
 import { StepperHeader } from "./StepperHeader";
@@ -72,37 +72,39 @@ export const DogProfileStepper: React.FC<DogProfileStepperProps> = ({
   };
 
   return (
-    <div className="w-full h-screen flex flex-col bg-[#F3F3F3] pt-5 pb-10 px-5 pt-10">
-      <div className="flex flex-col flex-1 gap-[40px]">
-        {/* Header Section */}
-        <div className="flex flex-col gap-[40px]">
-          <StepperHeader
-            currentStep={currentStep}
-            totalSteps={10}
-            onBack={handleStepBack}
-          />
+    <IonPage>
+      <IonContent fullscreen scrollY={true}>
+        <div className="w-full bg-[#F3F3F3] pb-5 px-5 pt-15 min-h-full flex flex-col">
+          {/* Header Section */}
+          <div className="flex flex-col gap-[40px]">
+            <StepperHeader
+              currentStep={currentStep}
+              totalSteps={10}
+              onBack={handleStepBack}
+            />
 
-          {/* Dog Image */}
-          {(currentStep === 1 ||
-            currentStep === 2 ||
-            currentStep === 3 ||
-            currentStep === 8) && (
-            <div className="w-full h-[380px] relative overflow-hidden rounded-[24px]">
-              <img
-                src={welcomeDogImage}
-                alt="Welcome Dog"
-                className="w-full h-full object-cover"
-              />
-            </div>
-          )}
-        </div>
+            {/* Dog Image */}
+            {(currentStep === 1 ||
+              currentStep === 2 ||
+              currentStep === 3 ||
+              currentStep === 8) && (
+              <div className="w-full h-[380px] relative overflow-hidden rounded-[24px]">
+                <img
+                  src={welcomeDogImage}
+                  alt="Welcome Dog"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+            )}
+          </div>
 
-        {/* Content Section */}
-        <div className="flex-1 flex flex-col justify-between items-center pb-5">
-          <div className="w-full">{renderStep()}</div>
+          {/* Content Section - Now flexible */}
+          <div className="flex-1 flex flex-col gap-[40px] py-[40px]">
+            <div className="w-full">{renderStep()}</div>
+          </div>
 
-          {/* Action Buttons */}
-          <div className="w-full flex gap-[10px]">
+          {/* Action Buttons - Now at bottom */}
+          <div className="w-full flex gap-[10px] mt-auto">
             <Button
               variant="outline"
               size="large"
@@ -126,14 +128,14 @@ export const DogProfileStepper: React.FC<DogProfileStepperProps> = ({
             </Button>
           </div>
         </div>
-      </div>
 
-      <IonToast
-        isOpen={showToast}
-        message={toastMessage}
-        duration={2000}
-        onDidDismiss={() => setShowToast(false)}
-      />
-    </div>
+        <IonToast
+          isOpen={showToast}
+          message={toastMessage}
+          duration={2000}
+          onDidDismiss={() => setShowToast(false)}
+        />
+      </IonContent>
+    </IonPage>
   );
 };

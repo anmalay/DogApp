@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import classNames from "classnames";
+import { IonInput } from "@ionic/react";
 
 export interface InputProps {
   label?: string;
@@ -50,11 +51,6 @@ export const Input: React.FC<InputProps> = ({
     onBlur?.();
   };
 
-  const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const newValue = e.target.value;
-    onInput?.(newValue);
-  };
-
   // Determine input state for styling
   const getInputClasses = () => {
     const baseClasses = [
@@ -67,7 +63,6 @@ export const Input: React.FC<InputProps> = ({
       "outline-none",
       "text-input",
       "leading-[21px]",
-      "p-5",
       "h-input",
       "rounded-[16px]",
     ];
@@ -101,6 +96,7 @@ export const Input: React.FC<InputProps> = ({
     return classNames(baseClasses);
   };
 
+
   return (
     <div className={classNames("flex flex-col", className)}>
       {label && (
@@ -111,17 +107,31 @@ export const Input: React.FC<InputProps> = ({
       )}
       
       <div className={classNames("flex flex-col", { "gap-1.5": error && errorMessage })}>
-        <input
-          type={type}
-          value={value}
-          placeholder={focused ? "" : placeholder}
-          disabled={disabled}
-          maxLength={maxLength}
-          onChange={handleInput}
-          onFocus={handleFocus}
-          onBlur={handleBlur}
-          className={getInputClasses()}
-        />
+        <div className="relative">
+          <IonInput
+            type={type}
+            value={value}
+            placeholder={focused ? "" : placeholder}
+            disabled={disabled}
+            maxlength={maxLength}
+            onIonInput={(e) => onInput?.(e.detail.value!)}
+            onIonFocus={handleFocus}
+            onIonBlur={handleBlur}
+            className={getInputClasses()}
+            style={{ 
+              fontSize: '16px',
+              '--background': 'transparent',
+              '--padding-start': '20px',
+              '--padding-end': '20px',
+              '--padding-top': '20px',
+              '--padding-bottom': '20px',
+              '--border-width': '0',
+              '--border-radius': '0',
+              '--box-shadow': 'none'
+            } as React.CSSProperties}
+            fill="outline"
+          />
+        </div>
 
         {/* Error message */}
         {error && errorMessage && (

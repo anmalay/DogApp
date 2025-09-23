@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import classNames from "classnames";
+import { IonTextarea } from "@ionic/react";
 
 export interface TextareaProps {
   label?: string;
@@ -50,11 +51,6 @@ export const Textarea: React.FC<TextareaProps> = ({
     onBlur?.();
   };
 
-  const handleInput = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    const newValue = e.target.value;
-    onInput?.(newValue);
-  };
-
   // Determine textarea state for styling
   const getTextareaClasses = () => {
     const baseClasses = [
@@ -69,7 +65,6 @@ export const Textarea: React.FC<TextareaProps> = ({
       "resize-none",
       "text-input",
       "leading-[21px]",
-      "p-5",
       "min-h-textarea",
       "rounded-input",
       "rounded-[16px]",
@@ -112,6 +107,7 @@ export const Textarea: React.FC<TextareaProps> = ({
     return classNames(baseClasses);
   };
 
+
   return (
     <div className={classNames("flex flex-col", className)}>
       {label && (
@@ -126,17 +122,31 @@ export const Textarea: React.FC<TextareaProps> = ({
           "gap-1.5": error && errorMessage,
         })}
       >
-        <textarea
-          value={value}
-          placeholder={focused ? "" : placeholder}
-          disabled={disabled}
-          maxLength={maxLength}
-          rows={rows}
-          onChange={handleInput}
-          onFocus={handleFocus}
-          onBlur={handleBlur}
-          className={getTextareaClasses()}
-        />
+        <div className="relative">
+          <IonTextarea
+            value={value}
+            placeholder={focused ? "" : placeholder}
+            disabled={disabled}
+            maxlength={maxLength}
+            rows={rows}
+            onIonInput={(e) => onInput?.(e.detail.value!)}
+            onIonFocus={handleFocus}
+            onIonBlur={handleBlur}
+            className={getTextareaClasses()}
+            style={{ 
+              fontSize: '16px',
+              '--background': 'transparent',
+              '--padding-start': '20px',
+              '--padding-end': '20px',
+              '--padding-top': '20px',
+              '--padding-bottom': '20px',
+              '--border-width': '0',
+              '--border-radius': '0',
+              '--box-shadow': 'none'
+            } as React.CSSProperties}
+            fill="outline"
+          />
+        </div>
 
         {/* Error message */}
         {error && errorMessage && (
