@@ -34,8 +34,6 @@ export const DatePicker: React.FC<DatePickerProps> = ({
   const days = Array.from({ length: 31 }, (_, i) => i + 1);
 
   const handleScroll = (type: 'day' | 'month' | 'year', element: HTMLDivElement) => {
-    if (isDragging[type]) return;
-
     const itemHeight = 56;
     const scrollTop = element.scrollTop;
     const centerIndex = Math.round(scrollTop / itemHeight);
@@ -54,13 +52,16 @@ export const DatePicker: React.FC<DatePickerProps> = ({
         break;
     }
 
-    onChange(newValue);
+    // Prevent infinite loops by checking if value actually changed
+    if (newValue.day !== value.day || newValue.month !== value.month || newValue.year !== value.year) {
+      onChange(newValue);
+    }
   };
 
   useEffect(() => {
     const scrollToValue = (type: 'day' | 'month' | 'year') => {
       const element = scrollRefs.current[type];
-      if (!element) return;
+      if (!element || isDragging[type]) return;
 
       const itemHeight = 56;
       let targetIndex = 0;
@@ -74,13 +75,17 @@ export const DatePicker: React.FC<DatePickerProps> = ({
           break;
         case 'year':
           targetIndex = years.indexOf(value.year);
+          if (targetIndex === -1) targetIndex = 0;
           break;
       }
 
-      element.scrollTo({
-        top: targetIndex * itemHeight,
-        behavior: 'smooth',
-      });
+      const targetScrollTop = targetIndex * itemHeight;
+      if (Math.abs(element.scrollTop - targetScrollTop) > 5) {
+        element.scrollTo({
+          top: targetScrollTop,
+          behavior: 'smooth',
+        });
+      }
     };
 
     const timer = setTimeout(() => {
@@ -90,7 +95,7 @@ export const DatePicker: React.FC<DatePickerProps> = ({
     }, 100);
 
     return () => clearTimeout(timer);
-  }, [value.day, value.month, value.year, years]);
+  }, [value.day, value.month, value.year, years, isDragging]);
 
   const renderColumn = (
     type: 'day' | 'month' | 'year',

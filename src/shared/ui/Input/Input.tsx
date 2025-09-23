@@ -57,8 +57,6 @@ export const Input: React.FC<InputProps> = ({
       "font-normal",
       "font-sans",
       "bg-background",
-      "transition-all",
-      "duration-200",
       "border-0",
       "outline-none",
       "text-input",
@@ -127,7 +125,8 @@ export const Input: React.FC<InputProps> = ({
               '--padding-bottom': '20px',
               '--border-width': '0',
               '--border-radius': '0',
-              '--box-shadow': 'none'
+              '--box-shadow': 'none',
+              '--transition': 'none'
             } as React.CSSProperties}
             fill="outline"
           />

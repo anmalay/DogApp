@@ -18,10 +18,9 @@ import "@ionic/react/css/display.css";
 /* Theme variables */
 import "./theme/variables.css";
 import "./shared/styles/global.css";
-import "./shared/styles/keyboard-smooth.css";
 
 setupIonicReact({
-  mode: "ios", // Use iOS mode for consistent design
+  mode: "ios",
 });
 
 const queryClient = new QueryClient({

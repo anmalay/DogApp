@@ -88,19 +88,37 @@ export const ImageUpload: React.FC<ImageUploadProps> = ({
   };
 
   const handleFileInput = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        const result = e.target?.result as string;
-        if (result) {
-          const newImages = [...images, result];
-          onChange(newImages);
-        }
-      };
-      reader.readAsDataURL(file);
+    const files = event.target.files;
+    if (files && files.length > 0) {
+      const remainingSlots = maxImages - images.length;
+      const filesToProcess = Array.from(files).slice(0, remainingSlots);
+      
+      // Show warning if user selected more files than available slots
+      if (files.length > remainingSlots) {
+        console.warn(`Можно добавить только ${remainingSlots} фото. Остальные будут проигнорированы.`);
+      }
+      
+      const newImages: string[] = [];
+      let processedCount = 0;
+
+      filesToProcess.forEach((file) => {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          const result = e.target?.result as string;
+          if (result) {
+            newImages.push(result);
+          }
+          processedCount++;
+          
+          if (processedCount === filesToProcess.length) {
+            const finalImages = [...images, ...newImages].slice(0, maxImages);
+            onChange(finalImages);
+          }
+        };
+        reader.readAsDataURL(file);
+      });
     }
-    // Reset the input so the same file can be selected again
+    // Reset the input so the same files can be selected again
     if (event.target) {
       event.target.value = "";
     }
@@ -136,23 +154,23 @@ export const ImageUpload: React.FC<ImageUploadProps> = ({
   const canAddMore = images.length < maxImages;
 
   return (
-    <div className="InputCover self-stretch inline-flex flex-col justify-start items-start gap-9">
+    <div className="InputCover self-stretch inline-flex flex-col justify-start items-start gap-9 w-full">
       <div className="self-stretch justify-start text-gray-700 text-2xl font-bold font-['Golos_Text'] leading-relaxed">
         {t("Добавьте фото собаки")}
       </div>
 
       {images.length === 0 && canAddMore ? (
         <div
-          className="UploadPicture w-80 h-80 px-5 py-6 bg-white rounded-3xl flex flex-col justify-center items-center gap-5 overflow-hidden cursor-pointer"
+          className="UploadPicture w-full h-80 px-5 py-6 bg-white rounded-3xl flex flex-col justify-center items-center gap-5 overflow-hidden cursor-pointer"
           onClick={handleImageCapture}
         >
           <CameraIcon />
         </div>
       ) : (
-        <div className="Pictures self-stretch rounded-3xl inline-flex justify-start items-start gap-1 flex-wrap content-start">
+        <div className="Pictures self-stretch rounded-3xl grid grid-cols-2 gap-2">
           {canAddMore && (
             <div
-              className="UploadPicture w-44 h-44 px-5 py-6 bg-white rounded-3xl inline-flex flex-col justify-center items-center gap-5 overflow-hidden cursor-pointer"
+              className="UploadPicture w-full aspect-square px-5 py-6 bg-white rounded-3xl inline-flex flex-col justify-center items-center gap-5 overflow-hidden cursor-pointer"
               onClick={handleImageCapture}
             >
               <CameraIcon />
@@ -162,15 +180,15 @@ export const ImageUpload: React.FC<ImageUploadProps> = ({
           {images.map((image, index) => (
             <div
               key={index}
-              className="Picture w-44 h-44 relative rounded-3xl overflow-hidden"
+              className="Picture w-full aspect-square relative rounded-3xl overflow-hidden"
             >
               <img
-                className="w-44 h-44 left-0 top-0 absolute rounded-3xl object-cover"
+                className="w-full h-full absolute rounded-3xl object-cover"
                 src={image}
                 alt={`Dog photo ${index + 1}`}
               />
               <div
-                className="BtnRound p-2 left-[131px] top-[68.02px] absolute origin-top-left -rotate-90 bg-white/60 rounded-full inline-flex flex-col justify-start items-start gap-2.5 overflow-hidden cursor-pointer"
+                className="BtnRound p-2 right-2 top-2 absolute bg-white/60 rounded-full inline-flex flex-col justify-start items-start gap-2.5 overflow-hidden cursor-pointer"
                 onClick={() => handleImageMenu(index)}
               >
                 <MenuDotsIcon />
@@ -185,6 +203,7 @@ export const ImageUpload: React.FC<ImageUploadProps> = ({
         ref={fileInputRef}
         type="file"
         accept="image/*"
+        multiple
         className="hidden"
         onChange={handleFileInput}
       />

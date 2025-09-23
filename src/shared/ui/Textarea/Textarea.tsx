@@ -58,8 +58,6 @@ export const Textarea: React.FC<TextareaProps> = ({
       "font-sans",
       "bg-background",
       "w-full", // Textarea is always full width
-      "transition-all",
-      "duration-200",
       "border-0",
       "outline-none",
       "resize-none",
@@ -142,7 +140,8 @@ export const Textarea: React.FC<TextareaProps> = ({
               '--padding-bottom': '20px',
               '--border-width': '0',
               '--border-radius': '0',
-              '--box-shadow': 'none'
+              '--box-shadow': 'none',
+              '--transition': 'none'
             } as React.CSSProperties}
             fill="outline"
           />
