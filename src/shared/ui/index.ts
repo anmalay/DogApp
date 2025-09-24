@@ -57,3 +57,6 @@ export type { DatePickerProps } from "./DatePicker";
 
 export { ImageUpload } from "./ImageUpload";
 export type { ImageUploadProps } from "./ImageUpload";
+
+export { BottomModal } from "./BottomModal";
+export type { BottomModalProps } from "./BottomModal";

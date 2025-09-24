@@ -120,17 +120,35 @@ export const DatePicker: React.FC<DatePickerProps> = ({
           {/* Padding items at start */}
           <div className="h-28" />
           
-          {items.map((item) => (
-            <div
-              key={`${type}-${item}`}
-              className="h-14 flex items-center justify-center scroll-snap-align-center"
-              style={{ scrollSnapAlign: 'center' }}
-            >
-              <span className={`${width} text-center text-base font-medium font-['Golos_Text'] text-slate-500`}>
-                {item}
-              </span>
-            </div>
-          ))}
+          {items.map((item, index) => {
+            // Calculate if this item is selected based on scroll position
+            const isSelected = (() => {
+              switch (type) {
+                case 'day':
+                  return item === value.day;
+                case 'month':
+                  return item === months[value.month - 1];
+                case 'year':
+                  return item === value.year;
+                default:
+                  return false;
+              }
+            })();
+            
+            return (
+              <div
+                key={`${type}-${item}`}
+                className="h-14 flex items-center justify-center scroll-snap-align-center relative z-20"
+                style={{ scrollSnapAlign: 'center' }}
+              >
+                <span className={`${width} text-center text-base font-medium font-['Golos_Text'] ${
+                  isSelected ? 'text-gray-700' : 'text-slate-500'
+                }`}>
+                  {item}
+                </span>
+              </div>
+            );
+          })}
           
           {/* Padding items at end */}
           <div className="h-28" />
@@ -149,25 +167,6 @@ export const DatePicker: React.FC<DatePickerProps> = ({
 
       {/* Selection highlight overlay spanning full component width */}
       <div className="absolute top-1/2 left-0 right-0 h-14 -translate-y-1/2 bg-white rounded-2xl pointer-events-none z-10" />
-      
-      {/* Text overlay for selected values - aligned with columns */}
-      <div className="absolute top-1/2 left-0 right-0 h-14 -translate-y-1/2 flex justify-between items-center pointer-events-none z-20">
-        <div className="flex-1 flex justify-center">
-          <span className="w-7 text-center text-base font-medium font-['Golos_Text'] text-gray-700">
-            {value.day}
-          </span>
-        </div>
-        <div className="flex-1 flex justify-center">
-          <span className="w-24 text-center text-base font-medium font-['Golos_Text'] text-gray-700">
-            {months[value.month - 1]}
-          </span>
-        </div>
-        <div className="flex-1 flex justify-center">
-          <span className="w-12 text-center text-base font-medium font-['Golos_Text'] text-gray-700">
-            {value.year}
-          </span>
-        </div>
-      </div>
 
       {/* Gradient overlays */}
       <div className="absolute top-0 left-0 w-full h-14 bg-gradient-to-b from-zinc-100 to-zinc-100/0 pointer-events-none z-30" />

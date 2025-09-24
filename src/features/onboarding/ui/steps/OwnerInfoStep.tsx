@@ -1,9 +1,8 @@
 import React, { useState, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { Camera, CameraResultType, CameraSource } from "@capacitor/camera";
-import { Input } from "@shared/ui";
-import { CameraIcon, TrashIcon, DrawerHandleIcon } from "@shared/ui/icons";
-import { DatePicker } from "@shared/ui/DatePicker";
+import { Input, BottomModal, DatePicker } from "@shared/ui";
+import { CameraIcon, TrashIcon } from "@shared/ui/icons";
 import { DogProfileData, StepErrors } from "../../model/types";
 
 interface OwnerInfoStepProps {
@@ -19,14 +18,13 @@ export const OwnerInfoStep: React.FC<OwnerInfoStepProps> = ({
 }) => {
   const { t } = useTranslation();
   const [isDatePickerOpen, setIsDatePickerOpen] = useState(false);
-  const [isAnimating, setIsAnimating] = useState(false);
   const getInitialDate = () => {
     if (data.owner.birth_date) {
       const date = new Date(data.owner.birth_date);
       return {
         day: date.getDate(),
         month: date.getMonth() + 1,
-        year: date.getFullYear()
+        year: date.getFullYear(),
       };
     }
     // Default to today's date
@@ -34,17 +32,12 @@ export const OwnerInfoStep: React.FC<OwnerInfoStepProps> = ({
     return {
       day: today.getDate(),
       month: today.getMonth() + 1,
-      year: today.getFullYear()
+      year: today.getFullYear(),
     };
   };
 
   const [selectedDate, setSelectedDate] = useState(getInitialDate());
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const modalRef = useRef<HTMLDivElement>(null);
-  const [startY, setStartY] = useState(0);
-  const [currentY, setCurrentY] = useState(0);
-  const [isDragging, setIsDragging] = useState(false);
-  const [dragStartedInHandle, setDragStartedInHandle] = useState(false);
 
   const handleOwnerUpdate = (field: string, value: string) => {
     onUpdate({
@@ -68,7 +61,10 @@ export const OwnerInfoStep: React.FC<OwnerInfoStepProps> = ({
         handleOwnerUpdate("photo", image.dataUrl);
       }
     } catch (error) {
-      console.error("Capacitor camera not available, falling back to file input:", error);
+      console.error(
+        "Capacitor camera not available, falling back to file input:",
+        error
+      );
       if (fileInputRef.current) {
         fileInputRef.current.click();
       }
@@ -96,110 +92,28 @@ export const OwnerInfoStep: React.FC<OwnerInfoStepProps> = ({
     handleOwnerUpdate("photo", "");
   };
 
-  const handleDateChange = (date: { day: number; month: number; year: number }) => {
+  const handleDateChange = (date: {
+    day: number;
+    month: number;
+    year: number;
+  }) => {
     setSelectedDate(date);
   };
 
   const handleDateSave = () => {
-    const dateString = `${selectedDate.year}-${selectedDate.month.toString().padStart(2, '0')}-${selectedDate.day.toString().padStart(2, '0')}`;
+    const dateString = `${selectedDate.year}-${selectedDate.month
+      .toString()
+      .padStart(2, "0")}-${selectedDate.day.toString().padStart(2, "0")}`;
     handleOwnerUpdate("birth_date", dateString);
-    setIsAnimating(true);
-    setTimeout(() => {
-      setIsDatePickerOpen(false);
-      setIsAnimating(false);
-      // Restore body scroll
-      document.body.style.overflow = 'unset';
-    }, 300);
+    setIsDatePickerOpen(false);
   };
 
   const handleDateCancel = () => {
-    setIsAnimating(true);
-    setTimeout(() => {
-      setIsDatePickerOpen(false);
-      setIsAnimating(false);
-      // Restore body scroll
-      document.body.style.overflow = 'unset';
-    }, 300);
-  };
-
-  const handleBackdropClick = (e: React.MouseEvent) => {
-    if (e.target === e.currentTarget) {
-      handleDateCancel();
-    }
-  };
-
-  const handleTouchStart = (e: React.TouchEvent) => {
-    const rect = modalRef.current?.getBoundingClientRect();
-    if (!rect) return;
-    
-    const touchY = e.touches[0].clientY;
-    const relativeY = touchY - rect.top;
-    
-    // Check if touch started in handle area (top 80px)
-    const inHandleArea = relativeY <= 80;
-    setDragStartedInHandle(inHandleArea);
-    
-    if (inHandleArea) {
-      setStartY(touchY);
-      setCurrentY(touchY);
-      setIsDragging(false);
-    }
-  };
-
-  const handleTouchMove = (e: React.TouchEvent) => {
-    if (!dragStartedInHandle || startY === 0) return;
-    
-    const newY = e.touches[0].clientY;
-    const deltaY = newY - startY;
-    
-    // Only respond to downward movement
-    if (deltaY > 0) {
-      setIsDragging(true);
-      setCurrentY(newY);
-      if (modalRef.current) {
-        modalRef.current.style.transform = `translateY(${deltaY}px)`;
-      }
-    }
-  };
-
-  const handleTouchEnd = () => {
-    if (!dragStartedInHandle || !isDragging) {
-      // Reset states
-      setStartY(0);
-      setCurrentY(0);
-      setIsDragging(false);
-      setDragStartedInHandle(false);
-      return;
-    }
-    
-    const deltaY = currentY - startY;
-    
-    if (deltaY > 100) {
-      handleDateCancel();
-    } else {
-      if (modalRef.current) {
-        modalRef.current.style.transform = 'translateY(0px)';
-        modalRef.current.style.transition = 'transform 0.3s ease-out';
-        setTimeout(() => {
-          if (modalRef.current) {
-            modalRef.current.style.transition = '';
-          }
-        }, 300);
-      }
-    }
-    
-    setStartY(0);
-    setCurrentY(0);
-    setIsDragging(false);
-    setDragStartedInHandle(false);
+    setIsDatePickerOpen(false);
   };
 
   const openDatePicker = () => {
-    setIsAnimating(true);
     setIsDatePickerOpen(true);
-    // Block body scroll
-    document.body.style.overflow = 'hidden';
-    setTimeout(() => setIsAnimating(false), 10);
   };
 
   const formatDisplayDate = (dateString: string) => {
@@ -210,14 +124,14 @@ export const OwnerInfoStep: React.FC<OwnerInfoStepProps> = ({
 
   return (
     <>
-      <div className="Frame237759 self-stretch inline-flex flex-col justify-start items-start gap-8">
+      <div className="Frame237759 self-stretch inline-flex flex-col justify-start items-start gap-8 w-full">
         <div className="self-stretch justify-start text-gray-700 text-2xl font-bold font-['Golos_Text'] leading-relaxed">
           {t("About the owner")}
         </div>
-        <div className="Content self-stretch flex-1 pb-5 flex flex-col justify-start items-center gap-14">
-          <div className="Container self-stretch flex-1 flex flex-col justify-start items-start gap-8">
+        <div className="Content self-stretch flex-1 pb-5 flex flex-col justify-start items-center gap-14 w-full">
+          <div className="Container self-stretch flex-1 flex flex-col justify-start items-start gap-8 w-full">
             {/* Photo Upload */}
-            <div className="InputCover self-stretch flex flex-col justify-start items-start gap-5">
+            <div className="InputCover self-stretch flex flex-col justify-start items-start gap-5 w-[174px]">
               <div className="Pictures self-stretch inline-flex justify-start items-start gap-1">
                 {!data.owner.photo ? (
                   <div
@@ -249,17 +163,14 @@ export const OwnerInfoStep: React.FC<OwnerInfoStepProps> = ({
               <div className="self-stretch justify-start text-gray-700 text-base font-medium font-['Golos_Text']">
                 {t("Owner name")}
               </div>
-              <div className="Input self-stretch h-16 p-5 bg-white rounded-2xl flex flex-col justify-center items-center gap-5 overflow-hidden">
-                <Input
-                  placeholder={t("Your name")}
-                  value={data.owner.name}
-                  required
-                  error={errors.ownerName}
-                  errorMessage={errors.ownerName ? t("Name is required") : undefined}
-                  onInput={(value) => handleOwnerUpdate("name", value)}
-                  className="border-0 bg-transparent p-0 h-auto"
-                />
-              </div>
+              <Input
+                placeholder={t("Your name")}
+                value={data.owner.name}
+                required
+                error={errors.ownerName}
+                onInput={(value) => handleOwnerUpdate("name", value)}
+                className="border-0 bg-transparent p-0 h-auto"
+              />
             </div>
 
             {/* Owner Birth Date */}
@@ -293,65 +204,36 @@ export const OwnerInfoStep: React.FC<OwnerInfoStepProps> = ({
       />
 
       {/* Date Picker Modal */}
-      {isDatePickerOpen && (
-        <div 
-          className={`fixed inset-0 bg-black/50 flex items-end justify-center z-50 transition-opacity duration-300 ${
-            isAnimating ? 'opacity-0' : 'opacity-100'
-          }`}
-          onClick={handleBackdropClick}
-          style={{ touchAction: 'none' }}
-        >
-          <div 
-            ref={modalRef}
-            className={`DateOfBirth w-full max-w-96 px-5 pt-2.5 pb-10 bg-zinc-100 rounded-tl-2xl rounded-tr-2xl inline-flex flex-col justify-end items-center gap-6 overflow-hidden transition-transform duration-300 ease-out transform ${
-              isAnimating ? 'translate-y-full' : 'translate-y-0'
-            }`}
-            onTouchStart={handleTouchStart}
-            onTouchMove={handleTouchMove}
-            onTouchEnd={handleTouchEnd}
-            onClick={(e) => e.stopPropagation()}
-          >
-            <div className="Container self-stretch flex flex-col justify-start items-center gap-7">
-              <div className="cursor-pointer py-2" onClick={handleDateCancel}>
-                <DrawerHandleIcon />
-              </div>
-              <div className="Content self-stretch flex flex-col justify-start items-start gap-6">
-                <div className="Top self-stretch inline-flex justify-start items-start gap-2.5">
-                  <div className="Text flex-1 inline-flex flex-col justify-start items-start gap-[5px]">
-                    <div className="self-stretch justify-start text-gray-700 text-2xl font-bold font-['Golos_Text'] leading-relaxed">
-                      {t("Owner birth date")}
-                    </div>
-                  </div>
-                </div>
-                <div className="Carusel self-stretch h-44 relative flex flex-col justify-start items-center overflow-hidden">
-                  <DatePicker
-                    value={selectedDate}
-                    onChange={handleDateChange}
-                  />
-                </div>
+      <BottomModal
+        isOpen={isDatePickerOpen}
+        onClose={handleDateCancel}
+        title={t("Owner birth date")}
+        className="date-picker-modal"
+        buttons={
+          <div className="Buttons self-stretch inline-flex justify-center items-start gap-2.5">
+            <div
+              className="Button flex-1 px-6 py-5 bg-white rounded-[59px] flex justify-center items-center gap-2.5 cursor-pointer hover:bg-gray-50 transition-colors"
+              onClick={handleDateCancel}
+            >
+              <div className="Text justify-start text-gray-700 text-base font-medium font-['Golos_Text']">
+                {t("Cancel")}
               </div>
             </div>
-            <div className="Buttons self-stretch inline-flex justify-center items-start gap-2.5">
-              <div
-                className="Button flex-1 px-6 py-5 bg-white rounded-[59px] flex justify-center items-center gap-2.5 cursor-pointer hover:bg-gray-50 transition-colors"
-                onClick={handleDateCancel}
-              >
-                <div className="Text justify-start text-gray-700 text-base font-medium font-['Golos_Text']">
-                  {t("Cancel")}
-                </div>
-              </div>
-              <div
-                className="Button flex-1 px-6 py-5 bg-gray-700 rounded-[59px] flex justify-center items-center gap-2.5 cursor-pointer hover:bg-gray-800 transition-colors"
-                onClick={handleDateSave}
-              >
-                <div className="Text justify-start text-white text-base font-medium font-['Golos_Text']">
-                  {t("Save")}
-                </div>
+            <div
+              className="Button flex-1 px-6 py-5 bg-gray-700 rounded-[59px] flex justify-center items-center gap-2.5 cursor-pointer hover:bg-gray-800 transition-colors"
+              onClick={handleDateSave}
+            >
+              <div className="Text justify-start text-white text-base font-medium font-['Golos_Text']">
+                {t("Save")}
               </div>
             </div>
           </div>
+        }
+      >
+        <div className="Carusel self-stretch h-72 relative flex flex-col justify-start items-center overflow-hidden">
+          <DatePicker value={selectedDate} onChange={handleDateChange} />
         </div>
-      )}
+      </BottomModal>
     </>
   );
 };

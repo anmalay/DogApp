@@ -87,7 +87,7 @@ export const Textarea: React.FC<TextareaProps> = ({
       baseClasses.push(
         "outline",
         "outline-1",
-        "outline-border",
+        "outline-info",
         "text-text-muted"
       );
     } else if (hasValue) {
@@ -141,7 +141,17 @@ export const Textarea: React.FC<TextareaProps> = ({
               '--border-width': '0',
               '--border-radius': '0',
               '--box-shadow': 'none',
-              '--transition': 'none'
+              '--transition': 'none',
+              '--webkit-transition': 'none',
+              '--moz-transition': 'none',
+              '--ms-transition': 'none',
+              transition: 'none',
+              '--min-height': 'auto',
+              '--inner-padding-top': '0',
+              '--inner-padding-bottom': '0',
+              touchAction: 'manipulation',
+              WebkitUserSelect: 'text',
+              userSelect: 'text'
             } as React.CSSProperties}
             fill="outline"
           />

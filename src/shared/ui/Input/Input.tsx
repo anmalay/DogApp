@@ -11,6 +11,7 @@ export interface InputProps {
   disabled?: boolean;
   required?: boolean;
   error?: boolean;
+  requiredError?: boolean;
   errorMessage?: string;
   helperText?: string;
   maxLength?: number;
@@ -29,6 +30,7 @@ export const Input: React.FC<InputProps> = ({
   disabled = false,
   required = false,
   error = false,
+  requiredError = false,
   errorMessage,
   helperText,
   maxLength,
@@ -72,18 +74,10 @@ export const Input: React.FC<InputProps> = ({
       baseClasses.push("w-auto");
     }
 
-    // State-based styling
-    if (error) {
-      baseClasses.push("outline", "outline-1", "outline-error", "text-text-primary");
-    } else if (focused) {
-      baseClasses.push("outline", "outline-1", "outline-primary", "text-text-primary");
-    } else if (required && !hasValue) {
-      baseClasses.push("outline", "outline-1", "outline-border", "text-text-muted");
-    } else if (hasValue) {
-      // Filled state
+    // Text color based on state
+    if (error || requiredError || focused || hasValue) {
       baseClasses.push("text-text-primary");
     } else {
-      // Default state
       baseClasses.push("text-text-muted");
     }
 
@@ -94,6 +88,46 @@ export const Input: React.FC<InputProps> = ({
     return classNames(baseClasses);
   };
 
+  // Get border style based on state
+  const getBorderStyle = () => {
+    const baseStyle = {
+      width: size === "full" ? "100%" : "auto",
+    };
+
+    if (error && required && !hasValue) {
+      // Required field validation error - use info color
+      return {
+        ...baseStyle,
+        border: "1px solid var(--color-info)",
+        outline: "none",
+      };
+    } else if (error) {
+      // Other error states - use error color
+      return {
+        ...baseStyle,
+        border: "1px solid var(--color-error)",
+        outline: "none",
+      };
+    } else if (requiredError) {
+      return {
+        ...baseStyle,
+        border: "1px solid var(--color-info)",
+        outline: "none",
+      };
+    } else if (focused) {
+      return {
+        ...baseStyle,
+        border: "none",
+        outline: "none",
+      };
+    } else {
+      return {
+        ...baseStyle,
+        border: "none",
+        outline: "none",
+      };
+    }
+  };
 
   return (
     <div className={classNames("flex flex-col", className)}>
@@ -103,8 +137,12 @@ export const Input: React.FC<InputProps> = ({
           {required && <span className="text-error ml-1">*</span>}
         </label>
       )}
-      
-      <div className={classNames("flex flex-col", { "gap-1.5": error && errorMessage })}>
+
+      <div
+        className={classNames("flex flex-col", {
+          "gap-1.5": error && errorMessage,
+        })}
+      >
         <div className="relative">
           <IonInput
             type={type}
@@ -116,18 +154,33 @@ export const Input: React.FC<InputProps> = ({
             onIonFocus={handleFocus}
             onIonBlur={handleBlur}
             className={getInputClasses()}
-            style={{ 
-              fontSize: '16px',
-              '--background': 'transparent',
-              '--padding-start': '20px',
-              '--padding-end': '20px',
-              '--padding-top': '20px',
-              '--padding-bottom': '20px',
-              '--border-width': '0',
-              '--border-radius': '0',
-              '--box-shadow': 'none',
-              '--transition': 'none'
-            } as React.CSSProperties}
+            style={
+              {
+                fontSize: "16px",
+                "--background": "transparent",
+                "--padding-start": "20px",
+                "--padding-end": "20px",
+                paddingLeft: "20px",
+                paddingRight: "20px",
+                "--padding-top": "20px",
+                "--padding-bottom": "20px",
+                "--border-width": "0",
+                "--border-radius": "0",
+                "--box-shadow": "none",
+                "--transition": "none",
+                "--webkit-transition": "none",
+                "--moz-transition": "none",
+                "--ms-transition": "none",
+                transition: "none",
+                "--min-height": "auto",
+                "--inner-padding-top": "0",
+                "--inner-padding-bottom": "0",
+                touchAction: "manipulation",
+                WebkitUserSelect: "text",
+                userSelect: "text",
+                ...getBorderStyle(),
+              } as React.CSSProperties
+            }
             fill="outline"
           />
         </div>

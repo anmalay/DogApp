@@ -48,6 +48,12 @@ The project follows FSD methodology with these layers:
 - **UI Framework:** Ionic React with iOS mode for consistent design
 - **State Management:** Zustand with persistence and devtools
 - **API:** Auto-generated client using Orval from OpenAPI spec
+
+**Component Priority Rules:**
+- **ALWAYS use Ionic components first** when available (IonModal, IonButton, IonInput, IonPopover, etc.)
+- Only create custom components when Ionic doesn't provide the needed functionality
+- When using Ionic components, overlay custom styling/behavior rather than recreating from scratch
+- Examples: Use IonModal with custom content instead of building custom modal, use IonInput with custom wrapper instead of pure HTML input
 - **Data Fetching:** TanStack React Query
 - **Styling:** Tailwind CSS + Ionic CSS variables
 - **Internationalization:** i18next with English and Russian translations

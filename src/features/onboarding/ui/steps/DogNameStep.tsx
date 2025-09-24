@@ -29,6 +29,8 @@ export const DogNameStep: React.FC<DogNameStepProps> = ({
         value={data.name}
         maxLength={30}
         error={errors.name}
+        required
+        className="border-0 bg-transparent p-0 h-auto"
         onInput={(value) => {
           onUpdate({
             name: value.charAt(0).toUpperCase() + value.slice(1),

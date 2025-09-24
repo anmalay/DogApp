@@ -73,8 +73,21 @@ export const DogProfileStepper: React.FC<DogProfileStepperProps> = ({
 
   return (
     <IonPage>
-      <IonContent fullscreen scrollY={true}>
-        <div className="w-full bg-[#F3F3F3] pb-5 px-5 pt-15 min-h-full flex flex-col">
+      <IonContent 
+        fullscreen 
+        scrollY={true}
+        style={{
+          '--scroll-behavior': 'smooth',
+          '--overscroll-behavior': 'contain'
+        }}
+      >
+        <div 
+          className="w-full bg-[#F3F3F3] pb-5 px-5 pt-15 min-h-full flex flex-col"
+          style={{
+            scrollBehavior: 'auto',
+            overscrollBehavior: 'contain'
+          }}
+        >
           {/* Header Section */}
           <div className="flex flex-col gap-[40px]">
             <StepperHeader
