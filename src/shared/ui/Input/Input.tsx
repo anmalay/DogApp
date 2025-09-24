@@ -45,6 +45,13 @@ export const Input: React.FC<InputProps> = ({
 
   const handleFocus = () => {
     setFocused(true);
+
+    // Немедленный скролл при фокусе
+    const element = document.activeElement;
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+
     onFocus?.();
   };
 
@@ -121,6 +128,7 @@ export const Input: React.FC<InputProps> = ({
         outline: "none",
       };
     } else {
+      // Default state - no border
       return {
         ...baseStyle,
         border: "none",
@@ -130,7 +138,7 @@ export const Input: React.FC<InputProps> = ({
   };
 
   return (
-    <div className={classNames("flex flex-col", className)}>
+    <div className={classNames("flex flex-col w-full", className)}>
       {label && (
         <label className="block text-sm font-medium text-text-primary mb-2 font-sans">
           {label}

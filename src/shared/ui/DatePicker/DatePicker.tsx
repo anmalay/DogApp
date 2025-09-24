@@ -8,13 +8,33 @@ export interface DatePickerProps {
 }
 
 const MONTHS_EN = [
-  "January", "February", "March", "April", "May", "June",
-  "July", "August", "September", "October", "November", "December"
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
 ];
 
 const MONTHS_RU = [
-  "O=20@O", "D52@0;O", "<0@B0", "0?@5;O", "<0O", "8N=O",
-  "8N;O", "023CAB0", "A5=BO1@O", ">:BO1@O", "=>O1@O", "45:01@O"
+  "O=20@O",
+  "D52@0;O",
+  "<0@B0",
+  "0?@5;O",
+  "<0O",
+  "8N=O",
+  "8N;O",
+  "023CAB0",
+  "A5=BO1@O",
+  ">:BO1@O",
+  "=>O1@O",
+  "45:01@O",
 ];
 
 export const DatePicker: React.FC<DatePickerProps> = ({
@@ -23,17 +43,24 @@ export const DatePicker: React.FC<DatePickerProps> = ({
   className = "",
 }) => {
   const { i18n } = useTranslation();
-  const isRussian = i18n.language === 'ru';
+  const isRussian = i18n.language === "ru";
   const months = isRussian ? MONTHS_RU : MONTHS_EN;
 
-  const [isDragging, setIsDragging] = useState({ day: false, month: false, year: false });
+  const [isDragging, setIsDragging] = useState({
+    day: false,
+    month: false,
+    year: false,
+  });
   const scrollRefs = useRef<{ [key: string]: HTMLDivElement | null }>({});
 
   const currentYear = new Date().getFullYear();
   const years = Array.from({ length: 100 }, (_, i) => currentYear - i);
   const days = Array.from({ length: 31 }, (_, i) => i + 1);
 
-  const handleScroll = (type: 'day' | 'month' | 'year', element: HTMLDivElement) => {
+  const handleScroll = (
+    type: "day" | "month" | "year",
+    element: HTMLDivElement
+  ) => {
     const itemHeight = 56;
     const scrollTop = element.scrollTop;
     const centerIndex = Math.round(scrollTop / itemHeight);
@@ -41,25 +68,30 @@ export const DatePicker: React.FC<DatePickerProps> = ({
     const newValue = { ...value };
 
     switch (type) {
-      case 'day':
+      case "day":
         newValue.day = Math.max(1, Math.min(31, centerIndex + 1));
         break;
-      case 'month':
+      case "month":
         newValue.month = Math.max(1, Math.min(12, centerIndex + 1));
         break;
-      case 'year':
-        newValue.year = years[Math.max(0, Math.min(years.length - 1, centerIndex))];
+      case "year":
+        newValue.year =
+          years[Math.max(0, Math.min(years.length - 1, centerIndex))];
         break;
     }
 
     // Prevent infinite loops by checking if value actually changed
-    if (newValue.day !== value.day || newValue.month !== value.month || newValue.year !== value.year) {
+    if (
+      newValue.day !== value.day ||
+      newValue.month !== value.month ||
+      newValue.year !== value.year
+    ) {
       onChange(newValue);
     }
   };
 
   useEffect(() => {
-    const scrollToValue = (type: 'day' | 'month' | 'year') => {
+    const scrollToValue = (type: "day" | "month" | "year") => {
       const element = scrollRefs.current[type];
       if (!element || isDragging[type]) return;
 
@@ -67,13 +99,13 @@ export const DatePicker: React.FC<DatePickerProps> = ({
       let targetIndex = 0;
 
       switch (type) {
-        case 'day':
+        case "day":
           targetIndex = value.day - 1;
           break;
-        case 'month':
+        case "month":
           targetIndex = value.month - 1;
           break;
-        case 'year':
+        case "year":
           targetIndex = years.indexOf(value.year);
           if (targetIndex === -1) targetIndex = 0;
           break;
@@ -83,22 +115,22 @@ export const DatePicker: React.FC<DatePickerProps> = ({
       if (Math.abs(element.scrollTop - targetScrollTop) > 5) {
         element.scrollTo({
           top: targetScrollTop,
-          behavior: 'smooth',
+          behavior: "smooth",
         });
       }
     };
 
     const timer = setTimeout(() => {
-      scrollToValue('day');
-      scrollToValue('month');
-      scrollToValue('year');
+      scrollToValue("day");
+      scrollToValue("month");
+      scrollToValue("year");
     }, 100);
 
     return () => clearTimeout(timer);
   }, [value.day, value.month, value.year, years, isDragging]);
 
   const renderColumn = (
-    type: 'day' | 'month' | 'year',
+    type: "day" | "month" | "year",
     items: (string | number)[],
     width: string
   ) => {
@@ -109,47 +141,59 @@ export const DatePicker: React.FC<DatePickerProps> = ({
             scrollRefs.current[type] = el;
           }}
           className="h-full overflow-y-auto scrollbar-hide"
-          style={{ scrollSnapType: 'y mandatory' }}
+          style={{ scrollSnapType: "y mandatory" }}
           onScroll={(e) => handleScroll(type, e.currentTarget)}
-          onMouseDown={() => setIsDragging(prev => ({ ...prev, [type]: true }))}
-          onMouseUp={() => setIsDragging(prev => ({ ...prev, [type]: false }))}
-          onMouseLeave={() => setIsDragging(prev => ({ ...prev, [type]: false }))}
-          onTouchStart={() => setIsDragging(prev => ({ ...prev, [type]: true }))}
-          onTouchEnd={() => setIsDragging(prev => ({ ...prev, [type]: false }))}
+          onMouseDown={() =>
+            setIsDragging((prev) => ({ ...prev, [type]: true }))
+          }
+          onMouseUp={() =>
+            setIsDragging((prev) => ({ ...prev, [type]: false }))
+          }
+          onMouseLeave={() =>
+            setIsDragging((prev) => ({ ...prev, [type]: false }))
+          }
+          onTouchStart={() =>
+            setIsDragging((prev) => ({ ...prev, [type]: true }))
+          }
+          onTouchEnd={() =>
+            setIsDragging((prev) => ({ ...prev, [type]: false }))
+          }
         >
           {/* Padding items at start */}
           <div className="h-28" />
-          
-          {items.map((item, index) => {
+
+          {items.map((item) => {
             // Calculate if this item is selected based on scroll position
             const isSelected = (() => {
               switch (type) {
-                case 'day':
+                case "day":
                   return item === value.day;
-                case 'month':
+                case "month":
                   return item === months[value.month - 1];
-                case 'year':
+                case "year":
                   return item === value.year;
                 default:
                   return false;
               }
             })();
-            
+
             return (
               <div
                 key={`${type}-${item}`}
                 className="h-14 flex items-center justify-center scroll-snap-align-center relative z-20"
-                style={{ scrollSnapAlign: 'center' }}
+                style={{ scrollSnapAlign: "center" }}
               >
-                <span className={`${width} text-center text-base font-medium font-['Golos_Text'] ${
-                  isSelected ? 'text-gray-700' : 'text-slate-500'
-                }`}>
+                <span
+                  className={`${width} text-center text-base font-medium font-['Golos_Text'] ${
+                    isSelected ? "text-gray-700" : "text-slate-500"
+                  }`}
+                >
                   {item}
                 </span>
               </div>
             );
           })}
-          
+
           {/* Padding items at end */}
           <div className="h-28" />
         </div>
@@ -158,11 +202,13 @@ export const DatePicker: React.FC<DatePickerProps> = ({
   };
 
   return (
-    <div className={`w-full h-72 relative flex flex-col justify-start items-center overflow-hidden ${className}`}>
+    <div
+      className={`w-full h-72 relative flex flex-col justify-start items-center overflow-hidden ${className}`}
+    >
       <div className="flex justify-between items-center w-full h-full relative">
-        {renderColumn('day', days, 'w-7')}
-        {renderColumn('month', months, 'w-24')}
-        {renderColumn('year', years, 'w-12')}
+        {renderColumn("day", days, "w-7")}
+        {renderColumn("month", months, "w-24")}
+        {renderColumn("year", years, "w-12")}
       </div>
 
       {/* Selection highlight overlay spanning full component width */}

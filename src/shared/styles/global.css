@@ -18,44 +18,43 @@
 
   /* Theme-aware color palette */
   /* Primary colors */
-  --color-primary: #3F335A;
-  --color-primary-light: #645A7A;
-  --color-primary-dark: #2D2440;
-  
+  --color-primary: #3f335a;
+  --color-primary-light: #645a7a;
+  --color-primary-dark: #2d2440;
+
   /* Secondary colors */
-  --color-secondary: #23BA6E;
-  --color-secondary-light: #4CD085;
-  --color-secondary-dark: #1A9456;
-  
+  --color-secondary: #23ba6e;
+  --color-secondary-light: #4cd085;
+  --color-secondary-dark: #1a9456;
+
   /* Background colors */
-  --color-background: #FFFFFF;
-  --color-background-secondary: #F3F3F3;
-  --color-surface: #FFFFFF;
-  --color-surface-secondary: #E4DFF0;
-  
+  --color-background: #ffffff;
+  --color-background-secondary: #f3f3f3;
+  --color-surface: #ffffff;
+  --color-surface-secondary: #e4dff0;
+
   /* Text colors */
-  --color-text-primary: #3F335A;
-  --color-text-secondary: #645A7A;
+  --color-text-primary: #3f335a;
+  --color-text-secondary: #645a7a;
   --color-text-muted: #808794;
-  --color-text-on-primary: #FFFFFF;
-  --color-text-on-secondary: #FFFFFF;
-  
+  --color-text-on-primary: #ffffff;
+  --color-text-on-secondary: #ffffff;
+
   /* Border colors */
-  --color-border: #E4DFF0;
-  --color-border-light: #F3EEFF;
-  --color-border-dark: #645A7A;
-  
+  --color-border: #e4dff0;
+  --color-border-light: #f3eeff;
+  --color-border-dark: #645a7a;
+
   /* State colors */
-  --color-success: #23BA6E;
-  --color-warning: #FE9CC5;
-  --color-error: #F43F5E;
-  --color-info: #8552FF;
-  
+  --color-success: #23ba6e;
+  --color-warning: #fe9cc5;
+  --color-error: #f43f5e;
+  --color-info: #8552ff;
+
   /* Utility colors */
-  --color-white: #FFFFFF;
+  --color-white: #ffffff;
   --color-black: #000000;
   --color-transparent: transparent;
-  
 
   /* Font family */
   --font-family-sans: "Golos Text", system-ui, -apple-system, sans-serif;
@@ -65,13 +64,13 @@
   --line-height-input: 21px;
   --font-size-error-text: 14px;
   --line-height-error-text: 18px;
-  
+
   --spacing-5: 20px;
   --spacing-1-5: 6px;
-  
+
   --height-input: 64px;
   --height-textarea: 124px;
-  
+
   --border-radius-input: 16px;
 
   --animate-pulse-slow: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
@@ -186,7 +185,12 @@ ion-page {
 }
 
 .skeleton-loading {
-  background: linear-gradient(90deg, var(--color-background-secondary) 25%, var(--color-border) 50%, var(--color-background-secondary) 75%);
+  background: linear-gradient(
+    90deg,
+    var(--color-background-secondary) 25%,
+    var(--color-border) 50%,
+    var(--color-background-secondary) 75%
+  );
   background-size: 200% 100%;
   animation: skeleton-loading 1.5s infinite;
 }
@@ -218,8 +222,6 @@ ion-page {
 .scrollbar-hide::-webkit-scrollbar {
   display: none;
 }
-
-
 
 ion-button:active {
   transform: scale(0.98);
@@ -263,7 +265,6 @@ ion-chip {
   min-width: 44px;
 }
 
-
 /* Улучшенная типографика */
 h1,
 h2,
@@ -286,5 +287,126 @@ h3 {
     animation-duration: 0.01ms;
     animation-iteration-count: 1;
     transition-duration: 0.01ms;
+  }
+}
+
+/* Оптимизации для работы с клавиатурой */
+
+/* Базовые настройки для предотвращения zoom на iOS */
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="number"],
+input[type="tel"],
+input[type="url"],
+input[type="date"],
+textarea {
+  font-size: 16px !important;
+  transform: translateZ(0); /* Аппаратное ускорение */
+}
+
+/* Улучшения для Ionic компонентов */
+ion-input,
+ion-textarea {
+  --highlight-color-focused: var(--ion-color-primary);
+  --padding-bottom: 0;
+  --padding-top: 0;
+}
+
+/* Плавные переходы при появлении клавиатуры */
+ion-content {
+  --keyboard-offset: 0px;
+  transition: transform 0.2s ease-in-out;
+}
+
+/* Состояния клавиатуры */
+.keyboard-is-open ion-content {
+  --keyboard-offset: env(keyboard-inset-height, 0px);
+}
+
+.keyboard-is-open body {
+  --keyboard-height: env(keyboard-inset-height, 0px);
+}
+
+/* Улучшенная прокрутка */
+ion-content.ion-padding {
+  --padding-bottom: calc(var(--ion-padding) + var(--keyboard-offset, 0px));
+}
+
+/* Предотвращение скачков при смене orientation */
+@media screen and (orientation: landscape) {
+  .keyboard-is-open ion-content {
+    transform: translateY(calc(-1 * var(--keyboard-offset, 0px) / 2));
+  }
+}
+
+@media screen and (orientation: portrait) {
+  .keyboard-is-open ion-content {
+    transform: translateY(0);
+  }
+}
+
+/* Дополнительные улучшения для мобильных устройств */
+@media (max-width: 768px) {
+  /* Увеличиваем область тапа для инпутов */
+  ion-input,
+  ion-textarea {
+    min-height: 48px;
+  }
+
+  /* Оптимизация для touch устройств */
+  ion-input input,
+  ion-textarea textarea {
+    touch-action: manipulation;
+    -webkit-user-select: text;
+    user-select: text;
+  }
+}
+
+/* Анимации для плавности */
+.input-focus-transition {
+  transition: all 0.15s ease-out;
+}
+
+/* Стили для состояния фокуса */
+.ion-focused {
+  transform: translateZ(0);
+}
+
+/* Предотвращение bounce эффекта на iOS */
+.keyboard-is-open {
+  overflow: hidden;
+}
+
+/* Дополнительная безопасная зона */
+.safe-area-keyboard {
+  padding-bottom: calc(
+    var(--keyboard-offset, 0px) + env(safe-area-inset-bottom, 0px)
+  );
+}
+
+/* Отключение rubber band эффекта во время ввода */
+.keyboard-is-open ion-content {
+  overscroll-behavior: none;
+  -webkit-overscroll-behavior: none;
+}
+
+/* Улучшения для status bar */
+.keyboard-is-open {
+  --ion-safe-area-top: env(safe-area-inset-top);
+}
+
+/* Оптимизация для разных размеров экрана */
+@media (max-height: 600px) {
+  /* На маленьких экранах более агрессивное позиционирование */
+  .keyboard-is-open ion-content {
+    transform: translateY(calc(-1 * var(--keyboard-offset, 0px) * 0.7));
+  }
+}
+
+@media (min-height: 800px) {
+  /* На больших экранах менее агрессивное */
+  .keyboard-is-open ion-content {
+    transform: translateY(calc(-1 * var(--keyboard-offset, 0px) * 0.3));
   }
 }
