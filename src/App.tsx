@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { IonApp, setupIonicReact } from "@ionic/react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { AppRoutes } from "./app/routes/AppRoutes";
+import { useAppStore } from "./shared/store/app.store";
+import { LoaderScreen } from "./shared/ui";
 
 /* Core CSS required for Ionic components to work properly */
 import "@ionic/react/css/core.css";
@@ -32,14 +34,32 @@ const queryClient = new QueryClient({
   },
 });
 
-const App: React.FC = () => (
-  <QueryClientProvider client={queryClient}>
+const App: React.FC = () => {
+  const { isInitializing, initializeApp } = useAppStore();
+
+  useEffect(() => {
+    initializeApp();
+  }, [initializeApp]);
+
+  if (isInitializing) {
+    return (
+      <QueryClientProvider client={queryClient}>
+        <IonApp>
+          <LoaderScreen />
+        </IonApp>
+      </QueryClientProvider>
+    );
+  }
+
+  return (
     <QueryClientProvider client={queryClient}>
-      <IonApp>
-        <AppRoutes />
-      </IonApp>
+      <QueryClientProvider client={queryClient}>
+        <IonApp>
+          <AppRoutes />
+        </IonApp>
+      </QueryClientProvider>
     </QueryClientProvider>
-  </QueryClientProvider>
-);
+  );
+};
 
 export default App;

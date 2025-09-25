@@ -26,8 +26,8 @@ export const DogHealthStep: React.FC<DogHealthStepProps> = ({
 
   return (
     <div className="space-y-6">
-      <div className="text-center">
-        <Text variant="bold-24" tag="h1" className="mb-2 text-center">
+      <div>
+        <Text variant="bold-24" tag="h1" className="mb-2 text-start">
           {t("Health Information")}
         </Text>
       </div>

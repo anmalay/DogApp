@@ -26,13 +26,16 @@ export interface AppState {
 
   // App state
   isLoading: boolean;
+  isInitializing: boolean;
   isOnboarded: boolean;
 
   // Actions
   setUser: (user: User | null) => void;
   setToken: (token: string | null) => void;
   setLoading: (loading: boolean) => void;
+  setInitializing: (initializing: boolean) => void;
   setOnboarded: (onboarded: boolean) => void;
+  initializeApp: () => Promise<void>;
   logout: () => void;
 
   // Preferences
@@ -51,6 +54,7 @@ export const useAppStore = create<AppState>()(
         isAuthenticated: false,
         token: null,
         isLoading: false,
+        isInitializing: true,
         isOnboarded: false,
         language: "en",
         theme: "auto",
@@ -69,6 +73,17 @@ export const useAppStore = create<AppState>()(
           }),
 
         setLoading: (isLoading) => set({ isLoading }),
+
+        setInitializing: (isInitializing) => set({ isInitializing }),
+
+        initializeApp: async () => {
+          set({ isInitializing: true });
+
+          // Имитируем загрузку API (проверка аутентификации, настроек и т.д.)
+          await new Promise(resolve => setTimeout(resolve, 2000));
+
+          set({ isInitializing: false });
+        },
 
         setOnboarded: (isOnboarded) => set({ isOnboarded }),
 

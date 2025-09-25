@@ -30,11 +30,11 @@ export const DogBreedStep: React.FC<DogBreedStepProps> = ({
   const { t } = useTranslation();
   const [searchValue, setSearchValue] = useState("");
 
-  const filteredBreeds = mockBreeds.filter(breed =>
+  const filteredBreeds = mockBreeds.filter((breed) =>
     breed.toLowerCase().includes(searchValue.toLowerCase())
   );
 
-  const breedOptions: TagRadioOption[] = filteredBreeds.map(breed => ({
+  const breedOptions: TagRadioOption[] = filteredBreeds.map((breed) => ({
     value: breed,
     label: t(breed),
   }));
@@ -45,8 +45,8 @@ export const DogBreedStep: React.FC<DogBreedStepProps> = ({
 
   return (
     <div className="space-y-6">
-      <div className="text-center">
-        <Text variant="bold-24" tag="h1" className="mb-2 text-center">
+      <div>
+        <Text variant="bold-24" tag="h1" className="mb-2 text-start">
           {t("Breed")}
         </Text>
       </div>
@@ -62,7 +62,7 @@ export const DogBreedStep: React.FC<DogBreedStepProps> = ({
         value={data.breed || ""}
         onChange={handleBreedChange}
         size="medium"
-        className="justify-center"
+        className="justify-start"
       />
 
       {errors.breed && (

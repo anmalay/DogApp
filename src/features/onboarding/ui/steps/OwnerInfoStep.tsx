@@ -1,7 +1,7 @@
 import React, { useState, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { Camera, CameraResultType, CameraSource } from "@capacitor/camera";
-import { Input, BottomModal, DatePicker } from "@shared/ui";
+import { Input, BottomModal, DatePicker, Text, Button } from "@shared/ui";
 import { CameraIcon, TrashIcon } from "@shared/ui/icons";
 import { DogProfileData, StepErrors } from "../../model/types";
 
@@ -125,9 +125,9 @@ export const OwnerInfoStep: React.FC<OwnerInfoStepProps> = ({
   return (
     <>
       <div className="Frame237759 self-stretch inline-flex flex-col justify-start items-start gap-8 w-full">
-        <div className="self-stretch justify-start text-gray-700 text-2xl font-bold font-['Golos_Text'] leading-relaxed">
+        <Text variant="bold-24" tag="h1" className="mb-2 text-start">
           {t("About the owner")}
-        </div>
+        </Text>
         <div className="Content self-stretch flex-1 pb-5 flex flex-col justify-start items-center gap-14 w-full">
           <div className="Container self-stretch flex-1 flex flex-col justify-start items-start gap-8 w-full">
             {/* Photo Upload */}
@@ -160,9 +160,9 @@ export const OwnerInfoStep: React.FC<OwnerInfoStepProps> = ({
 
             {/* Owner Name */}
             <div className="InputCover self-stretch flex flex-col justify-start items-center gap-3.5">
-              <div className="self-stretch justify-start text-gray-700 text-base font-medium font-['Golos_Text']">
+              <Text variant="medium-16" className="self-stretch text-start">
                 {t("Owner name")}
-              </div>
+              </Text>
               <Input
                 placeholder={t("Your name")}
                 value={data.owner.name}
@@ -175,17 +175,17 @@ export const OwnerInfoStep: React.FC<OwnerInfoStepProps> = ({
 
             {/* Owner Birth Date */}
             <div className="InputCover self-stretch flex flex-col justify-start items-center gap-3.5">
-              <div className="self-stretch justify-start text-gray-700 text-base font-medium font-['Golos_Text']">
+              <Text variant="medium-16" className="self-stretch text-start">
                 {t("Owner birth date")}
-              </div>
+              </Text>
               <div
                 className="Input self-stretch h-16 p-5 bg-white rounded-2xl flex flex-col justify-center items-center gap-5 overflow-hidden cursor-pointer"
                 onClick={openDatePicker}
               >
                 <div className="Text self-stretch inline-flex justify-between items-center">
-                  <div className="Text flex-1 justify-start text-slate-500 text-base font-normal font-['Golos_Text'] leading-tight">
+                  <Text color="muted" className="flex-1 text-start">
                     {formatDisplayDate(data.owner.birth_date || "")}
-                  </div>
+                  </Text>
                   <div className="IconCover flex justify-end items-center gap-2.5" />
                 </div>
               </div>
@@ -210,23 +210,21 @@ export const OwnerInfoStep: React.FC<OwnerInfoStepProps> = ({
         title={t("Owner birth date")}
         className="date-picker-modal"
         buttons={
-          <div className="Buttons self-stretch inline-flex justify-center items-start gap-2.5">
-            <div
-              className="Button flex-1 px-6 py-5 bg-white rounded-[59px] flex justify-center items-center gap-2.5 cursor-pointer hover:bg-gray-50 transition-colors"
+          <div className="Buttons self-stretch inline-flex justify-center items-start gap-2.5 w-full">
+            <Button
+              variant="secondary"
               onClick={handleDateCancel}
+              className="flex-1"
             >
-              <div className="Text justify-start text-gray-700 text-base font-medium font-['Golos_Text']">
-                {t("Cancel")}
-              </div>
-            </div>
-            <div
-              className="Button flex-1 px-6 py-5 bg-gray-700 rounded-[59px] flex justify-center items-center gap-2.5 cursor-pointer hover:bg-gray-800 transition-colors"
+              {t("Cancel")}
+            </Button>
+            <Button
+              variant="primary"
               onClick={handleDateSave}
+              className="flex-1"
             >
-              <div className="Text justify-start text-white text-base font-medium font-['Golos_Text']">
-                {t("Save")}
-              </div>
-            </div>
+              {t("Save")}
+            </Button>
           </div>
         }
       >

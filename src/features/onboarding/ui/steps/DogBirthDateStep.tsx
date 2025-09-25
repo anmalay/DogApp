@@ -1,6 +1,6 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { DatePicker } from "@shared/ui";
+import { DatePicker, Text } from "@shared/ui";
 import { DogProfileData, StepErrors } from "../../model/types";
 
 interface DogBirthDateStepProps {
@@ -24,9 +24,11 @@ export const DogBirthDateStep: React.FC<DogBirthDateStepProps> = ({
   };
 
   return (
-    <div className="self-stretch relative inline-flex flex-col justify-start items-center gap-12 w-full">
-      <div className="self-stretch justify-start text-gray-700 text-2xl font-bold font-['Golos_Text'] leading-relaxed text-center">
-        {t("When was {{name}} born?", { name: data.name || t("your dog") })}
+    <div className="self-stretch relative inline-flex flex-col justify-start items-start gap-12 w-full">
+      <div>
+        <Text variant="bold-24" tag="h1" className="mb-2 text-start">
+          {t("When was {{name}} born?", { name: data.name || t("your dog") })}
+        </Text>
       </div>
 
       <div className="self-stretch h-72 relative flex flex-col justify-start items-center overflow-hidden">

@@ -1,5 +1,6 @@
 import React, { useRef, useState } from "react";
 import { IonModal } from "@ionic/react";
+import { Text } from "../Text/Text";
 import "./BottomModal.module.css";
 
 export interface BottomModalProps {
@@ -67,9 +68,9 @@ export const BottomModal: React.FC<BottomModalProps> = ({
             {title && (
               <div className="Top self-stretch inline-flex justify-start items-start gap-2.5">
                 <div className="Text flex-1 inline-flex flex-col justify-start items-start gap-[5px]">
-                  <div className="self-stretch justify-start text-gray-700 text-2xl font-bold font-['Golos_Text'] leading-relaxed">
+                  <Text variant="bold-24" className="self-stretch text-start">
                     {title}
-                  </div>
+                  </Text>
                 </div>
               </div>
             )}

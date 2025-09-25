@@ -10,6 +10,7 @@ export interface TagProps {
   variant?: "default" | "accent" | "outline";
   onClick?: () => void;
   className?: string;
+  hasError?: boolean;
 }
 
 export const Tag: React.FC<TagProps> = ({
@@ -21,6 +22,7 @@ export const Tag: React.FC<TagProps> = ({
   variant = "default",
   onClick,
   className,
+  hasError = false,
 }) => {
   const getTagClasses = () => {
     const baseClasses = [
@@ -79,9 +81,19 @@ export const Tag: React.FC<TagProps> = ({
     }
   };
 
+  const getBorderStyle = () => {
+    if (hasError && !selected) {
+      return {
+        border: "1px solid var(--color-info)",
+      };
+    }
+    return {};
+  };
+
   return (
     <div
       className={classNames(getTagClasses(), className)}
+      style={getBorderStyle()}
       onClick={handleClick}
     >
       {icon && (

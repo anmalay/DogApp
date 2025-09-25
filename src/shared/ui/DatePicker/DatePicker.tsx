@@ -184,9 +184,7 @@ export const DatePicker: React.FC<DatePickerProps> = ({
                 style={{ scrollSnapAlign: "center" }}
               >
                 <span
-                  className={`${width} text-center text-base font-medium font-['Golos_Text'] ${
-                    isSelected ? "text-gray-700" : "text-slate-500"
-                  }`}
+                  className={`${width} text-center text-base font-medium font-['Golos_Text'] text-text-muted`}
                 >
                   {item}
                 </span>

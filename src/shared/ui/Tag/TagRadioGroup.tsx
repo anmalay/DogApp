@@ -16,6 +16,7 @@ export interface TagRadioGroupProps {
   size?: "small" | "medium";
   variant?: "default" | "accent" | "outline";
   className?: string;
+  hasError?: boolean;
 }
 
 export const TagRadioGroup: React.FC<TagRadioGroupProps> = ({
@@ -25,6 +26,7 @@ export const TagRadioGroup: React.FC<TagRadioGroupProps> = ({
   size = "medium",
   variant = "default",
   className,
+  hasError = false,
 }) => {
   return (
     <div className={classNames("flex flex-wrap gap-2", className)}>
@@ -36,6 +38,7 @@ export const TagRadioGroup: React.FC<TagRadioGroupProps> = ({
           icon={option.icon}
           size={size}
           variant={variant}
+          hasError={hasError}
           onClick={() => !option.disabled && onChange(option.value)}
         >
           {option.label}

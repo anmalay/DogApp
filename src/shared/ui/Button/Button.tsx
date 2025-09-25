@@ -89,7 +89,6 @@ export const Button: React.FC<ButtonProps> = ({
           baseClasses.push(
             "bg-surface",
             "text-text-primary",
-            "shadow-[0px_5px_9px_0px_var(--color-border)]",
             "hover:shadow-[0px_7px_12px_0px_var(--color-border)]"
           );
           break;

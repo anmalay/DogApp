@@ -1,0 +1,101 @@
+# Claude Settings for DogApp
+
+## Project Context
+You are working on DogApp, an Ionic React mobile application for dog walking and pet social networking. The app helps dog owners find suitable companions for their pets through a comprehensive onboarding flow and matching system.
+
+## Key Project Guidelines
+
+### Architecture & Code Style
+- Follow Feature-Sliced Design (FSD) architecture strictly
+- Use Ionic React components over standard HTML elements for mobile optimization
+- Maintain iOS mode consistency across all components
+- Prefer editing existing files over creating new ones
+- Always use TypeScript with strict typing
+
+### State Management
+- Use Zustand store (`useAppStore`) for global app state (auth, preferences, onboarding)
+- Use local hooks like `useDogProfileStepper` for feature-specific state
+- Persist important state through Zustand's partialize configuration
+
+### Internationalization
+- ALWAYS use English keys in `t()` calls: `t("Create Account")` NOT `t("Создать аккаунт")`
+- Add new translation keys to both `translation.en.json` AND `translation.ru.json`
+- Use `Trans` component for complex interpolated text
+- Test translations in both languages when adding new text
+
+### Component Development
+- Use Plop.js generators: `npx plop page` or `npx plop ui`
+- Follow FSD layer structure: shared → entities → features → widgets → pages → app
+- Create components in appropriate FSD layers based on their scope
+- Export components through index.ts files
+
+### API Integration
+- Never manually edit files in `src/shared/api/generated/`
+- Use `npm run api:generate` to regenerate API client from OpenAPI spec
+- API client uses MSW mocking for development
+- Custom API instance handles authentication in `src/shared/api/client.ts`
+
+### Development Workflow
+- Run `npm run dev` for development
+- Always run `npm run lint` before submitting code
+- Use `npm run test.unit` for testing
+- Build with `npm run build` (includes TypeScript check)
+
+### Onboarding Flow Modifications
+- The dog profile stepper has 10 steps - be careful when modifying step logic
+- Update validation in `useDogProfileStepper.ts` when changing step requirements
+- Update `DogProfileData` interface in `types.ts` for data structure changes
+- Progress calculation and step counting must be updated if adding/removing steps
+
+### Mobile-First Considerations
+- App targets mobile platforms via Capacitor
+- Test responsive design on mobile viewports
+- Use Ionic navigation patterns and components
+- Consider touch interactions and mobile UX patterns
+
+## Common Tasks
+
+### Adding New UI Components
+```bash
+npx plop ui
+# Select appropriate FSD layer
+# Choose slice name (for non-shared components)
+# Enter component name
+```
+
+### Adding New Pages
+```bash
+npx plop page
+# Enter page name (will create lazy-loaded route-ready component)
+```
+
+### Working with Translations
+1. Add English key to `src/i18n/translations/translation.en.json`
+2. Add Russian translation to `src/i18n/translations/translation.ru.json`
+3. Use in components: `const { t } = useTranslation(); t("Your Key")`
+
+### API Changes
+1. Update OpenAPI specification at backend
+2. Run `npm run api:generate` to regenerate types and hooks
+3. Update components using the changed API endpoints
+
+## Important Files to Reference
+- `src/features/onboarding/model/useDogProfileStepper.ts` - Multi-step form logic
+- `src/features/onboarding/model/types.ts` - Onboarding data structures
+- `src/shared/store/app.store.ts` - Global state management
+- `src/app/routes/AppRoutes.tsx` - Application routing
+- `src/i18n/config.ts` - Internationalization configuration
+- `CLAUDE.md` - Detailed project documentation
+
+## Code Quality Standards
+- Use semantic, descriptive variable and function names
+- Write self-documenting code - avoid unnecessary comments
+- Follow React functional component patterns with hooks
+- Implement proper error handling and loading states
+- Use proper TypeScript types - avoid `any`
+
+## Testing Approach
+- Unit tests with Vitest for utilities and hooks
+- E2E tests with Cypress for user flows
+- Test multilingual support when adding new features
+- Test mobile responsiveness and touch interactions

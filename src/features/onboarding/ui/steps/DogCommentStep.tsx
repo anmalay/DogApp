@@ -17,11 +17,9 @@ export const DogCommentStep: React.FC<DogCommentStepProps> = ({
 
   return (
     <div className="space-y-6">
-      <div className="text-center">
-        <Text variant="bold-24" tag="h1" className="mb-2 text-center">
-          {t("Tell us about your pet")}
-        </Text>
-      </div>
+      <Text variant="bold-24" tag="h1" className="mb-8  text-start">
+        {t("Tell us about your pet")}
+      </Text>
 
       <Textarea
         placeholder={t("Tell what other owners should know before walks")}

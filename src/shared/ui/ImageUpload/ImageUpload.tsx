@@ -3,6 +3,7 @@ import { Camera, CameraResultType, CameraSource } from "@capacitor/camera";
 import { useTranslation } from "react-i18next";
 import { CameraIcon, MenuDotsIcon, PawIcon, TrashIcon } from "../icons";
 import { BottomDrawer } from "../BottomDrawer";
+import { Text } from "../Text";
 
 export interface ImageUploadProps {
   images: string[];
@@ -92,12 +93,14 @@ export const ImageUpload: React.FC<ImageUploadProps> = ({
     if (files && files.length > 0) {
       const remainingSlots = maxImages - images.length;
       const filesToProcess = Array.from(files).slice(0, remainingSlots);
-      
+
       // Show warning if user selected more files than available slots
       if (files.length > remainingSlots) {
-        console.warn(`Можно добавить только ${remainingSlots} фото. Остальные будут проигнорированы.`);
+        console.warn(
+          `Можно добавить только ${remainingSlots} фото. Остальные будут проигнорированы.`
+        );
       }
-      
+
       const newImages: string[] = [];
       let processedCount = 0;
 
@@ -109,7 +112,7 @@ export const ImageUpload: React.FC<ImageUploadProps> = ({
             newImages.push(result);
           }
           processedCount++;
-          
+
           if (processedCount === filesToProcess.length) {
             const finalImages = [...images, ...newImages].slice(0, maxImages);
             onChange(finalImages);
@@ -155,9 +158,9 @@ export const ImageUpload: React.FC<ImageUploadProps> = ({
 
   return (
     <div className="InputCover self-stretch inline-flex flex-col justify-start items-start gap-9 w-full">
-      <div className="self-stretch justify-start text-gray-700 text-2xl font-bold font-['Golos_Text'] leading-relaxed">
+      <Text variant="bold-24" tag="h1" className="mb-2 text-start">
         {t("Добавьте фото собаки")}
-      </div>
+      </Text>
 
       {images.length === 0 && canAddMore ? (
         <div

@@ -14,11 +14,11 @@ export const DogWeightStep: React.FC<DogWeightStepProps> = ({
   onUpdate,
 }) => {
   const { t } = useTranslation();
-  
+
   return (
     <div className="space-y-6">
-      <div className="text-center">
-        <Text variant="bold-24" tag="h1" className="mb-2 text-center">
+      <div>
+        <Text variant="bold-24" tag="h1" className="mb-2 text-start">
           {t("Pet Weight")}
         </Text>
       </div>

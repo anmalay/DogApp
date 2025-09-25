@@ -50,8 +50,10 @@ The project follows FSD methodology with these layers:
 - **API:** Auto-generated client using Orval from OpenAPI spec
 
 **Component Priority Rules:**
-- **ALWAYS use Ionic components first** when available (IonModal, IonButton, IonInput, IonPopover, etc.)
-- Only create custom components when Ionic doesn't provide the needed functionality
+1. **FIRST: Use existing components from @shared/ui** when they provide the needed functionality
+2. **SECOND: Use Ionic components** when shared components don't exist (IonModal, IonButton, IonInput, IonPopover, etc.)
+3. **THIRD: Create custom components** only when neither shared nor Ionic components provide the needed functionality
+- **ALWAYS use Text component from @shared/ui** for all text elements instead of div, span, p, or h tags with manual styling
 - When using Ionic components, overlay custom styling/behavior rather than recreating from scratch
 - Examples: Use IonModal with custom content instead of building custom modal, use IonInput with custom wrapper instead of pure HTML input
 - **Data Fetching:** TanStack React Query

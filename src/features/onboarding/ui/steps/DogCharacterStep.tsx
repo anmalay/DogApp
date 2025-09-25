@@ -28,8 +28,8 @@ export const DogCharacterStep: React.FC<DogCharacterStepProps> = ({
 
   const sizeComfortOptions: TagCheckboxOption[] = [
     { value: "same_size", label: t("With same size dogs") },
-    { value: "small", label: t("With small dogs") },
-    { value: "large", label: t("With large dogs") },
+    { value: "small_dogs", label: t("With small dogs") },
+    { value: "big_dogs", label: t("With large dogs") },
   ];
 
   const handleActivityChange = (value: string) => {

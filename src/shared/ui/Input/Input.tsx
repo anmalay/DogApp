@@ -171,7 +171,7 @@ export const Input: React.FC<InputProps> = ({
                 paddingLeft: "20px",
                 paddingRight: "20px",
                 "--padding-top": "20px",
-                "--padding-bottom": "20px",
+                "--padding-bottom": "24px",
                 "--border-width": "0",
                 "--border-radius": "0",
                 "--box-shadow": "none",
