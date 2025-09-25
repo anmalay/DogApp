@@ -1,55 +1,41 @@
-import React, { useState } from "react";
+import React from "react";
 import { IonContent } from "@ionic/react";
-import { useTranslation } from "react-i18next";
+import { useHistory } from "react-router-dom";
 import { WelcomeView } from "./WelcomeView";
-import { StepperIntroView } from "./StepperIntroView";
-import { DogProfileStepper } from "../DogProfileStepper/DogProfileStepper";
-import { VerificationView } from "./VerificationView";
 
-type ScreenType = "welcome" | "stepper-intro" | "stepper" | "verification";
+interface WelcomeScreenProps {
+  onCreateAccount?: () => void;
+  onSignIn?: () => void;
+}
 
-export const WelcomeScreen: React.FC = () => {
-  const [currentScreen, setCurrentScreen] = useState<ScreenType>("welcome");
-  const { t } = useTranslation();
+export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({
+  onCreateAccount,
+  onSignIn,
+}) => {
+  const history = useHistory();
 
-  const showToastMessage = (message: string) => {
-    console.log(message); // TODO: Replace with proper toast implementation
+  const handleCreateAccount = () => {
+    if (onCreateAccount) {
+      onCreateAccount();
+    } else {
+      history.push("/registration");
+    }
   };
 
-  if (currentScreen === "welcome") {
-    return (
-      <IonContent className="bg-gradient-to-br from-purple-100 to-blue-100">
-        <WelcomeView onNext={() => setCurrentScreen("stepper-intro")} />
-      </IonContent>
-    );
-  }
-
-  if (currentScreen === "stepper-intro") {
-    return (
-      <IonContent className="bg-white">
-        <StepperIntroView
-          onNext={() => setCurrentScreen("stepper")}
-          onSkip={() => showToastMessage(t("Switching to limited functionality mode"))}
-        />
-      </IonContent>
-    );
-  }
-
-  if (currentScreen === "verification") {
-    return (
-      <IonContent className="bg-white">
-        <VerificationView
-          onVerify={() => showToastMessage(t("Proceeding to verification"))}
-          onSkip={() => showToastMessage(t("Switching to limited functionality mode"))}
-        />
-      </IonContent>
-    );
-  }
+  const handleSignIn = () => {
+    if (onSignIn) {
+      onSignIn();
+    } else {
+      history.push("/login");
+    }
+  };
 
   return (
-    <DogProfileStepper
-      onComplete={() => setCurrentScreen("verification")}
-      onBack={() => setCurrentScreen("stepper-intro")}
-    />
+    <IonContent className="bg-zinc-100">
+      <WelcomeView
+        onCreateAccount={handleCreateAccount}
+        onSignIn={handleSignIn}
+      />
+    </IonContent>
   );
 };
