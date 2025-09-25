@@ -410,3 +410,49 @@ ion-content.ion-padding {
     transform: translateY(calc(-1 * var(--keyboard-offset, 0px) * 0.3));
   }
 }
+
+/* Swiper customizations for onboarding */
+.onboarding-swiper {
+  --swiper-theme-color: var(--color-primary);
+  --swiper-navigation-color: var(--color-primary);
+  --swiper-pagination-color: var(--color-primary);
+}
+
+.onboarding-swiper .swiper-slide {
+  transition: transform 0.3s ease-in-out;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.onboarding-swiper .swiper-slide-active {
+  transform: scale(1);
+}
+
+.onboarding-swiper .swiper-slide-prev,
+.onboarding-swiper .swiper-slide-next {
+  transform: scale(0.95);
+  opacity: 0.8;
+}
+
+/* Smooth transitions */
+.onboarding-swiper .swiper-wrapper {
+  transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* Hide scrollbars in swiper slides */
+.onboarding-swiper .swiper-slide {
+  overflow: hidden;
+}
+
+/* Touch feedback */
+.onboarding-swiper {
+  touch-action: pan-y pinch-zoom;
+}
+
+/* Enhanced native feel */
+.onboarding-swiper.swiper {
+  transform: translateZ(0);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}

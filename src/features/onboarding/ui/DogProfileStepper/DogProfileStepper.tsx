@@ -1,6 +1,11 @@
-import React from "react";
+import React, { useRef, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { IonToast, IonPage, IonContent } from "@ionic/react";
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { EffectFade, Pagination } from 'swiper/modules';
+import 'swiper/css';
+import 'swiper/css/effect-fade';
+import 'swiper/css/pagination';
 import { Button } from "@shared/ui";
 import { useDogProfileStepper } from "../../model/useDogProfileStepper";
 import { StepperHeader } from "./StepperHeader";
@@ -26,6 +31,7 @@ export const DogProfileStepper: React.FC<DogProfileStepperProps> = ({
   onBack,
 }) => {
   const { t } = useTranslation();
+  const swiperRef = useRef<any>(null);
   const {
     currentStep,
     stepperData,
@@ -36,60 +42,55 @@ export const DogProfileStepper: React.FC<DogProfileStepperProps> = ({
     handleBack: handleStepBack,
     updateStepperData,
     setShowToast,
+    setCurrentStep,
   } = useDogProfileStepper(onComplete, onBack);
 
-  const renderStep = () => {
-    const stepProps = {
-      data: stepperData,
-      errors,
-      onUpdate: updateStepperData,
-    };
+  // Sync swiper with current step
+  useEffect(() => {
+    if (swiperRef.current && swiperRef.current.swiper) {
+      swiperRef.current.swiper.slideTo(currentStep - 1, 300);
+    }
+  }, [currentStep]);
 
-    switch (currentStep) {
-      case 1:
-        return <DogNameStep {...stepProps} />;
-      case 2:
-        return <DogGenderStep {...stepProps} />;
-      case 3:
-        return <DogWeightStep {...stepProps} />;
-      case 4:
-        return <DogBreedStep {...stepProps} />;
-      case 5:
-        return <DogBirthDateStep {...stepProps} />;
-      case 6:
-        return <DogHealthStep {...stepProps} />;
-      case 7:
-        return <DogCharacterStep {...stepProps} />;
-      case 8:
-        return <DogCommentStep {...stepProps} />;
-      case 9:
-        return <DogPhotosStep {...stepProps} />;
-      case 10:
-        return <OwnerInfoStep {...stepProps} />;
-      default:
-        return null;
+  const handleSlideChange = (swiper: any) => {
+    const newStep = swiper.activeIndex + 1;
+    if (newStep !== currentStep && newStep <= 10 && newStep >= 1) {
+      setCurrentStep(newStep);
     }
   };
+
+  const stepProps = {
+    data: stepperData,
+    errors,
+    onUpdate: updateStepperData,
+  };
+
+  const steps = [
+    <DogNameStep {...stepProps} />,
+    <DogGenderStep {...stepProps} />,
+    <DogWeightStep {...stepProps} />,
+    <DogBreedStep {...stepProps} />,
+    <DogBirthDateStep {...stepProps} />,
+    <DogHealthStep {...stepProps} />,
+    <DogCharacterStep {...stepProps} />,
+    <DogCommentStep {...stepProps} />,
+    <DogPhotosStep {...stepProps} />,
+    <OwnerInfoStep {...stepProps} />,
+  ];
 
   return (
     <IonPage>
       <IonContent
         fullscreen
-        scrollY={true}
+        scrollY={false}
         style={{
           "--scroll-behavior": "smooth",
           "--overscroll-behavior": "contain",
         }}
       >
-        <div
-          className="w-full bg-[#F3F3F3] pb-5 px-5 pt-15 min-h-full flex flex-col"
-          style={{
-            scrollBehavior: "auto",
-            overscrollBehavior: "contain",
-          }}
-        >
-          {/* Header Section */}
-          <div className="flex flex-col gap-[40px]">
+        <div className="w-full bg-[#F3F3F3] h-full flex flex-col">
+          {/* Header Section - Fixed */}
+          <div className="flex flex-col gap-[40px] px-5 pt-15 pb-5 bg-[#F3F3F3] z-10">
             <StepperHeader
               currentStep={currentStep}
               totalSteps={10}
@@ -111,13 +112,38 @@ export const DogProfileStepper: React.FC<DogProfileStepperProps> = ({
             )}
           </div>
 
-          {/* Content Section - Now flexible */}
-          <div className="flex-1 flex flex-col gap-[40px] py-[40px]">
-            <div className="w-full">{renderStep()}</div>
+          {/* Swiper Content Section */}
+          <div className="flex-1 relative">
+            <Swiper
+              ref={swiperRef}
+              modules={[EffectFade, Pagination]}
+              effect="slide"
+              speed={300}
+              allowTouchMove={true}
+              onSlideChange={handleSlideChange}
+              initialSlide={currentStep - 1}
+              className="h-full onboarding-swiper"
+              resistance={true}
+              resistanceRatio={0.85}
+              followFinger={true}
+              shortSwipes={true}
+              longSwipes={true}
+              style={{
+                height: '100%',
+              }}
+            >
+              {steps.map((step, index) => (
+                <SwiperSlide key={index} className="flex flex-col h-full">
+                  <div className="flex-1 flex flex-col px-5 py-[40px] overflow-y-auto">
+                    <div className="w-full">{step}</div>
+                  </div>
+                </SwiperSlide>
+              ))}
+            </Swiper>
           </div>
 
-          {/* Action Buttons - Now at bottom */}
-          <div className="w-full flex gap-[10px] mt-auto">
+          {/* Action Buttons - Fixed at bottom */}
+          <div className="w-full flex gap-[10px] p-5 bg-[#F3F3F3] z-10">
             <Button
               variant="outline"
               size="large"

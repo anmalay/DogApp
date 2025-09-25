@@ -173,6 +173,7 @@ export const useDogProfileStepper = (
     updateStepperData,
     setShowToast,
     showToastMessage,
+    setCurrentStep,
   };
 };
 
