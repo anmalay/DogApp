@@ -64,3 +64,6 @@ export type { BottomModalProps } from "./BottomModal";
 export { StepperNavigation } from "./StepperNavigation";
 
 export { LoaderScreen } from "./LoaderScreen";
+
+export { CodeInput } from "./CodeInput";
+export type { CodeInputProps } from "./CodeInput";
