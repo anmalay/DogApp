@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { IonRouterOutlet, IonTabs } from "@ionic/react";
+import { IonRouterOutlet } from "@ionic/react";
 import { IonReactRouter } from "@ionic/react-router";
 import { Route, Redirect, Switch } from "react-router-dom";
 
@@ -11,7 +11,7 @@ import { OnboardingPage } from "@pages/onboarding";
 export const AppRoutes: FC = () => {
   return (
     <IonReactRouter>
-      <IonRouterOutlet animated swipeGesture>
+      <IonRouterOutlet animated>
         <Switch>
           <Route exact path="/welcome" component={WelcomePage} />
           <Route exact path="/login" component={LoginPage} />

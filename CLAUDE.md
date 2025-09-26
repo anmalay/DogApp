@@ -147,3 +147,25 @@ Plop.js templates support FSD architecture:
 - Ionic components preferred over basic HTML elements for mobile optimization
 - Navigation uses Ionic Router with React Router v5 (not v6)
 - Capacitor plugins available for native functionality (camera, geolocation, etc.)
+
+## Critical Best Practices & Anti-Patterns
+
+**NAVIGATION - USE PROPER REACT ROUTER:**
+- ✅ **CORRECT:** `const history = useHistory(); history.goBack();`
+- ❌ **WRONG:** `window.history.back()`
+- ✅ **CORRECT:** `history.push('/path')` or `history.replace('/path')`
+- ❌ **WRONG:** `window.location.href = '/path'`
+
+**CODE QUALITY RULES:**
+- ❌ **NEVER USE:** `console.log()` in production code (remove all debug statements)
+- ❌ **NEVER USE:** `any` types (always specify proper TypeScript types)
+- ❌ **NEVER USE:** Direct DOM manipulation (use React refs and proper patterns)
+- ✅ **ALWAYS USE:** Proper React hooks and patterns
+- ✅ **ALWAYS USE:** Proper error handling (try/catch, error boundaries)
+- ✅ **ALWAYS USE:** Semantic HTML and accessibility best practices
+
+**TYPESCRIPT RULES:**
+- Define proper interfaces instead of `any`
+- Use union types for restricted values
+- Proper error handling with typed errors
+- No implicit any, enable strict mode compliance

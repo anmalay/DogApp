@@ -109,10 +109,10 @@ export const Input: React.FC<InputProps> = ({
         outline: "none",
       };
     } else if (error) {
-      // Other error states - use error color
+      // Other error states - use info color (purple) for validation errors
       return {
         ...baseStyle,
-        border: "1px solid var(--color-error)",
+        border: "1px solid var(--color-info)",
         outline: "none",
       };
     } else if (requiredError) {

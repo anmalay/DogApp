@@ -65,7 +65,7 @@ export const DogProfileStepper: React.FC<DogProfileStepperProps> = ({
     }
   }, [currentStep]);
 
-  const handleSlideChange = (swiper: any) => {
+  const handleSlideChange = (swiper: { activeIndex: number; slideTo: (index: number, duration: number) => void }) => {
     const newStep = swiper.activeIndex + 1;
     // Only allow going back via swipe, not forward
     if (newStep < currentStep && newStep >= 1) {
@@ -161,7 +161,7 @@ export const DogProfileStepper: React.FC<DogProfileStepperProps> = ({
                   return;
                 }
                 swiper.allowTouchMove = true;
-                (swiper as any).touchStartX =
+                (swiper as { touchStartX?: number }).touchStartX =
                   (event as TouchEvent).touches?.[0]?.clientX ||
                   (event as MouseEvent).clientX;
               }}
@@ -179,7 +179,7 @@ export const DogProfileStepper: React.FC<DogProfileStepperProps> = ({
                 const touchX =
                   (event as TouchEvent).touches?.[0]?.clientX ||
                   (event as MouseEvent).clientX;
-                const deltaX = (swiper as any).touchStartX - touchX;
+                const deltaX = (swiper as { touchStartX?: number }).touchStartX! - touchX;
 
                 // Completely block forward swipe (right to left)
                 if (deltaX > 5) {

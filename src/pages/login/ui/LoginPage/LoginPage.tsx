@@ -1,16 +1,42 @@
 import React from "react";
 import { IonPage, IonContent } from "@ionic/react";
 import { useTranslation } from "react-i18next";
+import { useHistory } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
 import { Text } from "@shared/ui/Text/Text";
 import { Button } from "@shared/ui/Button/Button";
 import { Input } from "@shared/ui/Input/Input";
 import { BackIcon } from "@shared/ui/icons/BackIcon";
 
+const loginSchema = z.object({
+  email: z.string().min(1, "Email is required").email("Invalid email format"),
+});
+
+type LoginFormData = z.infer<typeof loginSchema>;
+
 export const LoginPage: React.FC = () => {
   const { t } = useTranslation();
+  const history = useHistory();
+
+  const {
+    handleSubmit,
+    formState: { errors },
+    setValue,
+    watch,
+  } = useForm<LoginFormData>({
+    resolver: zodResolver(loginSchema),
+  });
+
+  const emailValue = watch("email");
 
   const handleBack = () => {
-    window.history.back();
+    history.goBack();
+  };
+
+  const onSubmit = (data: LoginFormData) => {
+    console.log("Valid email:", data.email);
   };
 
   return (
@@ -36,7 +62,15 @@ export const LoginPage: React.FC = () => {
 
               {/* Email input */}
               <div className="self-stretch flex flex-col justify-start items-center gap-1">
-                <Input placeholder={t("E-mail")} type="email" size="full" />
+                <Input
+                  placeholder={t("E-mail")}
+                  type="email"
+                  size="full"
+                  value={emailValue || ""}
+                  onInput={(value) => setValue("email", value)}
+                  error={!!errors.email}
+                  // errorMessage={errors.email?.message ? t(errors.email.message) : undefined}
+                />
               </div>
 
               {/* Action buttons */}
@@ -46,6 +80,7 @@ export const LoginPage: React.FC = () => {
                   size="large"
                   fullWidth
                   className="bg-gray-700 text-white"
+                  onClick={handleSubmit(onSubmit)}
                 >
                   {t("Get email code")}
                 </Button>

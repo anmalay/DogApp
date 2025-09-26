@@ -163,20 +163,6 @@ export const DatePicker: React.FC<DatePickerProps> = ({
           <div className="h-28" />
 
           {items.map((item) => {
-            // Calculate if this item is selected based on scroll position
-            const isSelected = (() => {
-              switch (type) {
-                case "day":
-                  return item === value.day;
-                case "month":
-                  return item === months[value.month - 1];
-                case "year":
-                  return item === value.year;
-                default:
-                  return false;
-              }
-            })();
-
             return (
               <div
                 key={`${type}-${item}`}
