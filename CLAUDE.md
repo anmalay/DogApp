@@ -148,13 +148,48 @@ Plop.js templates support FSD architecture:
 - Navigation uses Ionic Router with React Router v5 (not v6)
 - Capacitor plugins available for native functionality (camera, geolocation, etc.)
 
+**Capacitor Native Features:**
+- **Available Plugins:** Camera, Geolocation, Haptics, Keyboard, StatusBar, PushNotifications, App
+- **Usage Pattern:** Always import from `@capacitor/[plugin-name]` and check platform before using
+- **Error Handling:** Wrap Capacitor calls in try/catch blocks for web fallbacks
+- **Example Usage:** 
+  ```typescript
+  import { Camera, CameraResultType } from '@capacitor/camera';
+  import { Capacitor } from '@capacitor/core';
+  
+  if (Capacitor.isNativePlatform()) {
+    const image = await Camera.getPhoto({ resultType: CameraResultType.Uri });
+  }
+  ```
+
 ## Critical Best Practices & Anti-Patterns
 
-**NAVIGATION - USE PROPER REACT ROUTER:**
-- ✅ **CORRECT:** `const history = useHistory(); history.goBack();`
-- ❌ **WRONG:** `window.history.back()`
-- ✅ **CORRECT:** `history.push('/path')` or `history.replace('/path')`
-- ❌ **WRONG:** `window.location.href = '/path'`
+**IONIC PAGE STRUCTURE - MANDATORY REQUIREMENTS:**
+- ✅ **ALWAYS WRAP PAGES IN:** `<IonPage><IonContent>...content...</IonContent></IonPage>`
+- ❌ **NEVER USE:** `<IonPage><div>...content...</div></IonPage>` (missing IonContent)
+- ✅ **REQUIRED STRUCTURE:** Every page must have `IonContent` for proper transitions and scrolling
+- ✅ **LAYOUT CONTAINERS:** Use `IonGrid`, `IonRow`, `IonCol` instead of `div` grids when possible
+- ✅ **LIST CONTAINERS:** Use `IonList`, `IonItem` instead of `ul`, `li` for mobile optimization
+- ✅ **CARD CONTAINERS:** Use `IonCard`, `IonCardHeader`, `IonCardContent` instead of generic divs
+- ✅ **HEADER/FOOTER:** Use `IonHeader`, `IonToolbar`, `IonFooter` for native-like behavior
+
+**NAVIGATION - USE PROPER IONIC ROUTER:**
+- ✅ **CORRECT:** `const router = useIonRouter(); router.push('/path', 'forward', 'push');`
+- ✅ **CORRECT:** `router.goBack();` for back navigation
+- ❌ **WRONG:** `const history = useHistory(); history.goBack();` (use useIonRouter instead)
+- ❌ **WRONG:** `window.history.back()` or `window.location.href`
+- ✅ **TRANSITIONS:** Always specify direction: `router.push(path, 'forward'|'back', 'push'|'replace')`
+
+**IONIC COMPONENT HIERARCHY - REPLACE HTML WITH IONIC:**
+- ✅ **BUTTONS:** Use `IonButton` instead of `<button>` for native styling and haptics
+- ✅ **INPUTS:** Use `IonInput`, `IonTextarea` instead of `<input>`, `<textarea>`
+- ✅ **CONTAINERS:** Use `IonCard`, `IonItem`, `IonGrid` instead of generic `<div>`
+- ✅ **LISTS:** Use `IonList`, `IonItem`, `IonLabel` instead of `<ul>`, `<li>`
+- ✅ **MODALS:** Use `IonModal`, `IonPopover` instead of custom overlay solutions
+- ✅ **LOADING:** Use `IonLoading`, `IonSpinner` instead of custom loading indicators
+- ✅ **ICONS:** Use `IonIcon` with ionicons library instead of custom icon solutions
+- ✅ **TABS:** Use `IonTabs`, `IonTabBar`, `IonTabButton` for tab navigation
+- ❌ **AVOID:** Generic HTML elements when Ionic equivalents exist
 
 **CODE QUALITY RULES:**
 - ❌ **NEVER USE:** `console.log()` in production code (remove all debug statements)

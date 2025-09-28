@@ -67,13 +67,15 @@ export const CodeInput: React.FC<CodeInputProps> = ({
           key={index}
           className={`w-16 h-16 p-5 bg-white rounded-2xl ${
             values[index]
-              ? 'outline outline-1 outline-offset-[-1px] outline-violet-500'
+              ? 'outline-1 outline-offset-[-1px] outline-violet-500'
               : 'border border-gray-200'
           } inline-flex flex-col justify-center items-center gap-5 overflow-hidden`}
           onClick={() => !disabled && focusFirstEmptyInput()}
         >
           <IonInput
-            ref={(el) => (inputRefs.current[index] = el)}
+            ref={(el) => {
+              inputRefs.current[index] = el;
+            }}
             value={values[index]}
             onIonInput={(e) => handleInputChange(e.detail.value, index)}
             onKeyDown={(e) => handleKeyDown(e.nativeEvent, index)}

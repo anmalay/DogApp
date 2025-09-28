@@ -1,0 +1,25 @@
+import React from "react";
+import { IonPage, IonContent } from "@ionic/react";
+import { useIonRouter } from "@ionic/react";
+
+export const {{pascalCase name}}Page: React.FC = () => {
+  const router = useIonRouter();
+
+  const handleBack = () => {
+    router.goBack();
+  };
+
+  return (
+    <IonPage>
+      <IonContent className="ion-no-padding">
+        <div className="min-h-full bg-[#F3F3F3] flex flex-col">
+          <div className="flex-1 px-5 pt-5 pb-10 flex flex-col justify-center items-center">
+            {/* Your page content here */}
+            <h1 className="text-2xl font-bold text-gray-700">{{pascalCase name}} Page</h1>
+            <p className="text-gray-600 mt-4">This page was generated with proper Ionic structure</p>
+          </div>
+        </div>
+      </IonContent>
+    </IonPage>
+  );
+};

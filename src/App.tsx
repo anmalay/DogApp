@@ -23,6 +23,9 @@ import "./shared/styles/global.css";
 
 setupIonicReact({
   mode: "ios",
+  swipeBackEnabled: true,
+  rippleEffect: false,
+  animated: true,
 });
 
 const queryClient = new QueryClient({

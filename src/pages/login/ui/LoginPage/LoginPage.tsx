@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { IonPage, IonContent } from "@ionic/react";
 import { useTranslation } from "react-i18next";
-import { useHistory } from "react-router-dom";
+import { useIonRouter } from "@ionic/react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -20,7 +20,7 @@ type LoginFormData = z.infer<typeof loginSchema>;
 
 export const LoginPage: React.FC = () => {
   const { t } = useTranslation();
-  const history = useHistory();
+  const router = useIonRouter();
   const [step, setStep] = useState<'email' | 'code'>('email');
   const [submittedEmail, setSubmittedEmail] = useState<string>('');
 
@@ -44,7 +44,7 @@ export const LoginPage: React.FC = () => {
   }, [step, startTimer, isActive]);
 
   const handleBack = () => {
-    history.goBack();
+    router.goBack();
   };
 
   const onSubmit = (data: LoginFormData) => {

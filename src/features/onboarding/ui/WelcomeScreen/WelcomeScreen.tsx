@@ -1,6 +1,6 @@
 import React from "react";
 import { IonContent } from "@ionic/react";
-import { useHistory } from "react-router-dom";
+import { useIonRouter } from "@ionic/react";
 import { WelcomeView } from "./WelcomeView";
 
 interface WelcomeScreenProps {
@@ -12,13 +12,13 @@ export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({
   onCreateAccount,
   onSignIn,
 }) => {
-  const history = useHistory();
+  const router = useIonRouter();
 
   const handleCreateAccount = () => {
     if (onCreateAccount) {
       onCreateAccount();
     } else {
-      history.push("/registration");
+      router.push("/registration", "forward", "push");
     }
   };
 
@@ -26,7 +26,7 @@ export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({
     if (onSignIn) {
       onSignIn();
     } else {
-      history.push("/login");
+      router.push("/login", "forward", "push");
     }
   };
 
