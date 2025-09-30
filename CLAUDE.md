@@ -191,6 +191,26 @@ Plop.js templates support FSD architecture:
 - ✅ **TABS:** Use `IonTabs`, `IonTabBar`, `IonTabButton` for tab navigation
 - ❌ **AVOID:** Generic HTML elements when Ionic equivalents exist
 
+**MANDATORY IONIC INTEGRATION RULES:**
+- 🔴 **ALWAYS USE:** Capacitor Keyboard plugin with `KeyboardResize.Ionic` for keyboard handling
+- 🔴 **NEVER OVERRIDE:** Ionic's native keyboard behavior with custom CSS or JS
+- 🔴 **ALWAYS PLACE:** Navigation buttons INSIDE IonContent, never as fixed overlays
+- 🔴 **ALWAYS USE:** Ionic's built-in viewport and safe area handling
+- 🔴 **FORCE IONIC:** When using third-party components (Swiper, etc), add CSS to force Ionic mechanisms:
+  ```css
+  /* Force stable heights to prevent conflicts */
+  .third-party-component {
+    height: 100% !important;
+    min-height: 100% !important;
+  }
+  /* Ensure Ionic keyboard handling takes precedence */
+  ion-content.keyboard-open .third-party-component {
+    height: 100% !important;
+  }
+  ```
+- 🔴 **KEYBOARD RESTORATION:** Always use multiple setTimeout attempts to restore viewport after keyboard hide
+- 🔴 **SWIPER INTEGRATION:** When using Swiper with Ionic, force height restoration and call `updateSize()` on keyboard events
+
 **IONIC COMPONENT NESTING CONFLICTS - CRITICAL:**
 - ❌ **NEVER NEST:** `IonPage` inside another `IonPage` (only one per route/screen)
 - ❌ **NEVER NEST:** `IonContent` inside another `IonContent` (causes scroll conflicts)

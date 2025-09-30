@@ -35,9 +35,10 @@ export const RegistrationPage: React.FC = () => {
     router.goBack();
   };
 
-  const onSubmit = (_data: RegistrationFormData) => {
-    // Navigate to code verification page
+  const onSubmit = (data: RegistrationFormData) => {
+    // Navigate to code verification page with email data
     router.push('/verification', 'forward', 'push');
+    console.log('Registration data:', data);
   };
 
   return (

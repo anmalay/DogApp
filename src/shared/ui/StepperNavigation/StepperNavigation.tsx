@@ -21,7 +21,7 @@ export const StepperNavigation: React.FC<StepperNavigationProps> = ({
 
   return (
     <div
-      className={`fixed bottom-0 left-0 right-0 w-full flex gap-[10px]  z-10 ${className}`}
+      className={`stepper-navigation w-full flex gap-[10px] z-10 safe-area-bottom ${className}`}
       style={{ padding: "0px 16px 40px" }}
     >
       <Button

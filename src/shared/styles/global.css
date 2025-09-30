@@ -290,9 +290,9 @@ h3 {
   }
 }
 
-/* Оптимизации для работы с клавиатурой */
+/* Keyboard and Input optimizations */
 
-/* Базовые настройки для предотвращения zoom на iOS */
+/* iOS zoom prevention */
 input[type="text"],
 input[type="email"],
 input[type="password"],
@@ -302,10 +302,10 @@ input[type="url"],
 input[type="date"],
 textarea {
   font-size: 16px !important;
-  transform: translateZ(0); /* Аппаратное ускорение */
+  transform: translateZ(0);
 }
 
-/* Улучшения для Ionic компонентов */
+/* Ionic component enhancements */
 ion-input,
 ion-textarea {
   --highlight-color-focused: var(--ion-color-primary);
@@ -313,48 +313,13 @@ ion-textarea {
   --padding-top: 0;
 }
 
-/* Плавные переходы при появлении клавиатуры */
-ion-content {
-  --keyboard-offset: 0px;
-  transition: transform 0.2s ease-in-out;
-}
-
-/* Состояния клавиатуры */
-.keyboard-is-open ion-content {
-  --keyboard-offset: env(keyboard-inset-height, 0px);
-}
-
-.keyboard-is-open body {
-  --keyboard-height: env(keyboard-inset-height, 0px);
-}
-
-/* Улучшенная прокрутка */
-ion-content.ion-padding {
-  --padding-bottom: calc(var(--ion-padding) + var(--keyboard-offset, 0px));
-}
-
-/* Предотвращение скачков при смене orientation */
-@media screen and (orientation: landscape) {
-  .keyboard-is-open ion-content {
-    transform: translateY(calc(-1 * var(--keyboard-offset, 0px) / 2));
-  }
-}
-
-@media screen and (orientation: portrait) {
-  .keyboard-is-open ion-content {
-    transform: translateY(0);
-  }
-}
-
-/* Дополнительные улучшения для мобильных устройств */
+/* Mobile touch optimizations */
 @media (max-width: 768px) {
-  /* Увеличиваем область тапа для инпутов */
   ion-input,
   ion-textarea {
     min-height: 48px;
   }
 
-  /* Оптимизация для touch устройств */
   ion-input input,
   ion-textarea textarea {
     touch-action: manipulation;
@@ -363,96 +328,12 @@ ion-content.ion-padding {
   }
 }
 
-/* Анимации для плавности */
+/* Focus transitions */
 .input-focus-transition {
   transition: all 0.15s ease-out;
 }
 
-/* Стили для состояния фокуса */
 .ion-focused {
   transform: translateZ(0);
 }
 
-/* Предотвращение bounce эффекта на iOS */
-.keyboard-is-open {
-  overflow: hidden;
-}
-
-/* Дополнительная безопасная зона */
-.safe-area-keyboard {
-  padding-bottom: calc(
-    var(--keyboard-offset, 0px) + env(safe-area-inset-bottom, 0px)
-  );
-}
-
-/* Отключение rubber band эффекта во время ввода */
-.keyboard-is-open ion-content {
-  overscroll-behavior: none;
-  -webkit-overscroll-behavior: none;
-}
-
-/* Улучшения для status bar */
-.keyboard-is-open {
-  --ion-safe-area-top: env(safe-area-inset-top);
-}
-
-/* Оптимизация для разных размеров экрана */
-@media (max-height: 600px) {
-  /* На маленьких экранах более агрессивное позиционирование */
-  .keyboard-is-open ion-content {
-    transform: translateY(calc(-1 * var(--keyboard-offset, 0px) * 0.7));
-  }
-}
-
-@media (min-height: 800px) {
-  /* На больших экранах менее агрессивное */
-  .keyboard-is-open ion-content {
-    transform: translateY(calc(-1 * var(--keyboard-offset, 0px) * 0.3));
-  }
-}
-
-/* Swiper customizations for onboarding */
-.onboarding-swiper {
-  --swiper-theme-color: var(--color-primary);
-  --swiper-navigation-color: var(--color-primary);
-  --swiper-pagination-color: var(--color-primary);
-}
-
-.onboarding-swiper .swiper-slide {
-  transition: transform 0.3s ease-in-out;
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-}
-
-.onboarding-swiper .swiper-slide-active {
-  transform: scale(1);
-}
-
-.onboarding-swiper .swiper-slide-prev,
-.onboarding-swiper .swiper-slide-next {
-  transform: scale(0.95);
-  opacity: 0.8;
-}
-
-/* Smooth transitions */
-.onboarding-swiper .swiper-wrapper {
-  transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-}
-
-/* Hide scrollbars in swiper slides */
-.onboarding-swiper .swiper-slide {
-  overflow: hidden;
-}
-
-/* Touch feedback */
-.onboarding-swiper {
-  touch-action: pan-y pinch-zoom;
-}
-
-/* Enhanced native feel */
-.onboarding-swiper.swiper {
-  transform: translateZ(0);
-  -webkit-backface-visibility: hidden;
-  backface-visibility: hidden;
-}

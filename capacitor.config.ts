@@ -14,8 +14,8 @@ const config: CapacitorConfig = {
 
   plugins: {
     Keyboard: {
-      resize: KeyboardResize.Body,
-      resizeOnFullScreen: true,
+      resize: KeyboardResize.Ionic,
+      resizeOnFullScreen: false,
     },
   },
 };

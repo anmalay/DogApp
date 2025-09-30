@@ -1,13 +1,8 @@
-import React, { useRef, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { IonToast, IonPage, IonContent } from "@ionic/react";
-import { Swiper, SwiperSlide } from "swiper/react";
-import type { SwiperRef } from "swiper/react";
-import { EffectFade, Pagination } from "swiper/modules";
-import "swiper/css";
-import "swiper/css/effect-fade";
-import "swiper/css/pagination";
-import { StepperNavigation } from "@shared/ui";
+import { useIonRouter } from "@ionic/react";
+import { Button } from "@shared/ui";
 import { useDogProfileStepper } from "../../model/useDogProfileStepper";
 import { StepperHeader } from "./StepperHeader";
 import { DogNameStep } from "../steps/DogNameStep";
@@ -44,7 +39,7 @@ export const DogProfileStepper: React.FC<DogProfileStepperProps> = ({
   onBack,
 }) => {
   const { t } = useTranslation();
-  const swiperRef = useRef<SwiperRef>(null);
+  const router = useIonRouter();
   const {
     currentStep,
     stepperData,
@@ -58,25 +53,32 @@ export const DogProfileStepper: React.FC<DogProfileStepperProps> = ({
     setCurrentStep,
   } = useDogProfileStepper(onComplete, onBack);
 
-  // Sync swiper with current step
+  // Sync step with URL parameter - only once on mount
   useEffect(() => {
-    if (swiperRef.current?.swiper) {
-      swiperRef.current.swiper.slideTo(currentStep - 1, 300);
+    const searchParams = new URLSearchParams(window.location.search);
+    const stepParam = searchParams.get('step');
+    if (stepParam) {
+      const step = parseInt(stepParam, 10);
+      if (step >= 1 && step <= 10) {
+        setCurrentStep(step);
+      }
+    } else {
+      // If no step param, default to step 1 and update URL
+      setCurrentStep(1);
+      router.push(`/onboarding?step=1`, 'none', 'replace');
     }
-  }, [currentStep]);
+  }, [router, setCurrentStep]); // Only run once on mount
 
-  const handleSlideChange = (swiper: { activeIndex: number; slideTo: (index: number, duration: number) => void }) => {
-    const newStep = swiper.activeIndex + 1;
-    // Only allow going back via swipe, not forward
-    if (newStep < currentStep && newStep >= 1) {
-      setCurrentStep(newStep);
-    } else if (newStep > currentStep) {
-      // Block forward swipe by returning to current step immediately
-      setTimeout(() => {
-        swiper.slideTo(currentStep - 1, 0);
-      }, 0);
+  // Update URL when step changes (but not on initial load)
+  useEffect(() => {
+    const searchParams = new URLSearchParams(window.location.search);
+    const currentStepParam = searchParams.get('step');
+    
+    // Only update if URL step is different from current step
+    if (currentStepParam !== currentStep.toString()) {
+      router.push(`/onboarding?step=${currentStep}`, 'forward', 'replace');
     }
-  };
+  }, [currentStep, router]);
 
   const stepProps = {
     data: stepperData,
@@ -84,32 +86,39 @@ export const DogProfileStepper: React.FC<DogProfileStepperProps> = ({
     onUpdate: updateStepperData,
   };
 
-  const steps = [
-    <DogNameStep {...stepProps} />,
-    <DogGenderStep {...stepProps} />,
-    <DogWeightStep {...stepProps} />,
-    <DogBreedStep {...stepProps} />,
-    <DogBirthDateStep {...stepProps} />,
-    <DogHealthStep {...stepProps} />,
-    <DogCharacterStep {...stepProps} />,
-    <DogCommentStep {...stepProps} />,
-    <DogPhotosStep {...stepProps} />,
-    <OwnerInfoStep {...stepProps} />,
-  ];
+  const renderCurrentStep = () => {
+    switch (currentStep) {
+      case 1:
+        return <DogNameStep {...stepProps} />;
+      case 2:
+        return <DogGenderStep {...stepProps} />;
+      case 3:
+        return <DogWeightStep {...stepProps} />;
+      case 4:
+        return <DogBreedStep {...stepProps} />;
+      case 5:
+        return <DogBirthDateStep {...stepProps} />;
+      case 6:
+        return <DogHealthStep {...stepProps} />;
+      case 7:
+        return <DogCharacterStep {...stepProps} />;
+      case 8:
+        return <DogCommentStep {...stepProps} />;
+      case 9:
+        return <DogPhotosStep {...stepProps} />;
+      case 10:
+        return <OwnerInfoStep {...stepProps} />;
+      default:
+        return <DogNameStep {...stepProps} />;
+    }
+  };
 
   return (
     <IonPage>
-      <IonContent
-        fullscreen
-        scrollY={false}
-        style={{
-          "--scroll-behavior": "smooth",
-          "--overscroll-behavior": "contain",
-        }}
-      >
-        <div className="w-full bg-[#F3F3F3] h-full flex flex-col">
-          {/* Header Section - Fixed */}
-          <div className="flex flex-col gap-[40px] px-5 pt-15  bg-[#F3F3F3] z-10">
+      <IonContent fullscreen>
+        <div className="w-full bg-[#F3F3F3] min-h-screen flex flex-col">
+          {/* Header Section */}
+          <div className="flex flex-col gap-[40px] px-5 pt-15 bg-[#F3F3F3]">
             <StepperHeader
               currentStep={currentStep}
               totalSteps={10}
@@ -119,9 +128,9 @@ export const DogProfileStepper: React.FC<DogProfileStepperProps> = ({
             {/* Dog Image */}
             {getStepImage(currentStep) &&
               (currentStep === 1 ||
-                currentStep == 2 ||
-                currentStep == 3 ||
-                currentStep == 8) && (
+                currentStep === 2 ||
+                currentStep === 3 ||
+                currentStep === 8) && (
                 <div className="w-full h-[350px] relative overflow-hidden rounded-[24px]">
                   <img
                     src={getStepImage(currentStep)!}
@@ -132,90 +141,39 @@ export const DogProfileStepper: React.FC<DogProfileStepperProps> = ({
               )}
           </div>
 
-          {/* Swiper Content Section */}
-          <div className="flex-1 relative">
-            <Swiper
-              ref={swiperRef}
-              modules={[EffectFade, Pagination]}
-              effect="slide"
-              speed={300}
-              allowTouchMove={true}
-              onSlideChange={handleSlideChange}
-              initialSlide={currentStep - 1}
-              className="h-full onboarding-swiper"
-              resistance={false}
-              resistanceRatio={0}
-              followFinger={false}
-              shortSwipes={true}
-              longSwipes={true}
-              threshold={30}
-              onTouchStart={(swiper, event) => {
-                const target = event.target as HTMLElement;
-                // Allow touch on slider/range inputs
-                if (
-                  target.closest(".slider-container") ||
-                  target.closest('input[type="range"]') ||
-                  target.closest('[role="slider"]')
-                ) {
-                  swiper.allowTouchMove = false;
-                  return;
-                }
-                swiper.allowTouchMove = true;
-                (swiper as { touchStartX?: number }).touchStartX =
-                  (event as TouchEvent).touches?.[0]?.clientX ||
-                  (event as MouseEvent).clientX;
-              }}
-              onTouchMove={(swiper, event) => {
-                const target = event.target as HTMLElement;
-                // Allow touch on slider/range inputs
-                if (
-                  target.closest(".slider-container") ||
-                  target.closest('input[type="range"]') ||
-                  target.closest('[role="slider"]')
-                ) {
-                  return;
-                }
+          {/* Step Content */}
+          <div className="flex-1 flex flex-col">
+            <div className="flex-1 px-5 py-[40px]">
+              {renderCurrentStep()}
+            </div>
+            
+            {/* Navigation buttons */}
+            <div className="px-5 pb-10 safe-area-bottom">
+              <div className="flex gap-[10px]">
+                <Button
+                  variant="outline"
+                  size="large"
+                  fullWidth
+                  onClick={handleStepBack}
+                  className="text-[#3F335A] bg-white hover:bg-gray-50"
+                >
+                  {t("Back")}
+                </Button>
 
-                const touchX =
-                  (event as TouchEvent).touches?.[0]?.clientX ||
-                  (event as MouseEvent).clientX;
-                const deltaX = (swiper as { touchStartX?: number }).touchStartX! - touchX;
-
-                // Completely block forward swipe (right to left)
-                if (deltaX > 5) {
-                  event.preventDefault();
-                  event.stopPropagation();
-                  swiper.allowTouchMove = false;
-                  return false;
-                }
-              }}
-              onTouchEnd={(swiper) => {
-                swiper.allowTouchMove = true;
-              }}
-              style={{
-                height: "100%",
-              }}
-            >
-              {steps.map((step, index) => (
-                <SwiperSlide key={index} className="flex flex-col h-full">
-                  <div className="flex-1 flex flex-col px-5 py-[40px] pb-[120px] overflow-y-auto">
-                    <div className="w-full">{step}</div>
-                  </div>
-                </SwiperSlide>
-              ))}
-            </Swiper>
+                <Button
+                  variant="primary"
+                  size="large"
+                  fullWidth
+                  onClick={handleNext}
+                  className="bg-[#3F335A] hover:bg-[#342B47]"
+                >
+                  {currentStep === 9 && stepperData.photos.length === 0
+                    ? t("Add Photo")
+                    : t("Next")}
+                </Button>
+              </div>
+            </div>
           </div>
-
-          {/* Action Buttons - Fixed at bottom */}
-          <StepperNavigation
-            onBack={handleStepBack}
-            onNext={handleNext}
-            nextButtonText={
-              currentStep === 9 && stepperData.photos.length === 0
-                ? t("Add Photo")
-                : undefined
-            }
-          />
         </div>
 
         <IonToast

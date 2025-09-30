@@ -109,18 +109,18 @@ export const useDogProfileStepper = (
         }
         break;
       case 4:
-        if (!stepperData.breed) {
+        if (!dataToValidate.breed) {
           showToastMessage(t("Please select a breed to continue"));
           return false;
         }
         break;
       case 9:
-        if (stepperData.photos.length === 0) {
+        if (dataToValidate.photos.length === 0) {
           return false; // Special case for photo step
         }
         break;
       case 10:
-        if (!stepperData.owner.name.trim()) {
+        if (!dataToValidate.owner.name.trim()) {
           newErrors.ownerName = true;
           setErrors(newErrors);
           return false;
@@ -133,25 +133,18 @@ export const useDogProfileStepper = (
   };
 
   const handleNext = () => {
-    // Use setTimeout to ensure we have the latest state
-    setTimeout(() => {
-      setStepperData((currentData) => {
-        if (!validateStep(currentStep, currentData)) {
-          return currentData;
-        }
+    if (!validateStep(currentStep, stepperData)) {
+      return;
+    }
 
-        if (currentStep < 10) {
-          setCurrentStep(currentStep + 1);
-        } else {
-          showToastMessage(t("Excellent! One step left"));
-          setTimeout(() => {
-            onComplete();
-          }, 2000);
-        }
-
-        return currentData;
-      });
-    }, 0);
+    if (currentStep < 10) {
+      setCurrentStep(currentStep + 1);
+    } else {
+      showToastMessage(t("Excellent! One step left"));
+      setTimeout(() => {
+        onComplete();
+      }, 2000);
+    }
   };
 
   const handleBack = () => {
