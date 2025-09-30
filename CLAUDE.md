@@ -191,13 +191,23 @@ Plop.js templates support FSD architecture:
 - ✅ **TABS:** Use `IonTabs`, `IonTabBar`, `IonTabButton` for tab navigation
 - ❌ **AVOID:** Generic HTML elements when Ionic equivalents exist
 
+**IONIC COMPONENT NESTING CONFLICTS - CRITICAL:**
+- ❌ **NEVER NEST:** `IonPage` inside another `IonPage` (only one per route/screen)
+- ❌ **NEVER NEST:** `IonContent` inside another `IonContent` (causes scroll conflicts)
+- ✅ **RULE:** Only the top-level page component should have `IonPage` + `IonContent`
+- ✅ **RULE:** Child components should return plain divs or Ionic components (no IonPage/IonContent)
+- ❌ **WRONG:** Page → Component → IonPage (nested IonPage)
+- ✅ **CORRECT:** Page (IonPage + IonContent) → Component (div/Ionic components)
+
 **CODE QUALITY RULES:**
 - ❌ **NEVER USE:** `console.log()` in production code (remove all debug statements)
 - ❌ **NEVER USE:** `any` types (always specify proper TypeScript types)
 - ❌ **NEVER USE:** Direct DOM manipulation (use React refs and proper patterns)
+- ❌ **NEVER USE:** `!important` in CSS/Tailwind (breaks maintainability and specificity)
 - ✅ **ALWAYS USE:** Proper React hooks and patterns
 - ✅ **ALWAYS USE:** Proper error handling (try/catch, error boundaries)
 - ✅ **ALWAYS USE:** Semantic HTML and accessibility best practices
+- ✅ **CSS PRIORITY:** Use proper CSS specificity and Tailwind utilities instead of `!important`
 
 **TYPESCRIPT RULES:**
 - Define proper interfaces instead of `any`

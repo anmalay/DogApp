@@ -42,13 +42,9 @@ export const RegistrationPage: React.FC = () => {
 
   return (
     <IonPage>
-      <IonContent 
-        className="ion-no-padding" 
-        scrollOnOverflow={true}
-        keyboardClose={true}
-      >
-        <div className="min-h-full bg-[#F3F3F3] flex flex-col">
-          <div className="flex-1 px-5 pt-5 pb-10 flex flex-col justify-between items-center" style={{ paddingTop: '67px' }}>
+      <IonContent className="ion-no-padding">
+        <div className="bg-[#F3F3F3] flex flex-col min-h-screen">
+          <div className="flex-1 px-5 pt-16 pb-10 flex flex-col justify-between items-center">
             <div className="self-stretch flex flex-col justify-start items-start gap-10">
               {/* Header with back button */}
               <div className="self-stretch h-14 inline-flex justify-start items-center gap-3.5">

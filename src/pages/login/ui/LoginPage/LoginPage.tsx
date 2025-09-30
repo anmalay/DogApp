@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { IonPage, IonContent } from "@ionic/react";
 import { useTranslation } from "react-i18next";
 import { useIonRouter } from "@ionic/react";
@@ -36,20 +36,16 @@ export const LoginPage: React.FC = () => {
     router.goBack();
   };
 
-  const onSubmit = (data: LoginFormData) => {
-    // Navigate to code verification page with email
-    router.push('/verification', 'forward', 'push', { email: data.email });
+  const onSubmit = () => {
+    // Navigate to code verification page
+    router.push('/verification', 'forward', 'push');
   };
 
   return (
     <IonPage>
-      <IonContent 
-        className="ion-no-padding" 
-        scrollOnOverflow={true}
-        keyboardClose={true}
-      >
-        <div className="min-h-full bg-[#F3F3F3] flex flex-col">
-          <div className="flex-1 px-5 pt-5 pb-10 flex flex-col justify-between items-center" style={{ paddingTop: '67px' }}>
+      <IonContent className="ion-no-padding">
+        <div className="bg-[#F3F3F3] flex flex-col min-h-screen">
+          <div className="flex-1 px-5 pt-16 pb-10 flex flex-col justify-between items-center">
             <div className="self-stretch flex flex-col justify-start items-start gap-10">
               {/* Header with back button */}
               <div className="self-stretch h-14 inline-flex justify-start items-center gap-3.5">
@@ -101,7 +97,7 @@ export const LoginPage: React.FC = () => {
               </div>
             </div>
 
-            {/* Terms and privacy policy */}
+            {/* Bottom terms */}
             <Text
               variant="medium-small-12"
               color="secondary"
