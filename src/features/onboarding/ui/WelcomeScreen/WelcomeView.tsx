@@ -8,7 +8,10 @@ interface WelcomeViewProps {
   onSignIn: () => void;
 }
 
-export const WelcomeView: React.FC<WelcomeViewProps> = ({ onCreateAccount, onSignIn }) => {
+export const WelcomeView: React.FC<WelcomeViewProps> = ({
+  onCreateAccount,
+  onSignIn,
+}) => {
   const { t } = useTranslation();
   return (
     <div className="relative w-full h-full bg-zinc-100 flex flex-col justify-end overflow-hidden">

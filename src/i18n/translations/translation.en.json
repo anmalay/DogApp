@@ -111,5 +111,7 @@
   "Удалить фото": "Delete photo",
   "Check your email": "Check your email",
   "Get new code": "Get new code",
-  "Get new code available in ": "Get new code available in "
+  "Get new code available in ": "Get new code available in ",
+  "New code": "New code",
+  "Invalid code": "Invalid code"
 }
