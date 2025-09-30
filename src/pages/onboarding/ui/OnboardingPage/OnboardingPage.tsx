@@ -18,7 +18,7 @@ export const OnboardingPage: React.FC = () => {
   if (currentScreen === "stepper-intro") {
     return (
       <IonPage>
-        <IonContent scrollOnOverflow={true} keyboardClose={true}>
+        <IonContent>
           <StepperIntroView
             onNext={() => setCurrentScreen("stepper")}
             onSkip={() => showToastMessage(t("Switching to limited functionality mode"))}
@@ -31,7 +31,7 @@ export const OnboardingPage: React.FC = () => {
   if (currentScreen === "verification") {
     return (
       <IonPage>
-        <IonContent scrollOnOverflow={true} keyboardClose={true}>
+        <IonContent>
           <VerificationView
             onVerify={() => showToastMessage(t("Proceeding to verification"))}
             onSkip={() => showToastMessage(t("Switching to limited functionality mode"))}
@@ -43,7 +43,7 @@ export const OnboardingPage: React.FC = () => {
 
   return (
     <IonPage>
-      <IonContent scrollOnOverflow={true} keyboardClose={true}>
+      <IonContent>
         <DogProfileStepper
           onComplete={() => setCurrentScreen("verification")}
           onBack={() => setCurrentScreen("stepper-intro")}
