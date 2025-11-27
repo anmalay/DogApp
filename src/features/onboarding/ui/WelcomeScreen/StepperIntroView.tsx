@@ -1,6 +1,8 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { Button } from "@shared/ui";
+import { IonIcon } from "@ionic/react";
+import { pawOutline } from "ionicons/icons";
+import { Button, Text } from "@shared/ui";
 
 interface StepperIntroViewProps {
   onNext: () => void;
@@ -17,16 +19,16 @@ export const StepperIntroView: React.FC<StepperIntroViewProps> = ({
       <div className="p-6 text-center flex-1 flex flex-col justify-center">
         <div className="space-y-6">
           <div className="w-24 h-24 mx-auto bg-primary/20 rounded-full flex items-center justify-center">
-            <div className="text-4xl">🐕</div>
+            <IonIcon icon={pawOutline} className="text-6xl text-primary" />
           </div>
 
           <div className="space-y-4">
-            <h1 className="text-2xl font-bold text-text-primary">
+            <Text variant="bold-24" tag="div" className="text-text-primary">
               {t("Tell us about your dog")}
-            </h1>
-            <p className="text-text-secondary">
+            </Text>
+            <Text variant="regular-16" tag="div" className="text-text-secondary">
               {t("This will help find suitable friends for walks")}
-            </p>
+            </Text>
           </div>
         </div>
       </div>
@@ -38,7 +40,7 @@ export const StepperIntroView: React.FC<StepperIntroViewProps> = ({
           fullWidth
           onClick={onNext}
         >
-{t("Create Profile")}
+          {t("Create Profile")}
         </Button>
 
         <Button
@@ -47,7 +49,7 @@ export const StepperIntroView: React.FC<StepperIntroViewProps> = ({
           fullWidth
           onClick={onSkip}
         >
-{t("Fill Later")}
+          {t("Fill Later")}
         </Button>
       </div>
     </div>

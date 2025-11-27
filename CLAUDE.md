@@ -49,11 +49,15 @@ The project follows FSD methodology with these layers:
 - **State Management:** Zustand with persistence and devtools
 - **API:** Auto-generated client using Orval from OpenAPI spec
 
-**Component Priority Rules:**
+**Component Priority Rules (CRITICAL FOR NATIVE APP):**
 1. **FIRST: Use existing components from @shared/ui** when they provide the needed functionality
-2. **SECOND: Use Ionic components** when shared components don't exist (IonModal, IonButton, IonInput, IonPopover, etc.)
+2. **SECOND: Use Ionic components** when shared components don't exist (IonModal, IonButton, IonInput, IonImg, IonIcon, IonPopover, etc.)
 3. **THIRD: Create custom components** only when neither shared nor Ionic components provide the needed functionality
-- **ALWAYS use Text component from @shared/ui** for all text elements instead of div, span, p, or h tags with manual styling
+- 🔴 **MANDATORY:** ALWAYS use `Text` component from `@shared/ui` for ALL text elements (no `<h1>`, `<h2>`, `<p>`, `<span>`)
+- 🔴 **MANDATORY:** ALWAYS use `IonImg` instead of `<img>` for native image handling
+- 🔴 **MANDATORY:** ALWAYS use `IonIcon` (import from `ionicons/icons`) instead of emoji or custom SVG icons
+- 🔴 **MANDATORY:** NEVER use `<input>` or `<textarea>` - use `IonInput`/`IonTextarea` or custom wrappers from `@shared/ui`
+- 🔴 **MANDATORY:** NEVER use `<button>` - use `IonButton` or `Button` component from `@shared/ui`
 - When using Ionic components, overlay custom styling/behavior rather than recreating from scratch
 - Examples: Use IonModal with custom content instead of building custom modal, use IonInput with custom wrapper instead of pure HTML input
 - **Data Fetching:** TanStack React Query
@@ -173,6 +177,46 @@ Plop.js templates support FSD architecture:
 - ✅ **CARD CONTAINERS:** Use `IonCard`, `IonCardHeader`, `IonCardContent` instead of generic divs
 - ✅ **HEADER/FOOTER:** Use `IonHeader`, `IonToolbar`, `IonFooter` for native-like behavior
 
+**PROPER PAGE ARCHITECTURE (CRITICAL FOR FUTURE DEVELOPMENT):**
+```typescript
+// ✅ CORRECT: Page component (top-level route)
+export const MyPage: React.FC = () => {
+  return (
+    <IonPage>
+      <IonContent>
+        <MyFeatureComponent />
+      </IonContent>
+    </IonPage>
+  );
+};
+
+// ✅ CORRECT: Feature component (child of page)
+export const MyFeatureComponent: React.FC = () => {
+  return (
+    <div className="flex flex-col h-full">
+      {/* Content here - NO IonPage/IonContent */}
+    </div>
+  );
+};
+
+// ❌ WRONG: Feature component with IonPage/IonContent
+export const MyFeatureComponent: React.FC = () => {
+  return (
+    <IonPage>  {/* ❌ Creates nesting conflict! */}
+      <IonContent>
+        <div>Content</div>
+      </IonContent>
+    </IonPage>
+  );
+};
+```
+
+**RULES FOR MULTI-SCREEN FLOWS:**
+- Only **ONE** `IonPage` + `IonContent` per route
+- Child components return plain JSX (div/Ionic components)
+- Use conditional rendering for screen switching within one route
+- Example: OnboardingPage switches between StepperIntroView/DogProfileStepper/VerificationView without nested IonPage
+
 **NAVIGATION - USE PROPER IONIC ROUTER:**
 - ✅ **CORRECT:** `const router = useIonRouter(); router.push('/path', 'forward', 'push');`
 - ✅ **CORRECT:** `router.goBack();` for back navigation
@@ -181,14 +225,19 @@ Plop.js templates support FSD architecture:
 - ✅ **TRANSITIONS:** Always specify direction: `router.push(path, 'forward'|'back', 'push'|'replace')`
 
 **IONIC COMPONENT HIERARCHY - REPLACE HTML WITH IONIC:**
+- 🔴 **NATIVE APP REQUIREMENT:** This app runs natively on mobile devices via Capacitor - ALL components MUST use Ionic equivalents for proper native behavior
 - ✅ **BUTTONS:** Use `IonButton` instead of `<button>` for native styling and haptics
-- ✅ **INPUTS:** Use `IonInput`, `IonTextarea` instead of `<input>`, `<textarea>`
-- ✅ **CONTAINERS:** Use `IonCard`, `IonItem`, `IonGrid` instead of generic `<div>`
-- ✅ **LISTS:** Use `IonList`, `IonItem`, `IonLabel` instead of `<ul>`, `<li>`
+- ✅ **INPUTS:** Use `IonInput`, `IonTextarea` instead of `<input>`, `<textarea>` (MANDATORY for native keyboard)
+- ✅ **IMAGES:** Use `IonImg` instead of `<img>` for lazy loading and caching
+- ✅ **CONTAINERS:** Use `IonCard`, `IonItem`, `IonGrid` instead of generic `<div>` when possible
+- ✅ **LISTS:** Use `IonList`, `IonItem`, `IonLabel` instead of `<ul>`, `<li>` for native scrolling
 - ✅ **MODALS:** Use `IonModal`, `IonPopover` instead of custom overlay solutions
 - ✅ **LOADING:** Use `IonLoading`, `IonSpinner` instead of custom loading indicators
-- ✅ **ICONS:** Use `IonIcon` with ionicons library instead of custom icon solutions
+- ✅ **ICONS:** Use `IonIcon` with ionicons library (import from `ionicons/icons`)
 - ✅ **TABS:** Use `IonTabs`, `IonTabBar`, `IonTabButton` for tab navigation
+- ✅ **PROGRESS:** Use `IonProgressBar` instead of custom progress indicators
+- ✅ **TEXT ELEMENTS:** Use `Text` component from `@shared/ui` instead of `<h1>`, `<h2>`, `<p>`, `<span>`
+- ❌ **NEVER USE:** `<input>`, `<textarea>`, `<button>`, `<img>`, `<h1-h6>`, `<p>` - these break native behavior
 - ❌ **AVOID:** Generic HTML elements when Ionic equivalents exist
 
 **MANDATORY IONIC INTEGRATION RULES:**

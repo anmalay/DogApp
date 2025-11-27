@@ -1,6 +1,8 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { Button } from "@shared/ui";
+import { IonIcon } from "@ionic/react";
+import { shieldCheckmarkOutline } from "ionicons/icons";
+import { Button, Text } from "@shared/ui";
 
 interface VerificationViewProps {
   onVerify: () => void;
@@ -17,16 +19,16 @@ export const VerificationView: React.FC<VerificationViewProps> = ({
       <div className="p-6 text-center flex-1 flex flex-col justify-center">
         <div className="space-y-6">
           <div className="w-24 h-24 mx-auto bg-secondary/20 rounded-full flex items-center justify-center">
-            <div className="text-4xl">🛡️</div>
+            <IonIcon icon={shieldCheckmarkOutline} className="text-6xl text-secondary" />
           </div>
 
           <div className="space-y-4">
-            <h1 className="text-2xl font-bold text-text-primary">
+            <Text variant="bold-24" tag="div" className="text-text-primary">
               {t("We care about safety")}
-            </h1>
-            <p className="text-text-secondary">
+            </Text>
+            <Text variant="regular-16" tag="div" className="text-text-secondary">
               {t("Complete verification to access all features")}
-            </p>
+            </Text>
           </div>
         </div>
       </div>
@@ -38,7 +40,7 @@ export const VerificationView: React.FC<VerificationViewProps> = ({
           fullWidth
           onClick={onVerify}
         >
-{t("Complete Verification")}
+          {t("Complete Verification")}
         </Button>
 
         <Button
@@ -47,7 +49,7 @@ export const VerificationView: React.FC<VerificationViewProps> = ({
           fullWidth
           onClick={onSkip}
         >
-{t("Skip for Now")}
+          {t("Skip for Now")}
         </Button>
       </div>
     </div>

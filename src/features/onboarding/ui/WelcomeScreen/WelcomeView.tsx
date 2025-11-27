@@ -1,5 +1,6 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
+import { IonImg } from "@ionic/react";
 import { Button, Text } from "@shared/ui";
 import startPageDog from "@shared/assets/images/welcome/startPageDog.webp";
 
@@ -17,7 +18,7 @@ export const WelcomeView: React.FC<WelcomeViewProps> = ({
     <div className="relative w-full h-full bg-zinc-100 flex flex-col justify-end overflow-hidden">
       {/* Dog image - centered with 568px height, edges cropped */}
       <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-[568px] h-[568px] overflow-hidden">
-        <img
+        <IonImg
           className="w-full h-full object-cover"
           src={startPageDog}
           alt="Welcome dog"

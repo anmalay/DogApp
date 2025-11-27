@@ -1,8 +1,10 @@
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Camera, CameraResultType, CameraSource } from "@capacitor/camera";
+import { IonImg, IonButton, IonIcon } from "@ionic/react";
+import { trashOutline } from "ionicons/icons";
 import { Input, BottomModal, DatePicker, Text, Button } from "@shared/ui";
-import { CameraIcon, TrashIcon } from "@shared/ui/icons";
+import { CameraIcon } from "@shared/ui/icons";
 import { DogProfileData, StepErrors } from "../../model/types";
 
 interface OwnerInfoStepProps {
@@ -37,7 +39,6 @@ export const OwnerInfoStep: React.FC<OwnerInfoStepProps> = ({
   };
 
   const [selectedDate, setSelectedDate] = useState(getInitialDate());
-  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleOwnerUpdate = (field: string, value: string) => {
     onUpdate({
@@ -61,30 +62,7 @@ export const OwnerInfoStep: React.FC<OwnerInfoStepProps> = ({
         handleOwnerUpdate("photo", image.dataUrl);
       }
     } catch (error) {
-      console.error(
-        "Capacitor camera not available, falling back to file input:",
-        error
-      );
-      if (fileInputRef.current) {
-        fileInputRef.current.click();
-      }
-    }
-  };
-
-  const handleFileInput = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        const result = e.target?.result as string;
-        if (result) {
-          handleOwnerUpdate("photo", result);
-        }
-      };
-      reader.readAsDataURL(file);
-    }
-    if (event.target) {
-      event.target.value = "";
+      // Silently fail if camera not available
     }
   };
 
@@ -142,17 +120,18 @@ export const OwnerInfoStep: React.FC<OwnerInfoStepProps> = ({
                   </div>
                 ) : (
                   <div className="Picture w-full aspect-square relative rounded-3xl overflow-hidden">
-                    <img
+                    <IonImg
                       className="w-full h-full absolute rounded-3xl object-cover"
                       src={data.owner.photo}
                       alt="Owner photo"
                     />
-                    <div
-                      className="BtnRound p-2 right-2 top-2 absolute bg-white/60 rounded-full inline-flex flex-col justify-start items-start gap-2.5 overflow-hidden cursor-pointer"
+                    <IonButton
+                      fill="clear"
+                      className="p-2 right-2 top-2 absolute bg-white/60 rounded-full"
                       onClick={handleDeletePhoto}
                     >
-                      <TrashIcon />
-                    </div>
+                      <IonIcon icon={trashOutline} />
+                    </IonButton>
                   </div>
                 )}
               </div>
@@ -193,15 +172,6 @@ export const OwnerInfoStep: React.FC<OwnerInfoStepProps> = ({
           </div>
         </div>
       </div>
-
-      {/* Hidden file input for web fallback */}
-      <input
-        ref={fileInputRef}
-        type="file"
-        accept="image/*"
-        className="hidden"
-        onChange={handleFileInput}
-      />
 
       {/* Date Picker Modal */}
       <BottomModal

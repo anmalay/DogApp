@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import { IonToast, IonPage, IonContent } from "@ionic/react";
+import { IonToast, IonImg } from "@ionic/react";
 import { useIonRouter } from "@ionic/react";
 import { Button } from "@shared/ui";
 import { useDogProfileStepper } from "../../model/useDogProfileStepper";
@@ -114,75 +114,73 @@ export const DogProfileStepper: React.FC<DogProfileStepperProps> = ({
   };
 
   return (
-    <IonPage>
-      <IonContent fullscreen>
-        <div className="w-full bg-[#F3F3F3] min-h-screen flex flex-col">
-          {/* Header Section */}
-          <div className="flex flex-col gap-[40px] px-5 pt-15 bg-[#F3F3F3]">
-            <StepperHeader
-              currentStep={currentStep}
-              totalSteps={10}
-              onBack={handleStepBack}
-            />
+    <>
+      <div className="w-full bg-[#F3F3F3] min-h-screen flex flex-col">
+        {/* Header Section */}
+        <div className="flex flex-col gap-[40px] px-5 pt-15 bg-[#F3F3F3]">
+          <StepperHeader
+            currentStep={currentStep}
+            totalSteps={10}
+            onBack={handleStepBack}
+          />
 
-            {/* Dog Image */}
-            {getStepImage(currentStep) &&
-              (currentStep === 1 ||
-                currentStep === 2 ||
-                currentStep === 3 ||
-                currentStep === 8) && (
-                <div className="w-full h-[350px] relative overflow-hidden rounded-[24px]">
-                  <img
-                    src={getStepImage(currentStep)!}
-                    alt={`Step ${currentStep}`}
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-              )}
+          {/* Dog Image */}
+          {getStepImage(currentStep) &&
+            (currentStep === 1 ||
+              currentStep === 2 ||
+              currentStep === 3 ||
+              currentStep === 8) && (
+              <div className="w-full h-[350px] relative overflow-hidden rounded-[24px]">
+                <IonImg
+                  src={getStepImage(currentStep)!}
+                  alt={`Step ${currentStep}`}
+                  className="w-full h-full object-cover"
+                />
+              </div>
+            )}
+        </div>
+
+        {/* Step Content */}
+        <div className="flex-1 flex flex-col">
+          <div className="flex-1 px-5 py-[40px]">
+            {renderCurrentStep()}
           </div>
 
-          {/* Step Content */}
-          <div className="flex-1 flex flex-col">
-            <div className="flex-1 px-5 py-[40px]">
-              {renderCurrentStep()}
-            </div>
-            
-            {/* Navigation buttons */}
-            <div className="px-5 pb-10 safe-area-bottom">
-              <div className="flex gap-[10px]">
-                <Button
-                  variant="outline"
-                  size="large"
-                  fullWidth
-                  onClick={handleStepBack}
-                  className="text-[#3F335A] bg-white hover:bg-gray-50"
-                >
-                  {t("Back")}
-                </Button>
+          {/* Navigation buttons */}
+          <div className="px-5 pb-10 safe-area-bottom">
+            <div className="flex gap-[10px]">
+              <Button
+                variant="outline"
+                size="large"
+                fullWidth
+                onClick={handleStepBack}
+                className="text-[#3F335A] bg-white hover:bg-gray-50"
+              >
+                {t("Back")}
+              </Button>
 
-                <Button
-                  variant="primary"
-                  size="large"
-                  fullWidth
-                  onClick={handleNext}
-                  className="bg-[#3F335A] hover:bg-[#342B47]"
-                >
-                  {currentStep === 9 && stepperData.photos.length === 0
-                    ? t("Add Photo")
-                    : t("Next")}
-                </Button>
-              </div>
+              <Button
+                variant="primary"
+                size="large"
+                fullWidth
+                onClick={handleNext}
+                className="bg-[#3F335A] hover:bg-[#342B47]"
+              >
+                {currentStep === 9 && stepperData.photos.length === 0
+                  ? t("Add Photo")
+                  : t("Next")}
+              </Button>
             </div>
           </div>
         </div>
+      </div>
 
-        <IonToast
-          isOpen={showToast}
-          message={toastMessage}
-          duration={2000}
-          onDidDismiss={() => setShowToast(false)}
-        />
-      </IonContent>
-    </IonPage>
+      <IonToast
+        isOpen={showToast}
+        message={toastMessage}
+        duration={2000}
+        onDidDismiss={() => setShowToast(false)}
+      />
+    </>
   );
 };

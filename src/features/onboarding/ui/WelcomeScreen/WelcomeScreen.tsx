@@ -1,5 +1,4 @@
 import React from "react";
-import { IonContent } from "@ionic/react";
 import { useIonRouter } from "@ionic/react";
 import { WelcomeView } from "./WelcomeView";
 
@@ -31,11 +30,9 @@ export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({
   };
 
   return (
-    <IonContent className="bg-zinc-100">
-      <WelcomeView
-        onCreateAccount={handleCreateAccount}
-        onSignIn={handleSignIn}
-      />
-    </IonContent>
+    <WelcomeView
+      onCreateAccount={handleCreateAccount}
+      onSignIn={handleSignIn}
+    />
   );
 };
